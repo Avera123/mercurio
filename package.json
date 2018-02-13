@@ -1,6 +1,7 @@
 {
     "devDependencies": {
-        "@symfony/webpack-encore": "^0.17.0"
+        "@symfony/webpack-encore": "^0.17.0",
+        "tether": "^1.4.3"
     },
     "license": "UNLICENSED",
     "private": true,
@@ -12,6 +13,7 @@
     },
     "dependencies": {
         "hammerjs": "^2.0.8",
-        "jquery": "^3.3.1"
+        "jquery": "^3.3.1",
+        "tether": "^1.4.3"
     }
 }

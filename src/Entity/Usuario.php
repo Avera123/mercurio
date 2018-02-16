@@ -18,8 +18,14 @@ class Usuario
 
     /**
      * @ORM\nombre
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length="500", nullable=true)
      */
-    private $name;
+    private $nombre;
+
+    /**
+     * @ORM\rol
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $rol;
 
 }

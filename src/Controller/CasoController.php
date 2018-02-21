@@ -4,18 +4,15 @@ namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 
-class UsuarioController extends Controller
+class CasoController extends Controller
 {
     /**
-     * @Route("/usuario", name="usuario")
+     * @Route("/caso/listar", name="casoListar")
      */
     public function index()
     {
-
         // Get cURL resource
         $curl = curl_init();
 // Set some options - we are passing in a useragent too here
@@ -29,9 +26,10 @@ class UsuarioController extends Controller
 // Close request to clear up some resources
         curl_close($curl);
 
-
-        return $this->render('base.html.twig',array(
-            'casos' => $resp
+        $respuesta = json_decode($resp);
+// replace this line with your own code!
+        return $this->render('Pages/PanelDeControl.html.twig', array(
+            'casos' => $respuesta
         ));
     }
 }

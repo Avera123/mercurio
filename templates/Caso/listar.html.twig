@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="page-title-box">
+                <h4 class="page-title" style="padding-right: 10px;"><i class="mdi mdi-phone-in-talk"></i> Casos (Incidencias) </h4>
+                {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}
+                {#<span class="label label-info">Atendidas Pendientes: {{ atendidasPendientes }}</span>#}
+                {#<a href="{{ path('registrarCaso') }}">#}
+                    {#<button class="btn btn-success btn-bordered waves-effect waves-light" style="float: right;"><span class="mdi mdi-plus"></span> Nueva</button>#}
+                {#</a>#}
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card-box">
+                <h4 class="header-title m-t-0 m-b-30"><i class="mdi mdi-phone-in-talk"></i> Listado de Casos (Incidencias)</h4>
+
+                <div class="table-responsive">
+                    {#{{form_start(form) }}#}
+                    <div class="card-box">
+                        <div class="col-sm-11">
+                            {#{{ form_widget(formFiltro.clienteRel) }}#}
+                        </div>
+                        <div>
+                            {#{{ form_widget(formFiltro.btnFiltrar) }}#}
+                        </div>
+                    </div>
+                    <table class="table table-hover m-0 table-oro">
+
+                        <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Asunto</th>
+                            <th>Cliente</th>
+                            <th>Correo</th>
+                            <th>Contacto</th>
+                            <th>Teléfono</th>
+                            {#<th>Ext.</th>#}
+                            <th>Categoría</th>
+                            <th>Descripción</th>
+                            <th>Prioridad</th>
+                            {#<th>Gestión</th>#}
+                            <th>Gestiona</th>
+                            {#<th>Solución</th>#}
+                            {#<th>Soluciona</th>#}
+                            <th>At</th>
+                            <th>So</th>
+                            <th>Ed</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for caso in casos %}
+                            <tr>
+                                <td>{{ caso.fechaRegistro|date('y-m-d') }}</td>
+                                <td>{{ caso.asunto }}</td>
+                                <td>
+                                    <strong>{{ caso.clienteRel.nombreComercial }}</strong>
+                                </td>
+                                <td>{{ caso.correo }}</td>
+                                <td>{{ caso.contacto }}</td>
+                                <td>{{ caso.telefono }} - ({{ caso.extension }})</td>
+                                <td>
+                                    <span class="label" style="background-color: {{ caso.categoriaRel.color }}">{{ caso.categoriaRel.codigoCategoriaCasoPk }}</span>
+                                </td>
+                                <td>{{ caso.descripcion }}</td>
+                                <td>
+                                                    <span class="label" style="background-color: {% if caso.prioridadRel.color != null %} {{ caso.prioridadRel.color }} {% else %} #efefef {% endif %};">
+                                                        {% if caso.prioridadRel is defined or caso.prioridadRel != null %}
+                                                            {{ caso.prioridadRel.nombre }}
+                                                        {% else %}
+                                                            Sin prioridad
+                                                        {% endif %}
+                                                    </span>
+                                </td>
+                                {#<td>{% if caso.fechaGestion != null %}{{ caso.fechaGestion|date('y-m-d') }}{%  endif %}</td>#}
+                                <td>{{ caso.codigoUsuarioAtiendeFk }}</td>
+                                {#<td>{% if caso.fechaSolucion!= null %}{{ caso.fechaSolucion|date('y-m-d') }}{%  endif %}</td>#}
+                                {#<td>{{ caso.codigoUsuarioSolucionaFk }}</td>#}
+                                <td>
+                                    {% if caso.estadoAtendido %}
+                                        <button class="btn btn-success btn-xs" type="submit" name="casoAtender" disabled value="{{ caso.codigoCasoPk }}" title="{{ caso.codigoUsuarioAtiendeFk}}">
+                                            <i class="glyphicon glyphicon-thumbs-up"></i></button>
+                                    {% else %}
+                                        <button class="btn btn-danger btn-xs" type="submit" name="casoAtender"  value="{{ caso.codigoCasoPk }}">
+                                            <i class="glyphicon glyphicon-thumbs-down"></i></button>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if caso.estadoSolucionado == false and caso.estadoAtendido or caso.estadoAtendido == false and caso.estadoSolucionado == false %}
+                                        <button class="btn btn-danger btn-xs" type="submit" name="casoSolucionar" value="{{ caso.codigoCasoPk }}" {% if caso.estadoAtendido == false %} disabled {% endif %} >
+                                            <i class="glyphicon glyphicon-thumbs-down"></i></button>
+                                    {% else %}
+                                        <button class="btn btn-success btn-xs" type="submit" name="casoSolucionar" disabled value="{{ caso.codigoCasoPk }}"  title="{{caso.codigoUsuarioSolucionaFk}}">
+                                            <i class="glyphicon glyphicon-thumbs-up"></i></button>
+                                    {% endif %}
+                                </td>
+                                {#<td>#}
+                                    {#{% if caso.estadoSolucionado == false and caso.estadoAtendido == false%}#}
+                                        {#<a href="{{ path('registrarCaso', { 'codigoCaso':  caso.codigoCasoPk }) }}"#}
+                                           {#class="btn btn-purple waves-effect waves-light btn-xs m-b-5"><i class="glyphicon glyphicon-pencil" style="padding: 3px;"></i>#}
+                                        {#</a>#}
+                                    {#{% else %}#}
+                                        {#<a href="{{ path('registrarCaso', { 'codigoCaso':  caso.codigoCasoPk }) }}" onclick="return false" disabled=""#}
+                                           {#class="btn btn-purple waves-effect waves-light btn-xs m-b-5"><i class="glyphicon glyphicon-pencil" style="padding: 3px;"></i>#}
+                                        {#</a>#}
+                                    {#{% endif %}#}
+                                {#</td>#}
+                            </tr>
+                        {% endfor %}
+                        {#{{ form_end(form) }}#}
+                        </tbody>
+                    </table>
+                </div> <!-- end card -->
+            </div>
+        </div>
+        <!-- end col -->
+
+    </div>
+
+{% endblock %}

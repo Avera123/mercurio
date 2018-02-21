@@ -70,8 +70,6 @@
 
     </div>
     <!-- end row -->
-
-
     <div class="row">
         <div class="col-lg-4">
             <div class="card-box">
@@ -96,7 +94,11 @@
             <div class="card-box">
 
                 <h4 class="header-title m-t-0">Statistics</h4>
-                <div id="morris-bar-example" style="height: 280px;"></div>
+                <div id="morris-bar-example" style="height: 280px;">
+                    {% for caso in casos %}
+                        <li>{{  caso.asunto }}</li>
+                    {% endfor %}
+                </div>
             </div>
         </div><!-- end col -->
 

@@ -19,7 +19,7 @@ class CasoController extends Controller
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
 //            CURLOPT_URL => 'https://my-json-server.typicode.com/Avera123/jsonserver/usuarios',
-            CURLOPT_URL => 'http://oro.avera.com/app_dev.php/api/get/casos',
+            CURLOPT_URL => 'http://soga.oro.com/app_dev.php/api/lista/casos/1',
         ));
 // Send the request & save response to $resp
         $resp = curl_exec($curl);
@@ -28,7 +28,7 @@ class CasoController extends Controller
 
         $respuesta = json_decode($resp);
 // replace this line with your own code!
-        return $this->render('Pages/PanelDeControl.html.twig', array(
+        return $this->render('Caso/listar.html.twig', array(
             'casos' => $respuesta
         ));
     }

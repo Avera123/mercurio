@@ -12,6 +12,7 @@
         "build": "encore production"
     },
     "dependencies": {
+        "encore": "^0.0.30-beta",
         "hammerjs": "^2.0.8",
         "jquery": "^3.3.1",
         "tether": "^1.4.3"

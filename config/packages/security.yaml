@@ -1,18 +1,29 @@
 security:
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\Usuario: bcrypt
+
     providers:
-        in_memory: { memory: ~ }
+        user_db:
+            entity: { class: App\Entity\Usuario, property: codigoUsuarioPk }
+
     firewalls:
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
         main:
-            anonymous: ~
+            pattern: /.*
+            provider: user_db
+            form_login:
+                login_path: /acceso
+                check_path: /acceso
+                remember_me: false
+                default_target_path: casoListar
+            logout:
+                path: /logout
+                target: /
+            security: true
+            anonymous: true
 
-            # activate different ways to authenticate
+    access_control:
+        - { path: /acceso, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: /.*, roles: IS_AUTHENTICATED_FULLY }
 
-            # http_basic: ~
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: ~
-            # https://symfony.com/doc/current/security/form_login_setup.html
+

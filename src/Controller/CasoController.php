@@ -16,11 +16,12 @@ class CasoController extends Controller
     public function index()
     {
         // Get cURL resource
+	    $user = $this->getUser();
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
 //            CURLOPT_URL => 'https://my-json-server.typicode.com/Avera123/jsonserver/usuarios',
-            CURLOPT_URL => 'http://oro.avera.com/app_dev.php/api/lista/casos/1',
+            CURLOPT_URL => 'http://oro.juan.com/app_dev.php/api/lista/casos/'.$user->getCodigoEmpresaFk(),
         ));
         $resp = curl_exec($curl);
         curl_close($curl);

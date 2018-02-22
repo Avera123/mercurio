@@ -1,16 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block content %}
+{% block bodyAtt %}class="fixed-left"{% endblock %}
 
+{% block body %}
+
+    <div id="wrapper">
+    {{ include('Bloques/menu.html.twig') }}
+
+    {{ include('Bloques/menuIzquierdo.html.twig') }}
+    <div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+        <div class="container">
+            {% block content %}
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="page-title-box">
+                        <h4 class="page-title" style="padding-right: 10px;">Casos o Incidencias</h4>
+                        {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}
+                        {#<span class="label label-info">Atendidas Pendientes: {{ atendidasPendientes }}</span>#}
+                        <a href="{{ path('registrarCaso') }}">
+                            <button class="btn btn-success btn-bordered waves-effect waves-light" style="float: right;"><span class="mdi mdi-plus"></span> Nuevo</button>
+                        </a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
     <div class="row">
         <div class="col-md-12">
             <div class="card-box">
-                <div><h4 class="header-title m-t-0 m-b-30"><i class="mdi mdi-phone-in-talk"></i> Listado de Casos (Incidencias)</h4>
-                    <a href="{{ path('registrarCaso') }}">
-                        <button class="btn btn-success btn-bordered waves-effect waves-light" style="float: right;"><span class="mdi mdi-plus"></span> Nueva</button>
-                    </a>
-                    <div class="clearfix"></div>
-                    <hr>
                 <div class="table-responsive">
                     {#{{form_start(form) }}#}
                     {#<div class="card-box">#}
@@ -103,10 +121,12 @@
                         </tbody>
                     </table>
                 </div> <!-- end card -->
-            </div>
         </div>
         <!-- end col -->
-
+            {% endblock content %}
+        </div> <!-- container -->
+    </div> <!-- content -->
     </div>
-
+    </div>
+    {{ include('Bloques/pie.html.twig') }}
 {% endblock %}

@@ -15,12 +15,18 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\ORM\EntityRepository;
 
 class CasoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $arrAreas = $options['data']['areas'];
+        $arrCargos = $options['data']['cargos'];
+        $arrPrioridades = $options['data']['prioridades'];
+        $arrCategorias = $options['data']['categorias'];
+
         $builder
             ->add ('asunto', TextType::class,array(
                 'attr' => array(
@@ -63,27 +69,42 @@ class CasoType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
-//            ->add('clienteRel', EntityType::class, array(
-//                'class' => 'AppBundle:Cliente',
-//                'query_builder' => function (EntityRepository $er) {
-//                    return $er->createQueryBuilder('c')
-//                        ->orderBy('c.nombreComercial', 'ASC');},
-//                'choice_label' => 'nombreComercial',
-//                'required' => true))
-//            ->add('prioridadRel', EntityType::class, array(
-//                'class' => 'AppBundle:Prioridad',
-//                'query_builder' => function (EntityRepository $er) {
-//                    return $er->createQueryBuilder('c')
-//                        ->orderBy('c.nombre', 'ASC');},
-//                'choice_label' => 'nombre',
-//                'required' => true))
-//            ->add('categoriaRel', EntityType::class, array(
-//                'class' => 'AppBundle:CasoCategoria',
-//                'query_builder' => function (EntityRepository $er) {
-//                    return $er->createQueryBuilder('c')
-//                        ->orderBy('c.nombre', 'ASC');},
-//                'choice_label' => 'nombre',
-//                'required' => true))
+            ->add('area', ChoiceType::class, array(
+                'choices' => $arrAreas,
+                'choice_label' => 'nombre',
+                'choice_value' => 'codigo_area_pk',
+                'label' => 'Area: ',
+                'attr'=> array(
+                    'class' => 'form-control'
+                )
+            ))
+            ->add('cargo', ChoiceType::class, array(
+                'choices' => $arrCargos,
+                'choice_label' => 'nombre',
+                'choice_value' => 'codigo_cargo_pk',
+                'label' => 'Cargo: ',
+                'attr'=> array(
+                    'class' => 'form-control'
+                )
+            ))
+            ->add('prioridad', ChoiceType::class, array(
+                'choices' => $arrPrioridades,
+                'choice_label' => 'nombre',
+                'choice_value' => 'codigo_prioridad_pk',
+                'label' => 'Prioridad: ',
+                'attr'=> array(
+                    'class' => 'form-control'
+                )
+            ))
+            ->add('categoria', ChoiceType::class, array(
+                'choices' => $arrCategorias,
+                'choice_label' => 'nombre',
+                'choice_value' => 'codigo_categoria_caso_pk',
+                'label' => 'Categorias: ',
+                'attr'=> array(
+                    'class' => 'form-control'
+                )
+            ))
 //            Botón Guardar
             ->add ('btnGuardar', SubmitType::class, array(
                 'attr' => array(

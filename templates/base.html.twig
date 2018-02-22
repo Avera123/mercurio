@@ -34,43 +34,16 @@
 </head>
 
 
-<body class="fixed-left">
+<body  {% block bodyAtt %}{% endblock %}>
+
 {% block body %}
-    <!-- Begin page -->
-    <div id="wrapper">
 
-        {{ include('/Bloques/menu.html.twig') }}
-        {{ include('/Bloques/menuIzquierdo.html.twig') }}
-        <!-- ============================================================== -->
-        <!-- Start right Content here -->
-        <!-- ============================================================== -->
-        <div class="content-page">
-            <!-- Start content -->
-            <div class="content">
-                <div class="container">
-                    {{ include('Bloques/titulo.html.twig',{titulo:'Panel de Control'}) }}
+    {% block content %}
 
-                    {% block content %}
+    {% endblock %}
 
-                    {% endblock %}
-
-                </div> <!-- container -->
-
-            </div> <!-- content -->
-
-            {{ include('/Bloques/pie.html.twig') }}
-
-        </div>
-
-
-        <!-- ============================================================== -->
-        <!-- End Right content here -->
-        <!-- ============================================================== -->
-
-
-    </div>
-    <!-- END wrapper -->
 {% endblock %}
+
 {% block javascripts %}
     <script>
         var resizefunc = [];

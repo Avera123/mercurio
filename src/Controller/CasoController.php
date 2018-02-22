@@ -26,10 +26,43 @@ class CasoController extends Controller
         curl_close($curl);
 
         $respuesta = json_decode($resp);
-//dump($respuesta);
-//die();
+
         return $this->render('Caso/listar.html.twig', array(
             'casos' => $respuesta
         ));
+    }
+
+    /**
+     * @Route("/caso/nuevo/{codigoCaso}", requirements={"codigoCaso":"\d+"}, name="registrarCaso")
+     */
+    public function nuevo(Request $request, $codigoCaso = null) {
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+//      $user = $this->getUser(); // trae el usuario actual
+        $arCaso = new Caso(); //instance class
+
+//        if($codigoCaso) {
+//            $arCaso = $em->getRepository('AppBundle:Caso')->find($codigoCaso);
+//        } else {
+//            $arCaso->setEstadoAtendido(false);
+//            $arCaso->setEstadoSolucionado(false);
+//        }
+
+        $form = $this->createForm(FormTypeCaso::class, $arCaso); //create form
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+//            $arCaso->setCodigoUsuarioAtiendeFk($user->getCodigoUsuarioPk());
+            if(!$codigoCaso) {
+                $arCaso->setFechaRegistro(new \DateTime('now'));
+            }
+            $em->persist($arCaso);
+            $em->flush();
+            return $this->redirect($this->generateUrl('listadoCasos'));
+        }
+
+        return $this->render('AppBundle:Caso:nuevo.html.twig',
+            array(
+                'form' => $form->createView(),
+            ));
     }
 }

@@ -13,19 +13,20 @@ use App\Form\CasoType;
 
 class CasoController extends Controller
 {
-    public static $url = 'http://oro.avera.com/app_dev.php/api/';
-
     /**
      * @Route("/caso/listar", name="casoListar")
      */
     public function index(UserInterface $user)
     {
+        $arConfiguracion = $this->getUrl();
+
+        $serviceUrl = $arConfiguracion->getServiceUrl();
         // Get cURL resource
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
 //            CURLOPT_URL => 'https://my-json-server.typicode.com/Avera123/jsonserver/usuarios',
-            CURLOPT_URL => self::$url.'lista/casos/'.$user->getCodigoClienteFk(),
+            CURLOPT_URL => $serviceUrl.'lista/casos/'.$user->getCodigoClienteFk(),
         ));
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
@@ -144,6 +145,15 @@ class CasoController extends Controller
         curl_close($curl);
 
         return $resp;
+    }
+
+    public function getUrl(){
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $arConfiguracion = new Configuracion();
+
+        $arConfiguracion = $em->getRepository('App:Configuracion')->find(1);
+
+        return $arConfiguracion;
     }
 
 }

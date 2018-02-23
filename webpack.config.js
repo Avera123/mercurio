@@ -18,6 +18,7 @@ Encore
     .addStyleEntry('css/icons', './assets/css/icons.css')
     .addStyleEntry('css/pages', './assets/css/pages.css')
     .addStyleEntry('css/menu', './assets/css/menu.css')
+    .addStyleEntry('css/mercurio', './assets/css/mercurio.css')
     .addStyleEntry('css/responsive', './assets/css/responsive.css')
     .addStyleEntry('plugins/switchery/switchery.min', './assets/plugins/switchery/switchery.min.css')
 

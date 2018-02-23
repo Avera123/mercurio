@@ -13,7 +13,9 @@
                     {% block content %}
                         <div class="row">
                             <div class="col-xs-12">
-                                <img src="/publicImages/trabajo.png"/>
+                                <div class="contentimagecentral">
+                                <img class="centerimage" src="{{ asset('/publicImages/trabajo.png') }}"/>
+                                </div>
                                 {#<div class="page-title-box">#}
                                     {#<h4 class="page-title" style="padding-right: 10px;">Bienvenido</h4>#}
                                     {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}
@@ -137,5 +139,6 @@
         {##}
             {#</div>#}
             {#<!-- end row -->#}
+            {{ include('Bloques/pie.html.twig') }}
                     {% endblock %}
 {% endblock %}

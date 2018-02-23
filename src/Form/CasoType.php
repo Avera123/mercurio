@@ -72,7 +72,7 @@ class CasoType extends AbstractType
             ->add('area', ChoiceType::class, array(
                 'choices' => $arrAreas,
                 'choice_label' => 'nombre',
-                'choice_value' => 'codigo_area_pk',
+                'choice_value' => 'codigoAreaPk',
                 'label' => 'Area: ',
                 'attr'=> array(
                     'class' => 'form-control'
@@ -81,7 +81,7 @@ class CasoType extends AbstractType
             ->add('cargo', ChoiceType::class, array(
                 'choices' => $arrCargos,
                 'choice_label' => 'nombre',
-                'choice_value' => 'codigo_cargo_pk',
+                'choice_value' => 'codigoCargoPk',
                 'label' => 'Cargo: ',
                 'attr'=> array(
                     'class' => 'form-control'
@@ -98,8 +98,8 @@ class CasoType extends AbstractType
             ))
             ->add('categoria', ChoiceType::class, array(
                 'choices' => $arrCategorias,
-                'choice_label' => 'nombre',
-                'choice_value' => 'codigo_categoria_caso_pk',
+                'choice_label' => 'descripcion',
+                'choice_value' => 'codigoCategoriaCasoPk',
                 'label' => 'Categorias: ',
                 'attr'=> array(
                     'class' => 'form-control'

@@ -17,7 +17,7 @@ class CasoController extends Controller
     /**
      * @Route("/caso/listar", name="casoListar")
      */
-    public function index(UserInterface $user)
+    public function index()
     {
         $em = $this->getDoctrine()->getManager(); // instancia el entity manager
         $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
@@ -26,7 +26,7 @@ class CasoController extends Controller
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
 //            CURLOPT_URL => 'https://my-json-server.typicode.com/Avera123/jsonserver/usuarios',
-            CURLOPT_URL => $serviceUrl.'lista/casos/'.$user->getCodigoClienteFk(),
+            CURLOPT_URL => $serviceUrl.'caso/lista/'.$this->getUser()->getCodigoClienteFk(),
         ));
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
@@ -40,6 +40,10 @@ class CasoController extends Controller
      * @Route("/caso/nuevo/{codigoCaso}", requirements={"codigoCaso":"\d+"}, name="registrarCaso")
      */
     public function nuevo(Request $request, $codigoCaso = null, UserInterface $user) {
+
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+
 
         $options = array('areas'=>$this->listadoAreas(),'cargos'=> $this->listadoCargos(),'prioridades'=>$this->listadoPrioridad(),'categorias'=>$this->listadoCategoriaCasos());
 
@@ -57,16 +61,16 @@ class CasoController extends Controller
                 "telefono"=>$res['telefono'],
                 "extension"=>$res['extension'],
                 "descripcion"=>$res['descripcion'],
-                "codigo_categoria_caso_fk"=>$res['categoria']->codigo_categoria_caso_pk,
+                "codigo_categoria_caso_fk"=>$res['categoria']->codigoCategoriaCasoPk,
                 "codigo_prioridad_fk"=>$res['prioridad']->codigo_prioridad_pk,
                 "codigo_cliente_fk"=>$user->getCodigoClienteFk(),
-                "codigo_area_fk"=>$res['area']->codigo_area_pk,
-                "codigo_cargo_fk"=>$res['cargo']->codigo_cargo_pk,
+                "codigo_area_fk"=>$res['area']->codigoAreaPk,
+                "codigo_cargo_fk"=>$res['cargo']->codigoCargoPk,
             ); //instance class
 
             $arrEnviar =json_encode($arCaso);
 
-            $ch = curl_init(self::$url.'nuevo/casos');
+            $ch = curl_init($serviceUrl.'caso/nuevo');
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -90,11 +94,14 @@ class CasoController extends Controller
     public function listadoAreas()
     {
         // Get cURL resource
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+        // Get cURL resource
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
 //            CURLOPT_URL => 'https://my-json-server.typicode.com/Avera123/jsonserver/usuarios',
-            CURLOPT_URL => self::$url.'lista/area',
+            CURLOPT_URL => $serviceUrl.'area/lista',
         ));
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
@@ -104,12 +111,15 @@ class CasoController extends Controller
 
     public function listadoCargos()
     {
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+        // Get cURL resource
         // Get cURL resource
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
 //            CURLOPT_URL => 'https://my-json-server.typicode.com/Avera123/jsonserver/usuarios',
-            CURLOPT_URL => self::$url.'lista/cargo',
+            CURLOPT_URL => $serviceUrl.'cargo/lista',
         ));
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
@@ -119,12 +129,13 @@ class CasoController extends Controller
 
     public function listadoPrioridad()
     {
-        // Get cURL resource
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
 //            CURLOPT_URL => 'https://my-json-server.typicode.com/Avera123/jsonserver/usuarios',
-            CURLOPT_URL => self::$url.'lista/prioridad',
+            CURLOPT_URL => $serviceUrl.'prioridad/lista',
         ));
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
@@ -134,26 +145,18 @@ class CasoController extends Controller
 
     public function listadoCategoriaCasos()
     {
-        // Get cURL resource
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
 //            CURLOPT_URL => 'https://my-json-server.typicode.com/Avera123/jsonserver/usuarios',
-            CURLOPT_URL => self::$url.'lista/caso/categoria',
+            CURLOPT_URL => $serviceUrl.'caso/lista/categoria',
         ));
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
 
         return $resp;
     }
-
-    public function getUrl(){
-        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
-        $arConfiguracion = new Configuracion();
-
-        $arConfiguracion = $em->getRepository('App:Configuracion')->find(1);
-
-        return $arConfiguracion;
-    }
-
 }

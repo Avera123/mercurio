@@ -65,22 +65,23 @@
                                     <tbody>
                                     {% for caso in casos %}
                                         <tr>
-                                            <td>{{ caso.fecha_registro|date('y-m-d') }}</td>
+                                            <td>{{ caso.fechaRegistro|date('y-m-d') }}</td>
                                             <td>{{ caso.asunto }}</td>
                                             <td>
-                                                <strong>{{ caso.cliente_rel.nombre_comercial }}</strong>
+                                                <strong>{{ caso.empresa }}</strong>
                                             </td>
                                             <td>{{ caso.correo }}</td>
                                             <td>{{ caso.contacto }}</td>
                                             <td>{{ caso.telefono }} - ({{ caso.extension }})</td>
                                             <td>
-                                                <span class="label" style="background-color: {{ caso.prioridad_rel.color }}">{{ caso.categoria_rel.codigo_categoria_caso_pk }}</span>
+                                                <span class="label" style="background-color: {{ caso.categoriaColor }};">{{ caso.categoria }}</span>
                                             </td>
                                             <td>{{ caso.descripcion }}</td>
                                             <td>
-                                                <span class="label" style="background-color: {% if caso.prioridad_rel.color != null %} {{ caso.prioridad_rel.color }} {% else %} #efefef {% endif %};">
-                                                    {% if caso.prioridad_rel is defined or caso.prioridad_rel != null %}
-                                                        {{ caso.prioridad_rel.nombre }}
+                                                {#<span class="label" style="background-color: {% if caso.prioridad.color != null %} {{ caso.prioridad.color }} {% else %} #efefef {% endif %};">#}
+                                                <span class="label" style="background-color: {{ caso.prioridadColor }};">
+                                                    {% if caso.prioridad is defined or caso.prioridad != null %}
+                                                        {{ caso.prioridad }}
                                                     {% else %}
                                                         Sin prioridad
                                                     {% endif %}

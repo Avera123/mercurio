@@ -5,6 +5,7 @@
 /vendor/
 composer.lock
 symfony.lock
+package-lock.json
 .idea
 ###< symfony/framework-bundle ###
 

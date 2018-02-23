@@ -1,0 +1,10 @@
+.contentimagecentral{
+    width: 100%;
+    text-align: center;
+}
+
+.centerimage{
+    width: 80%;
+    margin: 0 auto;
+    padding: 30px;
+}

@@ -20,9 +20,8 @@ class PruebaController extends Controller
      */
     public function index(UserInterface $user)
     {
-        $arConfiguracion = $this->getUrl();
-
-        $serviceUrl = $arConfiguracion->getServiceUrl();
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -36,14 +35,4 @@ class PruebaController extends Controller
             "<html><body>Conectado al Servicio {$serviceUrl}</body></html>"
         );
     }
-
-    public function getUrl(){
-        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
-        $arConfiguracion = new Configuracion();
-
-        $arConfiguracion = $em->getRepository('App:Configuracion')->find(1);
-
-        return $arConfiguracion;
-    }
-
 }

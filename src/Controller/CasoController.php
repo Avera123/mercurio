@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
 //use Symfony\Component\Form\Form;
 use App\Form\CasoType;
+use App\Entity\Configuracion;
 
 class CasoController extends Controller
 {
@@ -18,9 +19,8 @@ class CasoController extends Controller
      */
     public function index(UserInterface $user)
     {
-        $arConfiguracion = $this->getUrl();
-
-        $serviceUrl = $arConfiguracion->getServiceUrl();
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
         // Get cURL resource
         $curl = curl_init();
         curl_setopt_array($curl, array(

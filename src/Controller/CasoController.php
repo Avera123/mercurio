@@ -25,13 +25,54 @@ class CasoController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-//            CURLOPT_URL => 'https://my-json-server.typicode.com/Avera123/jsonserver/usuarios',
             CURLOPT_URL => $serviceUrl.'caso/lista/'.$this->getUser()->getCodigoClienteFk(),
         ));
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
 
         return $this->render('Caso/listar.html.twig', array(
+            'casos' => $resp
+        ));
+    }
+
+    /**
+     * @Route("/caso/listar/pendientes", name="casoListarPendientes")
+     */
+    public function listaPendientes()
+    {
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+        // Get cURL resource
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $serviceUrl.'caso/lista/solucionado/'.$this->getUser()->getCodigoClienteFk().'/0',
+        ));
+        $resp = json_decode(curl_exec($curl));
+        curl_close($curl);
+
+        return $this->render('Caso/listarPendientes.html.twig', array(
+            'casos' => $resp
+        ));
+    }
+
+    /**
+     * @Route("/caso/listar/solucionados", name="casoListarSolucionados")
+     */
+    public function listaSolucionados()
+    {
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+        // Get cURL resource
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $serviceUrl.'caso/lista/solucionado/'.$this->getUser()->getCodigoClienteFk().'/1',
+        ));
+        $resp = json_decode(curl_exec($curl));
+        curl_close($curl);
+
+        return $this->render('Caso/listarSolucionados.html.twig', array(
             'casos' => $resp
         ));
     }

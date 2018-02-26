@@ -1,0 +1,25 @@
+.table-oro{
+    font-size: xx-small;
+    padding: 0;
+}
+
+.table-oro>tbody>tr>td{
+    vertical-align: middle;
+}
+
+.table-oro>tbody>tr>td {
+    padding: 4px;
+}
+
+#tarea-table>tbody>tr>td, #tarea-table > thead> tr{
+    padding: 2px!important;
+    vertical-align: middle!important;
+    font-size: 12px;
+    text-align: left;
+}
+#submit-filtro{
+    margin: 5px
+}
+#submit-filtro > button{
+    float: right!important;
+}

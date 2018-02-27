@@ -61,6 +61,7 @@
                                         {#<th>At</th>#}
                                         {#<th>So</th>#}
                                         {#<th>Ed</th>#}
+                                        <th>Ver</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -119,6 +120,13 @@
                                             {#</a>#}
                                             {#{% endif %}#}
                                             {#</td>#}
+                                            <td>
+                                                <a href="javascript:abrirVentana('{{ path('casoDetalle', { 'codigoCaso':  caso.codigoCasoPk }) }}','Agregar solución',800, 1200)"
+                                                   class="btn btn-info waves-effect waves-light btn-xs"><i
+                                                            class="glyphicon glyphicon-eye-open"
+                                                            style="padding: 3px;"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                     {#{{ form_end(form) }}#}

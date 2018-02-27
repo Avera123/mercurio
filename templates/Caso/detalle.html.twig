@@ -1,67 +1,110 @@
 {% extends 'base.html.twig' %}
 {% block content %}
-    <div id="con-close-modal" class="modal fade in" tabindex="-1" style="display: block; padding-left: 15px;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Detalles del caso: # {{ caso[0].codigoCasoPk }} </h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="field-1" class="control-label">Name</label>
-                                <label>{{ caso[0].asunto }}</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="field-2" class="control-label">Surname</label>
-                                <label>jajsj</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="field-3" class="control-label">Address</label>
-                                <label>jajsj</label>
-                            </div>
-                        </div>
-                    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding: 20px;">
+            <div class="panel panel-color panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Detalles del caso: <span class="label label-default">#{{ caso[0].codigoCasoPk }} </span></h3><br>
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="field-4" class="control-label">City</label>
-                                <label>jajsj</label>
-                            </div>
+                            <h5 class="panel-title"> Paso 1:
+                                {% if caso[0].estadoAtendido %}
+                                    <span class="label label-info">Atendido</span>
+                                {% else %}
+                                    <span class="label label-warning">Sin Atender</span>
+                                {% endif %} |
+                                Paso 2:
+                                {% if caso[0].estadoSolucionado %}
+                                    <span class="label label-success">Solucionado</span>
+                                {% else %}
+                                    <span class="label label-warning">Por Solucionar</span>
+                                {% endif %}
+                            </h5>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="field-5" class="control-label">Country</label>
-                                <label>jajsj</label>
-                            </div>
+                            <strong>Nombre:</strong> {{ caso[0].nombre }}<br><br>
+                            <strong>Cargo:</strong> {{ caso[0].cargo }}
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="field-6" class="control-label">Zip</label>
-                                <label>jajsj</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group no-margin">
-                                <label for="field-7" class="control-label">Personal Info</label>
-                                <label>jajsj</label>
-                            </div>
+                            <strong>Categoria: </strong> <span style="background-color: {{ caso[0].categoriaColor }}; padding: 2px;border-radius: 5px;">{{ caso[0].categoria }}</span><br><br>
+                            <strong>Prioridad:</strong> <span style="background-color: {{ caso[0].prioridadColor }}; padding: 2px;border-radius: 5px;">{{ caso[0].prioridad }}</span>
                         </div>
                     </div>
                 </div>
-                {#<div class="modal-footer">#}
-                    {#<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>#}
-                    {#<button type="button" class="btn btn-info waves-effect waves-light">Save changes</button>#}
-                {#</div>#}
+                <div class="panel-body">
+                    <div class="row">
+                        <h4>Gestión interna:</h4>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Registra:</label>
+                                <p>{{ caso[0].usuario }}</p><br>
+                                <label for="field-3" class="control-label">Fecha de Registro:</label>
+                                <p>{{ caso[0].fechaRegistro|date('d/m/Y') }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-3" class="control-label">Gestiona:</label>
+                                <p>{{ caso[0].codigoUsuarioAtiendeFk }}</p><br>
+                                <label for="field-3" class="control-label">Fecha de Gestión:</label>
+                                <p>{{ caso[0].fechaGestion|date('d/m/Y') }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-3" class="control-label">Soluciona:</label>
+                                <p>{{ caso[0].codigoUsuarioSolucionaFk }}</p><br>
+                                <label for="field-3" class="control-label">Fecha de Solución:</label>
+                                <p>{{ caso[0].fechaSolucion|date('d/m/Y') }}</p>
+                            </div>
+                        </div>
+                    </div><hr>
+                    <div class="row">
+                        <h4>Datos de Contacto:</h4>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Contacto:</label>
+                                <p>{{ caso[0].contacto }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-3" class="control-label">Correo:</label>
+                                <p>{{ caso[0].correo }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-4" class="control-label">Teléfono:</label>
+                                <p>{{ caso[0].telefono }} ext. {{ caso[0].extension }}</p>
+                            </div>
+                        </div>
+                    </div><hr>
+                    <div class="row">
+                        <h4>Datos del Caso:</h4>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Asunto:</label>
+                                <p>{{ caso[0].asunto }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="field-3" class="control-label">Descripcion:</label>
+                                <p>{{ caso[0].descripcion }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-4" class="control-label">Solución:</label>
+                                <p>{{ caso[0].solucion }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    AppSoga | <img src="/mercurio/public/publicImages/mercurio250.png" style="width: 100px;"/>
+                </div>
             </div>
         </div>
     </div>

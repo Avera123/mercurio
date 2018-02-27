@@ -1,5 +1,16 @@
 {% extends 'base.html.twig' %}
-{% block content %}
+
+{% block bodyAtt %}class="fixed-left"{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+    {{ include('Bloques/menu.html.twig') }}
+    {{ include('Bloques/menuIzquierdo.html.twig') }}
+    <div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+    <div class="container">
+    {% block content %}
     <div class="row">
         <div class="col-md-12" style="padding: 20px;">
             <div class="panel panel-color panel-primary">
@@ -22,8 +33,8 @@
                             </h5>
                         </div>
                         <div class="col-md-4">
-                            <strong>Nombre:</strong> {{ caso[0].nombre }}<br><br>
-                            <strong>Cargo:</strong> {{ caso[0].cargo }}
+                            <strong>Nombre:</strong> {{ caso[0].nombre|default('-') }}<br><br>
+                            <strong>Cargo:</strong> {{ caso[0].cargo|default('-') }}
                         </div>
                         <div class="col-md-4">
                             <strong>Categoria: </strong> <span style="background-color: {{ caso[0].categoriaColor }}; padding: 2px;border-radius: 5px;">{{ caso[0].categoria }}</span><br><br>
@@ -37,25 +48,40 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="field-2" class="control-label">Registra:</label>
-                                <p>{{ caso[0].usuario }}</p><br>
+                                <p>{{ caso[0].usuario|default('Sin usuario') }}</p><br>
                                 <label for="field-3" class="control-label">Fecha de Registro:</label>
-                                <p>{{ caso[0].fechaRegistro|date('d/m/Y') }}</p>
+                                {#<p>{{ caso[0].fechaRegistro|date('d/m/Y')|default('Sin usuario')  }}</p>#}
+                                <p>
+                                    {% if caso[0].fechaRegistro %}
+                                        {{ caso[0].fechaRegistro|date('d/m/Y')  }}
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="field-3" class="control-label">Gestiona:</label>
-                                <p>{{ caso[0].codigoUsuarioAtiendeFk }}</p><br>
+                                <p>{{ caso[0].codigoUsuarioAtiendeFk|default('Sin atender')  }}</p><br>
                                 <label for="field-3" class="control-label">Fecha de Gestión:</label>
-                                <p>{{ caso[0].fechaGestion|date('d/m/Y') }}</p>
+                                <p>
+                                    {% if caso[0].fechaGestion is defined %}
+                                        {{ caso[0].fechaGestion|date('d/m/Y')  }}
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="field-3" class="control-label">Soluciona:</label>
-                                <p>{{ caso[0].codigoUsuarioSolucionaFk }}</p><br>
+                                <p>{{ caso[0].codigoUsuarioSolucionaFk|default('Sin solucionar')  }}</p><br>
                                 <label for="field-3" class="control-label">Fecha de Solución:</label>
-                                <p>{{ caso[0].fechaSolucion|date('d/m/Y') }}</p>
+                                {#<p>{{ caso[0].fechaSolucion|date('d/m/Y')  }}</p>#}
+
+                                <p>
+                                    {% if caso[0].fechaSolucion is defined %}
+                                        {{ caso[0].fechaSolucion|date('d/m/Y')  }}
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
                     </div><hr>
@@ -97,15 +123,22 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="field-4" class="control-label">Solución:</label>
-                                <p>{{ caso[0].solucion }}</p>
+                                <p>{{ caso[0].solucion|default('-') }}</p>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="panel-footer">
-                    AppSoga | <img src="/mercurio/public/publicImages/mercurio250.png" style="width: 100px;"/>
+                <div class="panel-footer" style="text-align: right;">
+                    <a onclick="history.back()"
+                       class="btn btn-default btn-bordered waves-effect w-md m-b-5"
+                       style="float: right;"><span class="glyphicon glyphicon-arrow-left"></span> VOLVER</a>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
     </div>
+        {{ include('Bloques/pie.html.twig') }}
+
+    {% endblock %}
 {% endblock %}

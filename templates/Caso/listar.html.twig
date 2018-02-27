@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="page-title-box">
-                            <h4 class="page-title" style="padding-right: 10px;">Casos o Incidencias</h4>
+                            <h4 class="page-title" style="padding-right: 10px;">Casos o Incidencias - General</h4>
                             {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}
                             {#<span class="label label-info">Atendidas Pendientes: {{ atendidasPendientes }}</span>#}
                             <a href="{{ path('registrarCaso') }}">
@@ -45,11 +45,12 @@
                                     <tr>
                                         <th>Id</th>
                                         <th>Fecha</th>
-                                        <th>Asunto</th>
+                                        {#<th>Asunto</th>#}
                                         <th>Cliente</th>
-                                        <th>Correo</th>
+                                        <th>Soporte</th>
+                                        {#<th>Correo</th>#}
                                         <th>Contacto</th>
-                                        <th>Teléfono</th>
+                                        {#<th>Teléfono</th>#}
                                         {#<th>Ext.</th>#}
                                         <th>Categoría</th>
                                         <th>Descripción</th>
@@ -69,17 +70,16 @@
                                         <tr>
                                             <td>{{ caso.codigoCasoPk }}</td>
                                             <td>{{ caso.fechaRegistro|date('y-m-d') }}</td>
-                                            <td>{{ caso.asunto }}</td>
+                                            {#<td>{{ caso.asunto }}</td>#}
                                             <td>
                                                 <strong>{{ caso.empresa }}</strong>
                                             </td>
-                                            <td>{{ caso.correo }}</td>
-                                            <td>{{ caso.contacto }}</td>
-                                            <td>{{ caso.telefono }} - ({{ caso.extension }})</td>
+                                            <td>{{ caso.soporte|default('-') }}</td>
+                                            <td title="Correo: {{ caso.correo }} | Teléfono: {{ caso.telefono }} - ({{ caso.extension }})">{{ caso.contacto }}</td>
                                             <td>
                                                 <span class="label" style="background-color: {{ caso.categoriaColor }};">{{ caso.categoria }}</span>
                                             </td>
-                                            <td>{{ caso.descripcion }}</td>
+                                            <td><strong>{{ caso.asunto }}</strong> - {{ caso.descripcion }}</td>
                                             <td>
                                                 {#<span class="label" style="background-color: {% if caso.prioridad.color != null %} {{ caso.prioridad.color }} {% else %} #efefef {% endif %};">#}
                                                 <span class="label" style="background-color: {{ caso.prioridadColor }};">
@@ -91,11 +91,20 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <a href="javascript:abrirVentana('{{ path('casoDetalle', { 'codigoCaso':  caso.codigoCasoPk }) }}','Agregar solución',800, 1200)"
+                                                <a href="{{ path('casoDetalle', { 'codigoCaso':  caso.codigoCasoPk }) }}"
                                                    class="btn btn-info waves-effect waves-light btn-xs"><i
                                                             class="glyphicon glyphicon-eye-open"
                                                             style="padding: 3px;"></i>
                                                 </a>
+                                            </td>
+                                            <td>
+                                                {% if caso.codigoCasoPk %}
+                                                <button class="btn btn-success btn-xs" type="submit" name="casoAtender" disabled value="{{ caso.codigoCasoPk }}">
+                                                <i class="glyphicon glyphicon-chevron-left"></i></button>
+                                                {% else %}
+                                                <button class="btn btn-danger btn-xs" type="submit" name="casoAtender"  value="{{ caso.codigoCasoPk }}">
+                                                <i class="glyphicon glyphicon-thumbs-down"></i></button>
+                                                {% endif %}
                                             </td>
                                             {#<td>#}
                                                 {#{% if caso.estado_atendido %}#}

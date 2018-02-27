@@ -78,6 +78,11 @@
     {#<!-- App js -->#}
     {#<script src="{{ asset('/build/js/jquery.core.js') }}"></script>#}
     <script src="{{ asset('/mercurio/public/temporal/js/jquery.app.js') }}"></script>
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 {% endblock %}
 </body>
 </html>

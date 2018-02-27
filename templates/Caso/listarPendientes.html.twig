@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="page-title-box">
-                            <h4 class="page-title" style="padding-right: 10px;">Casos o Incidencias - Pendientes por atender</h4>
+                            <h4 class="page-title" style="padding-right: 10px;">Casos o Incidencias - Pendientes</h4>
                             {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}
                             {#<span class="label label-info">Atendidas Pendientes: {{ atendidasPendientes }}</span>#}
                             <a href="{{ path('registrarCaso') }}">
@@ -40,19 +40,20 @@
                                 {#</div>#}
                                 {#</div>#}
                                 <table class="table table-hover m-0 table-oro">
+
                                     <thead>
                                     <tr>
                                         <th>Id</th>
                                         <th>Fecha</th>
-                                        <th>Asunto</th>
+                                        {#<th>Asunto</th>#}
                                         <th>Cliente</th>
-                                        <th>Correo</th>
+                                        <th>Soporte</th>
+                                        {#<th>Correo</th>#}
                                         <th>Contacto</th>
-                                        <th>Teléfono</th>
+                                        {#<th>Teléfono</th>#}
                                         {#<th>Ext.</th>#}
                                         <th>Categoría</th>
                                         <th>Descripción</th>
-                                        {#<th>Gestiona</th>#}
                                         <th>Prioridad</th>
                                         {#<th>Gestión</th>#}
                                         {#<th>Gestiona</th>#}
@@ -69,18 +70,18 @@
                                         <tr>
                                             <td>{{ caso.codigoCasoPk }}</td>
                                             <td>{{ caso.fechaRegistro|date('y-m-d') }}</td>
-                                            <td>{{ caso.asunto }}</td>
+                                            {#<td>{{ caso.asunto }}</td>#}
                                             <td>
                                                 <strong>{{ caso.empresa }}</strong>
                                             </td>
-                                            <td>{{ caso.correo }}</td>
-                                            <td>{{ caso.contacto }}</td>
-                                            <td>{{ caso.telefono }} - ({{ caso.extension }})</td>
+                                            {#<td>{{ caso.correo }}</td>#}
+                                            <td>{{ caso.soporte|default('-') }}</td>
+                                            <td title="Correo: {{ caso.correo }} | Teléfono: {{ caso.telefono }} - ({{ caso.extension }})">{{ caso.contacto }}</td>
+                                            {#<td>{{ caso.telefono }} - ({{ caso.extension }})</td>#}
                                             <td>
                                                 <span class="label" style="background-color: {{ caso.categoriaColor }};">{{ caso.categoria }}</span>
                                             </td>
-                                            <td>{{ caso.descripcion }}</td>
-                                            {#<td>{{ caso.codigoUsuarioAtiendeFk }}</td>#}
+                                            <td><strong>{{ caso.asunto }}</strong> - {{ caso.descripcion }}</td>
                                             <td>
                                                 {#<span class="label" style="background-color: {% if caso.prioridad.color != null %} {{ caso.prioridad.color }} {% else %} #efefef {% endif %};">#}
                                                 <span class="label" style="background-color: {{ caso.prioridadColor }};">
@@ -90,6 +91,13 @@
                                                         Sin prioridad
                                                     {% endif %}
                                                 </span>
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('casoDetalle', { 'codigoCaso':  caso.codigoCasoPk }) }}"
+                                                   class="btn btn-info waves-effect waves-light btn-xs"><i
+                                                            class="glyphicon glyphicon-eye-open"
+                                                            style="padding: 3px;"></i>
+                                                </a>
                                             </td>
                                             {#<td>#}
                                             {#{% if caso.estado_atendido %}#}
@@ -120,13 +128,6 @@
                                             {#</a>#}
                                             {#{% endif %}#}
                                             {#</td>#}
-                                            <td>
-                                                <a href="javascript:abrirVentana('{{ path('casoDetalle', { 'codigoCaso':  caso.codigoCasoPk }) }}','Agregar solución',800, 1200)"
-                                                   class="btn btn-info waves-effect waves-light btn-xs"><i
-                                                            class="glyphicon glyphicon-eye-open"
-                                                            style="padding: 3px;"></i>
-                                                </a>
-                                            </td>
                                         </tr>
                                     {% endfor %}
                                     {#{{ form_end(form) }}#}

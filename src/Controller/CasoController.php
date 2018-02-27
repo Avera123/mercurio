@@ -36,6 +36,29 @@ class CasoController extends Controller
     }
 
     /**
+     * @Route("/caso/detalle/{codigoCaso}", name="casoDetalle")
+     */
+    public function casoDetalle($codigoCaso)
+    {
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+        // Get cURL resource
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $serviceUrl.'caso/lista/'.$this->getUser()->getCodigoClienteFk().'/'.$codigoCaso,
+        ));
+
+        $resp = json_decode(curl_exec($curl));
+
+        curl_close($curl);
+
+        return $this->render('Caso/detalle.html.twig', array(
+            'caso' => $resp
+        ));
+    }
+
+    /**
      * @Route("/caso/listar/pendientes", name="casoListarPendientes")
      */
     public function listaPendientes()

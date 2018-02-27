@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div id="con-close-modal" class="modal fade in" tabindex="-1" style="display: block; padding-left: 15px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Detalles del caso: # {{ caso[0].codigoCasoPk }} </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-1" class="control-label">Name</label>
+                                <label>{{ caso[0].asunto }}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="field-2" class="control-label">Surname</label>
+                                <label>jajsj</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="field-3" class="control-label">Address</label>
+                                <label>jajsj</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-4" class="control-label">City</label>
+                                <label>jajsj</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-5" class="control-label">Country</label>
+                                <label>jajsj</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="field-6" class="control-label">Zip</label>
+                                <label>jajsj</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group no-margin">
+                                <label for="field-7" class="control-label">Personal Info</label>
+                                <label>jajsj</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {#<div class="modal-footer">#}
+                    {#<button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>#}
+                    {#<button type="button" class="btn btn-info waves-effect waves-light">Save changes</button>#}
+                {#</div>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}

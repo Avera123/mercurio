@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyAtt %}class="fixed-left"{% endblock %}
+
+{% block body %}
+
+    <div id="wrapper">
+    {{ include('Bloques/menu.html.twig') }}
+
+    {{ include('Bloques/menuIzquierdo.html.twig') }}
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container">
+                {% block content %}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="page-title-box">
+                            <h4 class="page-title" style="padding-right: 10px;">Actualizaciones</h4>
+                            {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}
+                            {#<span class="label label-info">Atendidas Pendientes: {{ atendidasPendientes }}</span>#}
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <div class="table-responsive">
+                                {#{{form_start(form) }}#}
+                                {#<div class="card-box">#}
+                                {#<div class="col-sm-11">#}
+                                {#{{ form_widget(formFiltro.clienteRel) }}#}
+                                {#</div>#}
+                                {#<div>#}
+                                {#{{ form_widget(formFiltro.btnFiltrar) }}#}
+                                {#</div>#}
+                                {#</div>#}
+                                <table class="table table-hover m-0 table-oro">
+
+                                    <thead>
+                                    <tr>
+                                        {#<th>Asunto</th>#}
+                                        <th>Fecha</th>
+                                        <th>Autor</th>
+                                        <th>Mensaje</th>
+                                        <th>Ver</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for commits in commits %}
+
+                                        <tr>
+                                            {#<td><strong>{{ caso.asunto }}</strong></td>#}
+                                            <td>{{ commits.commit.author.date | date('y-m-d h:i:s') }}</td>
+                                            <td>{{ commits.commit.author.name }}</td>
+                                            <td>{{ commits.commit.message }}</td>
+                                            <td>
+                                                <a href="{{ path('commitDetalle', { 'codigoCommit':  commits.sha }) }}"
+                                                class="btn btn-info waves-effect waves-light btn-xs"><i
+                                                class="glyphicon glyphicon-eye-open"
+                                                style="padding: 3px;"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    {#{{ form_end(form) }}#}
+                                    </tbody>
+                                </table>
+                            </div> <!-- end card -->
+                        </div>
+                        <!-- end col -->
+                        {% endblock content %}
+                    </div> <!-- container -->
+                </div> <!-- content -->
+            </div>
+        </div>
+    </div>
+    {{ include('Bloques/pie.html.twig') }}
+{% endblock %}

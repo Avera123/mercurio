@@ -66,6 +66,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <form action="{{ path('registrarCaso') }}">
                                     {% for caso in casos %}
                                         <tr>
                                             <td>{{ caso.codigoCasoPk }}</td>
@@ -98,12 +99,15 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                {% if caso.codigoCasoPk %}
-                                                <button class="btn btn-success btn-xs" type="submit" name="casoAtender" disabled value="{{ caso.codigoCasoPk }}">
-                                                <i class="glyphicon glyphicon-chevron-left"></i></button>
+                                                {% if not caso.estadoAtendido %}
+                                                    <a href="{{ path('registrarCaso', { 'codigoCaso':  caso.codigoCasoPk }) }}"
+                                                       class="btn btn-success waves-effect waves-light btn-xs"><i
+                                                                class="glyphicon glyphicon-chevron-left"
+                                                                style="padding: 3px;"></i>
+                                                    </a>
                                                 {% else %}
-                                                <button class="btn btn-danger btn-xs" type="submit" name="casoAtender"  value="{{ caso.codigoCasoPk }}">
-                                                <i class="glyphicon glyphicon-thumbs-down"></i></button>
+                                                <button class="btn btn-danger btn-xs" type="submit" name="registrarCaso" disabled value="{{ caso.codigoCasoPk }}" style="padding: 3px;">
+                                                <i class="glyphicon glyphicon-chevron-down"></i></button>
                                                 {% endif %}
                                             </td>
                                             {#<td>#}
@@ -138,6 +142,7 @@
                                         </tr>
                                     {% endfor %}
                                     {#{{ form_end(form) }}#}
+                                    </form>
                                     </tbody>
                                 </table>
                             </div> <!-- end card -->

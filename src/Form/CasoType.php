@@ -22,22 +22,32 @@ class CasoType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /**
+         * @var $arCaso Caso
+         */
         $arrAreas = $options['data']['areas'];
         $arrCargos = $options['data']['cargos'];
         $arrPrioridades = $options['data']['prioridades'];
         $arrCategorias = $options['data']['categorias'];
+        $arCaso = $options['data']['arCaso'];
+
+        $caso = $arCaso[0];
+//        dump($caso);
+//        die();
 
         $builder
             ->add ('asunto', TextType::class,array(
                 'attr' => array(
                     'id' => '_asunto',
-                    'name' => '_asunto'
+                    'name' => '_asunto',
+                    'value' => isset($caso)?$caso->asunto:'-'
                 )
             ))
             ->add ('correo', TextType::class,array(
                 'attr' => array(
                     'id' => '_correo',
                     'name' => '_correo',
+                    'value' => isset($caso)?$caso->correo:'-',
                     'required' => 'true'
                 )
             ))
@@ -45,6 +55,7 @@ class CasoType extends AbstractType
                 'attr' => array(
                     'id' => '_contacto',
                     'name' => '_contacto',
+                    'value' => isset($caso)?$caso->contacto:'-',
                     'required' => 'true'
                 )
             ))
@@ -52,6 +63,7 @@ class CasoType extends AbstractType
                 'attr' => array(
                     'id' => '_telefono',
                     'name' => '_telefono',
+                    'value' => isset($caso)?$caso->telefono:'-',
                     'required' => 'true'
                 )
             ))
@@ -59,6 +71,7 @@ class CasoType extends AbstractType
                 'attr' => array(
                     'id' => '_extension',
                     'name' => '_extension',
+                    'value' => isset($caso)?$caso->extension:'-',
                     'class' => 'form-control'
                 )
             ))
@@ -66,6 +79,7 @@ class CasoType extends AbstractType
                 'attr' => array(
                     'id' => '_descripcion',
                     'name' => '_descripcion',
+                    'data' => isset($caso)?$caso->telefono:'-',
                     'class' => 'form-control'
                 )
             ))
@@ -98,8 +112,10 @@ class CasoType extends AbstractType
             ))
             ->add('categoria', ChoiceType::class, array(
                 'choices' => $arrCategorias,
+                'data' => $arCaso[0]->categoria,
                 'choice_label' => 'descripcion',
                 'choice_value' => 'codigoCategoriaCasoPk',
+//
                 'label' => 'Categorias: ',
                 'attr'=> array(
                     'class' => 'form-control'

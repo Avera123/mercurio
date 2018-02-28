@@ -1,5 +1,16 @@
 {% extends 'base.html.twig' %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- DataTables -->
+    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/buttons.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/fixedHeader.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/responsive.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/scroller.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.colVis.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/fixedColumns.dataTables.min.css') }}" rel="stylesheet" type="text/css"/>
+{% endblock %}
 {% block bodyAtt %}class="fixed-left"{% endblock %}
 
 {% block body %}
@@ -151,8 +162,119 @@
                         {% endblock content %}
                     </div> <!-- container -->
                 </div> <!-- content -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+
+                            <h4 class="m-t-0 header-title"><b>KeyTable example</b></h4>
+                            <p class="text-muted font-13 m-b-30">
+                                KeyTable provides Excel like cell navigation on any table. Events (focus, blur, action
+                                etc) can be assigned to individual cells, columns, rows or all cells.
+                            </p>
+
+                            <div id="datatable-keytable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="datatable-keytable_length"><label>Show <select name="datatable-keytable_length" aria-controls="datatable-keytable" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-6"><div id="datatable-keytable_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="datatable-keytable"></label></div></div></div><div class="row"><div class="col-sm-12"><div style="position: absolute; height: 1px; width: 0px; overflow: hidden;"><input type="text" tabindex="0"></div><table id="datatable-keytable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable-keytable_info" style="position: relative;">
+                                <thead>
+                                <tr role="row"><th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 271px;">Name</th><th class="sorting_asc" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Position: activate to sort column descending" aria-sort="ascending" style="width: 441px;">Position</th><th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 200px;">Office</th><th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 100px;">Age</th><th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 181px;">Start date</th><th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 168px;">Salary</th></tr>
+                                </thead>
+                                <tbody><tr role="row" class="odd">
+                                    <td class="">Airi Satou</td>
+                                    <td class="sorting_1">Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>33</td>
+                                    <td>2008/11/28</td>
+                                    <td>$162,700</td>
+                                </tr><tr role="row" class="even">
+                                    <td class="">Garrett Winters</td>
+                                    <td class="sorting_1">Accountant</td>
+                                    <td>Tokyo</td>
+                                    <td>63</td>
+                                    <td>2011/07/25</td>
+                                    <td>$170,750</td>
+                                </tr><tr role="row" class="odd">
+                                    <td class="">Angelica Ramos</td>
+                                    <td class="sorting_1">Chief Executive Officer (CEO)</td>
+                                    <td>London</td>
+                                    <td>47</td>
+                                    <td>2009/10/09</td>
+                                    <td>$1,200,000</td>
+                                </tr><tr role="row" class="even">
+                                    <td class="">Paul Byrd</td>
+                                    <td class="sorting_1">Chief Financial Officer (CFO)</td>
+                                    <td>New York</td>
+                                    <td>64</td>
+                                    <td>2010/06/09</td>
+                                    <td>$725,000</td>
+                                </tr><tr role="row" class="odd">
+                                    <td class="">Yuri Berry</td>
+                                    <td class="sorting_1">Chief Marketing Officer (CMO)</td>
+                                    <td>New York</td>
+                                    <td>40</td>
+                                    <td>2009/06/25</td>
+                                    <td>$675,000</td>
+                                </tr><tr role="row" class="even">
+                                    <td class="">Fiona Green</td>
+                                    <td class="sorting_1">Chief Operating Officer (COO)</td>
+                                    <td>San Francisco</td>
+                                    <td>48</td>
+                                    <td>2010/03/11</td>
+                                    <td>$850,000</td>
+                                </tr><tr role="row" class="odd">
+                                    <td class="">Donna Snider</td>
+                                    <td class="sorting_1">Customer Support</td>
+                                    <td>New York</td>
+                                    <td>27</td>
+                                    <td>2011/01/25</td>
+                                    <td>$112,000</td>
+                                </tr><tr role="row" class="even">
+                                    <td class="">Serge Baldwin</td>
+                                    <td class="sorting_1">Data Coordinator</td>
+                                    <td>Singapore</td>
+                                    <td>64</td>
+                                    <td>2012/04/09</td>
+                                    <td>$138,575</td>
+                                </tr><tr role="row" class="odd">
+                                    <td class="">Gavin Joyce</td>
+                                    <td class="sorting_1">Developer</td>
+                                    <td>Edinburgh</td>
+                                    <td>42</td>
+                                    <td>2010/12/22</td>
+                                    <td>$92,575</td>
+                                </tr><tr role="row" class="even">
+                                    <td class="">Jonas Alexander</td>
+                                    <td class="sorting_1">Developer</td>
+                                    <td>San Francisco</td>
+                                    <td>30</td>
+                                    <td>2010/07/14</td>
+                                    <td>$86,500</td>
+                                </tr></tbody>
+                            </table></div></div><div class="row"><div class="col-sm-6"><div class="dataTables_info" id="datatable-keytable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="datatable-keytable_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="datatable-keytable" tabindex="0" id="datatable-keytable_previous"><a href="#">Previous</a></li><li class="paginate_button active" aria-controls="datatable-keytable" tabindex="0"><a href="#">1</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">2</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">3</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">4</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">5</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">6</a></li><li class="paginate_button next" aria-controls="datatable-keytable" tabindex="0" id="datatable-keytable_next"><a href="#">Next</a></li></ul></div></div></div></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     {{ include('Bloques/pie.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.bootstrap.js') }}"></script>
+
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/buttons.bootstrap.min.js') }}"></script>
+        {#<script src="{{ asset('/mercurio/public/temporal/plugins/datatables/jszip.min.js') }}"></script>#}
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/pdfmake.min.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/vfs_fonts.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/buttons.html5.min.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/buttons.print.min.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.fixedHeader.min.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.keyTable.min.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/responsive.bootstrap.min.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.scroller.min.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.colVis.js') }}"></script>
+        <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.fixedColumns.min.js') }}"></script>
+
+        <script src="{{ asset('/mercurio/assets/pages/jquery.datatables.init.js') }}"></script>
 {% endblock %}

@@ -118,7 +118,7 @@ class CasoController extends Controller
 
         $form = $this->createForm(CasoType::class, $options); //create form
 //        $form->setData('categoria',$arCaso[0]->categoria);
-        $form->get('categoria')->setData($arCaso[0]->categoria);
+//        $form->get('categoria')->setData($arCaso[0]->categoria);
         $form->handleRequest($request);
 
         $res = $form->getData();
@@ -159,6 +159,7 @@ class CasoController extends Controller
         return $this->render('Caso/nuevo.html.twig',
             array(
                 'form' => $form->createView(),
+                'arCaso' => $arCaso
             ));
     }
 

@@ -108,3 +108,12 @@
 
     {% endblock %}
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function(){
+            var select = $("#caso_categoria");
+            select.val(select.attr("data-value"));
+        });
+    </script>
+{% endblock %}

@@ -32,8 +32,6 @@ class CasoType extends AbstractType
         $arCaso = $options['data']['arCaso'];
 
         $caso = $arCaso[0];
-//        dump($caso);
-//        die();
 
         $builder
             ->add ('asunto', TextType::class,array(
@@ -112,13 +110,14 @@ class CasoType extends AbstractType
             ))
             ->add('categoria', ChoiceType::class, array(
                 'choices' => $arrCategorias,
-                'data' => $arCaso[0]->categoria,
+                'data' => 'ERR',
                 'choice_label' => 'descripcion',
                 'choice_value' => 'codigoCategoriaCasoPk',
-//
                 'label' => 'Categorias: ',
+                'placeholder' => 'Select one option',
                 'attr'=> array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'data-value' => $caso->categoriaPk,
                 )
             ))
 //            Botón Guardar

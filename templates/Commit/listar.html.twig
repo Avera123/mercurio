@@ -30,29 +30,64 @@
                                     <article class="timeline-item">
                                         <div class="timeline-desk">
                                             <div class="panel">
-                                                <div class="timeline-box">
-                                                    <span class="arrow"></span>
-                                                    <span class="timeline-icon"><i class="mdi mdi-access-point"></i></span>
-                                                    <h4 class="">{{ commits.commit.author.date | date('Y/m/d') }}</h4>
-                                                    <p class="timeline-date text-muted">
-                                                        <small>{{ commits.commit.author.date | date('h:i:s') }}</small>
-                                                    </p>
-                                                    <div>
-                                                        <img src="{{ commits.committer.avatar_url }}" class="img-circle img-thumbnail" style="width: 50px;height: 50px;float: left;border-radius: 50%;">
-                                                        <h2 style="float: left;padding-left: 15px;">{{ commits.commit.author.name }}</h2>
-                                                        <div class="clearfix"></div>
-                                                    </div><br>
-                                                    <div class="alert alert-icon alert-success alert-dismissible fade in" role="alert">
-                                                        <i class="mdi mdi-check-all"></i>
-                                                        <strong>Info:</strong> {{ commits.commit.message }}
-                                                        {#<a href="{{ path('commitDetalle', { 'codigoCommit':  commits.sha }) }}"#}
-                                                           {#class="btn btn-info waves-effect waves-light btn-xs"><i#}
-                                                                    {#class="glyphicon glyphicon-eye-open"#}
-                                                                    {#style="padding: 3px;"></i>#}
-                                                            {#Ver Detalle#}
-                                                        {#</a>#}
+                                                {% if not (commits.commit.message|split(' ')|slice(0, 1)|join == "Merge") %}
+                                                    <div class="timeline-box">
+                                                        <span class="arrow"></span>
+                                                        <span class="timeline-icon"><i class="mdi mdi-access-point"></i></span>
+                                                        <h4 class="">{{ commits.commit.author.date | date('Y/m/d') }}</h4>
+                                                        <p class="timeline-date text-muted">
+                                                            <small>{{ commits.commit.author.date | date('h:i:s') }}</small>
+                                                        </p>
+                                                        <div>
+                                                            <img src="{{ commits.committer.avatar_url }}"
+                                                                 class="img-circle img-thumbnail"
+                                                                 style="width: 50px;height: 50px;float: left;border-radius: 50%;">
+                                                            <h2 style="float: left;padding-left: 15px;">{{ commits.commit.author.name }}</h2>
+                                                            <div class="clearfix"></div>
+                                                        </div>
+                                                        <br>
+                                                        {% if commits.commit.message|split(' ')|slice(0, 1)|join == "fix:" %}
+                                                            <div class="alert alert-icon alert-danger" role="alert">
+                                                                <i class="mdi mdi-check-all"></i>
+                                                                <strong>Código: </strong>{{ commits.sha }}<br>
+                                                                {{ commits.commit.message }}
+                                                                {#<strong>Info:</strong> {{ commits.commit.message|split(' ')|slice(0, 1)|join }}#}
+                                                                {#<a href="{{ path('commitDetalle', { 'codigoCommit':  commits.sha }) }}"#}
+                                                                {#class="btn btn-info waves-effect waves-light btn-xs"><i#}
+                                                                {#class="glyphicon glyphicon-eye-open"#}
+                                                                {#style="padding: 3px;"></i>#}
+                                                                {#Ver Detalle#}
+                                                                {#</a>#}
+                                                            </div>
+                                                        {% elseif commits.commit.message|split(' ')|slice(0, 1)|join == "feat:" %}
+                                                            <div class="alert alert-icon alert-info" role="alert">
+                                                                <i class="mdi mdi-check-all"></i>
+                                                                <strong>Código: </strong>{{ commits.sha }}<br>
+                                                                {{ commits.commit.message }}
+                                                                {#<strong>Info:</strong> {{ commits.commit.message|split(' ')|slice(0, 1)|join }}#}
+                                                                {#<a href="{{ path('commitDetalle', { 'codigoCommit':  commits.sha }) }}"#}
+                                                                {#class="btn btn-info waves-effect waves-light btn-xs"><i#}
+                                                                {#class="glyphicon glyphicon-eye-open"#}
+                                                                {#style="padding: 3px;"></i>#}
+                                                                {#Ver Detalle#}
+                                                                {#</a>#}
+                                                            </div>
+                                                        {% else %}
+                                                            <div class="alert alert-icon alert-warning" role="alert">
+                                                                <i class="mdi mdi-check-all"></i>
+                                                                <strong>Código: </strong>{{ commits.sha }}<br>
+                                                                {{ commits.commit.message }}
+                                                                {#<strong>Info:</strong> {{ commits.commit.message|split(' ')|slice(0, 1)|join }}#}
+                                                                {#<a href="{{ path('commitDetalle', { 'codigoCommit':  commits.sha }) }}"#}
+                                                                {#class="btn btn-info waves-effect waves-light btn-xs"><i#}
+                                                                {#class="glyphicon glyphicon-eye-open"#}
+                                                                {#style="padding: 3px;"></i>#}
+                                                                {#Ver Detalle#}
+                                                                {#</a>#}
+                                                            </div>
+                                                        {% endif %}
                                                     </div>
-                                                </div>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </article>

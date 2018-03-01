@@ -166,15 +166,24 @@
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
 
-                            <h4 class="m-t-0 header-title"><b>KeyTable example</b></h4>
-                            <p class="text-muted font-13 m-b-30">
-                                KeyTable provides Excel like cell navigation on any table. Events (focus, blur, action
-                                etc) can be assigned to individual cells, columns, rows or all cells.
-                            </p>
+                            {#<h4 class="m-t-0 header-title"><b>KeyTable example</b></h4>#}
+                            {#<p class="text-muted font-13 m-b-30">#}
+                                {#KeyTable provides Excel like cell navigation on any table. Events (focus, blur, action#}
+                                {#etc) can be assigned to individual cells, columns, rows or all cells.#}
+                            {#</p>#}
 
-                            <div id="datatable-keytable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="datatable-keytable_length"><label>Show <select name="datatable-keytable_length" aria-controls="datatable-keytable" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-6"><div id="datatable-keytable_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="datatable-keytable"></label></div></div></div><div class="row"><div class="col-sm-12"><div style="position: absolute; height: 1px; width: 0px; overflow: hidden;"><input type="text" tabindex="0"></div><table id="datatable-keytable" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="datatable-keytable_info" style="position: relative;">
+                            <div id="datatable-keytable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+
+                            <table id="datatable-keytable" class="table table-striped table-bordered dataTable no-footer table-oro" role="grid" aria-describedby="datatable-keytable_info" style="position: relative;">
                                 <thead>
-                                <tr role="row"><th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 271px;">Name</th><th class="sorting_asc" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Position: activate to sort column descending" aria-sort="ascending" style="width: 441px;">Position</th><th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 200px;">Office</th><th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 100px;">Age</th><th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 181px;">Start date</th><th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 168px;">Salary</th></tr>
+                                <tr role="row">
+                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Name: activate to sort column ascending" style="width: 271px;">Name</th>
+                                    <th class="sorting_asc" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Position: activate to sort column descending" aria-sort="ascending" style="width: 441px;">Position</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 200px;">Office</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 100px;">Age</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Start date: activate to sort column ascending" style="width: 181px;">Start date</th>
+                                    <th class="sorting" tabindex="0" aria-controls="datatable-keytable" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 168px;">Salary</th>
+                                </tr>
                                 </thead>
                                 <tbody><tr role="row" class="odd">
                                     <td class="">Airi Satou</td>
@@ -247,7 +256,10 @@
                                     <td>2010/07/14</td>
                                     <td>$86,500</td>
                                 </tr></tbody>
-                            </table></div></div><div class="row"><div class="col-sm-6"><div class="dataTables_info" id="datatable-keytable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="datatable-keytable_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="datatable-keytable" tabindex="0" id="datatable-keytable_previous"><a href="#">Previous</a></li><li class="paginate_button active" aria-controls="datatable-keytable" tabindex="0"><a href="#">1</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">2</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">3</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">4</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">5</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">6</a></li><li class="paginate_button next" aria-controls="datatable-keytable" tabindex="0" id="datatable-keytable_next"><a href="#">Next</a></li></ul></div></div></div></div>
+                            </table>
+                            </div>
+                        </div>
+                            {#<div class="row"><div class="col-sm-6"><div class="dataTables_info" id="datatable-keytable_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-6"><div class="dataTables_paginate paging_simple_numbers" id="datatable-keytable_paginate"><ul class="pagination"><li class="paginate_button previous disabled" aria-controls="datatable-keytable" tabindex="0" id="datatable-keytable_previous"><a href="#">Previous</a></li><li class="paginate_button active" aria-controls="datatable-keytable" tabindex="0"><a href="#">1</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">2</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">3</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">4</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">5</a></li><li class="paginate_button " aria-controls="datatable-keytable" tabindex="0"><a href="#">6</a></li><li class="paginate_button next" aria-controls="datatable-keytable" tabindex="0" id="datatable-keytable_next"><a href="#">Next</a></li></ul></div></div></div></div>#}
                         </div>
                     </div>
                 </div>

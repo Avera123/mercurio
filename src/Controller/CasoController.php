@@ -144,11 +144,6 @@ class CasoController extends Controller
                 $ch = curl_init($serviceUrl.'caso/nuevo');
             }
 
-            $url = $serviceUrl.'caso/nuevo/'.$res['arCaso'][0]->codigoCasoPk;
-//
-//            dump($arrEnviar);
-//            die();
-
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

@@ -70,6 +70,8 @@ class CasoType extends AbstractType
                 )
             ))
             ->add ('extension', IntegerType::class,array(
+                'empty_data' => '0',
+                'required' => false,
                 'attr' => array(
                     'id' => '_extension',
                     'name' => '_extension',

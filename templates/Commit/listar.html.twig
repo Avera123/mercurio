@@ -46,44 +46,29 @@
                                                             <div class="clearfix"></div>
                                                         </div>
                                                         <br>
-                                                        {% if commits.commit.message|split(' ')|slice(0, 1)|join == "fix:" %}
+                                                        {% if commits.commit.message|slice(0, 3) == "fix" %}
                                                             <div class="alert alert-icon alert-danger" role="alert">
                                                                 <i class="mdi mdi-check-all"></i>
                                                                 <strong>Código: </strong>{{ commits.sha }}<br>
                                                                 {{ commits.commit.message }}
-                                                                {#<strong>Info:</strong> {{ commits.commit.message|split(' ')|slice(0, 1)|join }}#}
-                                                                {#<a href="{{ path('commitDetalle', { 'codigoCommit':  commits.sha }) }}"#}
-                                                                {#class="btn btn-info waves-effect waves-light btn-xs"><i#}
-                                                                {#class="glyphicon glyphicon-eye-open"#}
-                                                                {#style="padding: 3px;"></i>#}
-                                                                {#Ver Detalle#}
-                                                                {#</a>#}
                                                             </div>
-                                                        {% elseif commits.commit.message|split(' ')|slice(0, 1)|join == "feat:" %}
+                                                        {% elseif commits.commit.message|slice(0, 3) == "fea" %}
                                                             <div class="alert alert-icon alert-info" role="alert">
                                                                 <i class="mdi mdi-check-all"></i>
                                                                 <strong>Código: </strong>{{ commits.sha }}<br>
                                                                 {{ commits.commit.message }}
-                                                                {#<strong>Info:</strong> {{ commits.commit.message|split(' ')|slice(0, 1)|join }}#}
-                                                                {#<a href="{{ path('commitDetalle', { 'codigoCommit':  commits.sha }) }}"#}
-                                                                {#class="btn btn-info waves-effect waves-light btn-xs"><i#}
-                                                                {#class="glyphicon glyphicon-eye-open"#}
-                                                                {#style="padding: 3px;"></i>#}
-                                                                {#Ver Detalle#}
-                                                                {#</a>#}
+                                                            </div>
+                                                        {% elseif commits.commit.message|slice(0, 3) == "doc" %}
+                                                            <div class="alert alert-icon alert-success" role="alert">
+                                                                <i class="mdi mdi-check-all"></i>
+                                                                <strong>Código: </strong>{{ commits.sha }}<br>
+                                                                {{ commits.commit.message }}
                                                             </div>
                                                         {% else %}
                                                             <div class="alert alert-icon alert-warning" role="alert">
                                                                 <i class="mdi mdi-check-all"></i>
                                                                 <strong>Código: </strong>{{ commits.sha }}<br>
                                                                 {{ commits.commit.message }}
-                                                                {#<strong>Info:</strong> {{ commits.commit.message|split(' ')|slice(0, 1)|join }}#}
-                                                                {#<a href="{{ path('commitDetalle', { 'codigoCommit':  commits.sha }) }}"#}
-                                                                {#class="btn btn-info waves-effect waves-light btn-xs"><i#}
-                                                                {#class="glyphicon glyphicon-eye-open"#}
-                                                                {#style="padding: 3px;"></i>#}
-                                                                {#Ver Detalle#}
-                                                                {#</a>#}
                                                             </div>
                                                         {% endif %}
                                                     </div>

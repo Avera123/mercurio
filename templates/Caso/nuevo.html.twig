@@ -38,7 +38,7 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="_telefono">Contacto: </label>
                                 <div class="col-md-4">
-                                    {{ form_widget(form.contacto,{'attr':{'class':'form-control'}}) }}
+                                    {{ form_widget(form.contacto,{'attr':{'class':'form-control','parsley-trigger':'change'}}) }}
                                 </div>
                                 <label class="col-md-1 control-label" for="_telefono">Asunto:</label>
                                 <div class="col-md-5">
@@ -67,9 +67,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="_telefono">Correo:</label>
-
                                 <div class="col-md-4">
-                                    {{ form_widget(form.correo,{'attr':{'class':'form-control','data-parsley-type':'text','data-parsley-maxlength':'50'}}) }}
+                                    {{ form_widget(form.correo,{'attr':{'class':'form-control','parsley-trigger':'change','data-parsley-type':'email','data-parsley-maxlength':'50'}}) }}
                                 </div>
                                 <label class="col-md-1 control-label" for="_telefono">Teléfono:</label>
 
@@ -117,4 +116,20 @@
             });
         });
     </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+        $(function () {
+            $('#form').parsley().on('field:validated', function () {
+                var ok = $('.parsley-error').length === 0;
+                $('.alert-info').toggleClass('hidden', !ok);
+                $('.alert-warning').toggleClass('hidden', ok);
+            })
+            .on('form:submit', function () {
+                return true; // Don't submit form for this demo
+            });
+        });
+    </script>
+
 {% endblock %}

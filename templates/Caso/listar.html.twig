@@ -59,13 +59,10 @@
                                                 Descripción
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
-                                                Priori
+                                                Prioridad
                                             </th>
                                             <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
-                                                Ver
-                                            </th>
-                                            <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
-                                                Ed
+
                                             </th>
                                         </tr>
                                         </thead>
@@ -84,7 +81,7 @@
                                                       style="background-color: {{ caso.categoriaColor }};">{{ caso.categoria }}</span>
                                             </td>
                                             <td><strong>{{ caso.asunto }}</strong> - {{ caso.descripcion }}</td>
-                                            <td>
+                                            <td style="text-align: center;">
                                                 <span class="label"
                                                       style="background-color: {{ caso.prioridadColor }};">
                                                     {% if caso.prioridad is defined or caso.prioridad != null %}
@@ -94,24 +91,11 @@
                                                     {% endif %}
                                                 </span>
                                             </td>
-                                            <td>
+                                            <td style="text-align: center;">
                                                 <a href="{{ path('casoDetalle', { 'codigoCaso':  caso.codigoCasoPk }) }}"
                                                    class="btn btn-info waves-effect waves-light btn-xs"><i
                                                             class="glyphicon glyphicon-eye-open"></i>
                                                 </a>
-                                            </td>
-                                            <td>
-                                                {% if not caso.estadoAtendido %}
-                                                    <a href="{{ path('registrarCaso', { 'codigoCaso':  caso.codigoCasoPk }) }}"
-                                                       class="btn btn-success waves-effect waves-light btn-xs"><i
-                                                                class="glyphicon glyphicon-pencil"></i>
-                                                    </a>
-                                                {% else %}
-                                                    <button class="btn btn-danger btn-xs" type="submit"
-                                                            name="registrarCaso" disabled
-                                                            value="{{ caso.codigoCasoPk }}" style="padding: 3px;">
-                                                        <i class="glyphicon glyphicon-pencil"></i></button>
-                                                {% endif %}
                                             </td>
                                         </tr>
                                         {% endfor %}

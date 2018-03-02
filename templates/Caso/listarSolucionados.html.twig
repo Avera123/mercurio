@@ -61,13 +61,13 @@
                                             Solución
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
-                                            Priori
+                                            Prioridad
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
-                                            Ver
+
                                         </th>
                                         <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
-                                            Reabrir
+
                                         </th>
                                     </tr>
                                     </thead>
@@ -87,7 +87,7 @@
                                             </td>
                                             <td><strong>{{ caso.asunto }}</strong> - {{ caso.descripcion }}</td>
                                             <td>{{ caso.solucion }}</td>
-                                            <td>
+                                            <td style="text-align: center;">
                                                 <span class="label"
                                                       style="background-color: {{ caso.prioridadColor }};">
                                                     {% if caso.prioridad is defined or caso.prioridad != null %}
@@ -97,16 +97,16 @@
                                                     {% endif %}
                                                 </span>
                                             </td>
-                                            <td>
-                                                <a href="{{ path('casoDetalle', { 'codigoCaso':  caso.codigoCasoPk }) }}"
-                                                   class="btn btn-info waves-effect waves-light btn-xs"><i
-                                                            class="glyphicon glyphicon-eye-open"></i>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ path('reabrirCaso', { 'codigoCaso':  caso.codigoCasoPk }) }}"
+                                            <td style="text-align: center;">
+                                                <a title="Reabrir caso" href="{{ path('reabrirCaso', { 'codigoCaso':  caso.codigoCasoPk }) }}"
                                                    class="btn btn-success waves-effect waves-light btn-xs"><i
                                                             class="glyphicon glyphicon-retweet"></i>
+                                                </a>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <a title="Ver detalle del caso" href="{{ path('casoDetalle', { 'codigoCaso':  caso.codigoCasoPk }) }}"
+                                                   class="btn btn-info waves-effect waves-light btn-xs"><i
+                                                            class="glyphicon glyphicon-eye-open"></i>
                                                 </a>
                                             </td>
                                         </tr>

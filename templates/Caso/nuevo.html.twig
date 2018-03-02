@@ -103,7 +103,6 @@
                 </div>
             </div>
         </div></div></div></div></div>
-        {#<a href="{{ path('modal.html.twig') }}">modal</a>#}
         {{ include('Bloques/pie.html.twig') }}
 
     {% endblock %}
@@ -111,9 +110,11 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
-        $(function(){
-            var select = $("#caso_categoria");
-            select.val(select.attr("data-value"));
+        $(function () {
+            $("[data-value]").each(function (k, v) {
+                var select = $(v);
+                select.val(select.attr("data-value"));
+            });
         });
     </script>
 {% endblock %}

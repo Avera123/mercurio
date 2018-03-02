@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Caso;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -34,18 +35,21 @@ class CasoType extends AbstractType
         $caso = $arCaso[0];
 
         $builder
+//            ->add('codigo_caso_pk', HiddenType::class,array(
+//                'data' => isset($caso)?$caso->codigoCasoPk:''
+//            ))
             ->add ('asunto', TextType::class,array(
                 'attr' => array(
                     'id' => '_asunto',
                     'name' => '_asunto',
-                    'value' => isset($caso)?$caso->asunto:'-'
+                    'value' => isset($caso)?$caso->asunto:''
                 )
             ))
             ->add ('correo', TextType::class,array(
                 'attr' => array(
                     'id' => '_correo',
                     'name' => '_correo',
-                    'value' => isset($caso)?$caso->correo:'-',
+                    'value' => isset($caso)?$caso->correo:'',
                     'required' => 'true'
                 )
             ))
@@ -53,7 +57,7 @@ class CasoType extends AbstractType
                 'attr' => array(
                     'id' => '_contacto',
                     'name' => '_contacto',
-                    'value' => isset($caso)?$caso->contacto:'-',
+                    'value' => isset($caso)?$caso->contacto:'',
                     'required' => 'true'
                 )
             ))
@@ -61,7 +65,7 @@ class CasoType extends AbstractType
                 'attr' => array(
                     'id' => '_telefono',
                     'name' => '_telefono',
-                    'value' => isset($caso)?$caso->telefono:'-',
+                    'value' => isset($caso)?$caso->telefono:'',
                     'required' => 'true'
                 )
             ))
@@ -69,15 +73,15 @@ class CasoType extends AbstractType
                 'attr' => array(
                     'id' => '_extension',
                     'name' => '_extension',
-                    'value' => isset($caso)?$caso->extension:'-',
+                    'value' => isset($caso)?$caso->extension:'',
                     'class' => 'form-control'
                 )
             ))
             ->add ('descripcion', TextareaType::class,array(
+                'data' => isset($caso)?$caso->descripcion:'',
                 'attr' => array(
                     'id' => '_descripcion',
                     'name' => '_descripcion',
-                    'data' => isset($caso)?$caso->telefono:'-',
                     'class' => 'form-control'
                 )
             ))
@@ -85,27 +89,33 @@ class CasoType extends AbstractType
                 'choices' => $arrAreas,
                 'choice_label' => 'nombre',
                 'choice_value' => 'codigoAreaPk',
+                'placeholder' => 'Seleccione una opción',
                 'label' => 'Area: ',
                 'attr'=> array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'data-value' => isset($caso->areaPk)? $caso->areaPk :''
                 )
             ))
             ->add('cargo', ChoiceType::class, array(
                 'choices' => $arrCargos,
                 'choice_label' => 'nombre',
                 'choice_value' => 'codigoCargoPk',
+                'placeholder' => 'Seleccione una opción',
                 'label' => 'Cargo: ',
                 'attr'=> array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'data-value' => isset($caso->cargoPk)? $caso->cargoPk : ''
                 )
             ))
             ->add('prioridad', ChoiceType::class, array(
                 'choices' => $arrPrioridades,
                 'choice_label' => 'nombre',
                 'choice_value' => 'codigo_prioridad_pk',
+                'placeholder' => 'Seleccione una opción',
                 'label' => 'Prioridad: ',
                 'attr'=> array(
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'data-value' => isset($caso->prioridadPk)? $caso->prioridadPk : ''
                 )
             ))
             ->add('categoria', ChoiceType::class, array(
@@ -113,11 +123,11 @@ class CasoType extends AbstractType
                 'data' => 'ERR',
                 'choice_label' => 'descripcion',
                 'choice_value' => 'codigoCategoriaCasoPk',
+                'placeholder' => 'Seleccione una opción',
                 'label' => 'Categorias: ',
-                'placeholder' => 'Select one option',
                 'attr'=> array(
                     'class' => 'form-control',
-                    'data-value' => $caso->categoriaPk,
+                    'data-value' => isset($caso->categoriaPk)? $caso->categoriaPk : ''
                 )
             ))
 //            Botón Guardar

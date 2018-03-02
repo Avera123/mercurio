@@ -108,7 +108,7 @@ class CasoController extends Controller
         $em = $this->getDoctrine()->getManager(); // instancia el entity manager
         $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
 
-        if($codigoCaso){
+        if($codigoCaso != null){
             $arCaso = $this->getCasoUno($codigoCaso);
         }else{
             $arCaso = null;
@@ -116,15 +116,12 @@ class CasoController extends Controller
 
         $options = array('areas'=>$this->listadoAreas(),'cargos'=> $this->listadoCargos(),'prioridades'=>$this->listadoPrioridad(),'categorias'=>$this->listadoCategoriaCasos(),'arCaso'=> $arCaso);
 
-        $form = $this->createForm(CasoType::class, $options); //create form
-//        $form->setData('categoria',$arCaso[0]->categoria);
-//        $form->get('categoria')->setData($arCaso[0]->categoria);
+        $form = $this->createForm(CasoType::class, $options);
         $form->handleRequest($request);
 
         $res = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $arCaso = array(
                 "asunto"=>$res['asunto'],
                 "correo"=>$res['correo'],
@@ -137,11 +134,21 @@ class CasoController extends Controller
                 "codigo_cliente_fk"=>$user->getCodigoClienteFk(),
                 "codigo_area_fk"=>$res['area']->codigoAreaPk,
                 "codigo_cargo_fk"=>$res['cargo']->codigoCargoPk,
-            ); //instance class
+            );
 
             $arrEnviar =json_encode($arCaso);
 
-            $ch = curl_init($serviceUrl.'caso/nuevo');
+            if (isset($res['arCaso'][0]->codigoCasoPk)){
+                $ch = curl_init($serviceUrl.'caso/nuevo/'.$res['arCaso'][0]->codigoCasoPk);
+            }else{
+                $ch = curl_init($serviceUrl.'caso/nuevo');
+            }
+
+            $url = $serviceUrl.'caso/nuevo/'.$res['arCaso'][0]->codigoCasoPk;
+//
+//            dump($arrEnviar);
+//            die();
+
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
             curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -236,16 +243,84 @@ class CasoController extends Controller
     {
         $em = $this->getDoctrine()->getManager(); // instancia el entity manager
         $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+        if($codigoCaso != null){
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => $serviceUrl.'caso/lista/'.$this->getUser()->getCodigoClienteFk().'/'.$codigoCaso,
+            ));
+            $resp = json_decode(curl_exec($curl));
+            curl_close($curl);
+        } else{
+            $resp = false;
+        }
+
+        return $resp;
+    }
+
+    /**
+     * @Route("/caso/reabrir/{codigoCaso}", requirements={"codigoCaso":"\d+"}, name="reabrirCaso")
+     */
+    public function reabrirCaso($codigoCaso = null){
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+
+        if($codigoCaso != null){
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => $serviceUrl.'caso/reabrir/'.$codigoCaso,
+            ));
+            $resp2 = json_decode(curl_exec($curl));
+            curl_close($curl);
+        } else{
+            $resp2 = false;
+        }
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-//            CURLOPT_URL => 'https://my-json-server.typicode.com/Avera123/jsonserver/usuarios',
-            CURLOPT_URL => $serviceUrl.'caso/lista/'.$this->getUser()->getCodigoClienteFk().'/'.$codigoCaso,
+            CURLOPT_URL => $serviceUrl.'caso/lista/solucionado/'.$this->getUser()->getCodigoClienteFk().'/1',
         ));
+
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
 
-        return $resp;
+        return $this->render('Caso/listarSolucionados.html.twig', array(
+            'casos' => $resp
+        ));
+    }
+
+    /**
+     * @Route("/caso/borrar/{codigoCaso}", requirements={"codigoCaso":"\d+"}, name="borrarCaso")
+     */
+    public function borrarCaso($codigoCaso = null){
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+
+        if($codigoCaso != null){
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => $serviceUrl.'caso/borra/'.$codigoCaso,
+            ));
+            $resp2 = json_decode(curl_exec($curl));
+            curl_close($curl);
+        } else{
+            $resp2 = false;
+        }
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $serviceUrl.'caso/lista/solucionado/'.$this->getUser()->getCodigoClienteFk().'/0',
+        ));
+
+        $resp = json_decode(curl_exec($curl));
+        curl_close($curl);
+
+        return $this->render('Caso/listarPendientes.html.twig', array(
+            'casos' => $resp
+        ));
     }
 }

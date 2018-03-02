@@ -66,6 +66,9 @@
                                                     Prioridad
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
+                                                    Atendido
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
                                                     En desarrollo
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
@@ -105,9 +108,13 @@
                                                         </span>
                                                     </td>
                                                     <td style="text-align: center;">
+                                                        {% if caso.estadoAtendido %}
+                                                            <i class="fa fa-star text-warning" style="font-size: x-large;" title="Se ha atendido el caso"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td style="text-align: center;">
                                                         {% if caso.tareasCuenta is defined and caso.tareasCuenta > 0 %}
-                                                            <span class="label label-info"><i
-                                                                        class="glyphicon glyphicon-asterisk"></i></span>
+                                                            <i class="fa fa-star text-warning" style="font-size: x-large;" title="El caso se encuentra en desarrollo"></i>
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center;">

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Caso;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -130,6 +131,12 @@ class CasoType extends AbstractType
                 'attr'=> array(
                     'class' => 'form-control',
                     'data-value' => isset($caso->categoriaPk)? $caso->categoriaPk : ''
+                )
+            ))
+            ->add('adjunto', FileType::class,array(
+                "label" => "Adjunto:",
+                "attr" =>array(
+                    "class" => "form-control"
                 )
             ))
 //            Botón Guardar

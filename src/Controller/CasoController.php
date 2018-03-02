@@ -122,6 +122,12 @@ class CasoController extends Controller
         $res = $form->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
+//            $file=$form['image']->getData();
+//            $ext=$file->guessExtension();
+//            $file_name=time().".".$ext;
+//            $file->move("uploads", $file_name);
+//
+//            $miEntidad->setImage($file_name);
             $arCaso = array(
                 "asunto"=>$res['asunto'],
                 "correo"=>$res['correo'],

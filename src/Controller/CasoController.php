@@ -194,7 +194,7 @@ class CasoController extends Controller
             }
 
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar, $arCaso);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json',

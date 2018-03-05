@@ -33,7 +33,7 @@
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
-                            {{ form_start(form,{ 'attr': {'id':'form','class': 'form-horizontal','data-parsley-validate':'true','novalidate':'novalidate','enctype':"multipart/form-data", }}) }}
+                            {{ form_start(form,{ 'attr': {'id':'form','class': 'form-horizontal','data-parsley-validate':'true','novalidate':'novalidate', }}) }}
                             <div class="form-group">
                                 <label class="col-md-2 control-label" for="_telefono">Contacto: </label>
                                 <div class="col-md-4">
@@ -86,12 +86,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-md-2 control-label">Adjunto:</label>
-                                <div class="col-md-10">
-                                    {{ form_widget(form.adjunto) }}
-                                </div>
-                            </div><hr>
-                            <div class="form-group">
                                 <div class="col-md-12">
                                     {{ form_widget(form.btnGuardar, { 'attr': {'class': 'btn btn-success btn-bordered waves-effect w-md waves-light m-b-5','style':'float:right;margin-left:5px;'} }) }}
                                     <a href="{{ path('casoListar') }}"
@@ -134,7 +128,6 @@
                 return true; // Don't submit form for this demo
             });
         });
-        $(":file").filestyle();
     </script>
 
 {% endblock %}

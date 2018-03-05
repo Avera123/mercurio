@@ -66,10 +66,10 @@
                                                     Prioridad
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
-                                                    Atendido
+                                                    At...
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
-                                                    En desarrollo
+                                                    De...
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
 
@@ -109,12 +109,14 @@
                                                     </td>
                                                     <td style="text-align: center;">
                                                         {% if caso.estadoAtendido %}
-                                                            <i class="fa fa-star text-warning" style="font-size: x-large;" title="Se ha atendido el caso"></i>
+                                                            <i class="ion ion-happy text-warning" style="font-size: x-large;" title="Se ha atendido el caso"></i>
+                                                        {% else %}
+                                                            <i class="ion ion-sad text-dark" style="font-size: x-large;" title="No se ha atendido el caso aún"></i>
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center;">
                                                         {% if caso.tareasCuenta is defined and caso.tareasCuenta > 0 %}
-                                                            <i class="fa fa-star text-warning" style="font-size: x-large;" title="El caso se encuentra en desarrollo"></i>
+                                                            <i class="ion ion-hammer text-dark" style="font-size: x-large;" title="El caso se encuentra escalado al equipo de desarrollo"></i>
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center;">

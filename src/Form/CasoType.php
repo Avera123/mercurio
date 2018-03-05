@@ -133,12 +133,6 @@ class CasoType extends AbstractType
                     'data-value' => isset($caso->categoriaPk)? $caso->categoriaPk : ''
                 )
             ))
-            ->add('adjunto', FileType::class,array(
-                "label" => "Adjunto:",
-                "attr" =>array(
-                    "class" => "form-control"
-                )
-            ))
 //            Botón Guardar
             ->add ('btnGuardar', SubmitType::class, array(
                 'attr' => array(

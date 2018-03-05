@@ -11,134 +11,151 @@
     <div class="content">
     <div class="container">
     {% block content %}
-    <div class="row">
-        <div class="col-md-12" style="padding: 20px;">
-            <div class="panel panel-color panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Detalles del caso: <span class="label label-default">#{{ caso[0].codigoCasoPk }} </span></h3><br>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h5 class="panel-title"> Paso 1:
-                                {% if caso[0].estadoAtendido %}
-                                    <span class="label label-info">Atendido</span>
-                                {% else %}
-                                    <span class="label label-warning">Sin Atender</span>
-                                {% endif %} |
-                                Paso 2:
-                                {% if caso[0].estadoSolucionado %}
-                                    <span class="label label-success">Solucionado</span>
-                                {% else %}
-                                    <span class="label label-warning">Por Solucionar</span>
-                                {% endif %}
-                            </h5>
-                        </div>
-                        <div class="col-md-4">
-                            <strong>Nombre:</strong> {{ caso[0].nombre|default('-') }}<br><br>
-                            <strong>Cargo:</strong> {{ caso[0].cargo|default('-') }}
-                        </div>
-                        <div class="col-md-4">
-                            <strong>Categoria: </strong> <span style="background-color: {{ caso[0].categoriaColor }}; padding: 2px;border-radius: 5px;">{{ caso[0].categoria }}</span><br><br>
-                            <strong>Prioridad:</strong> <span style="background-color: {{ caso[0].prioridadColor }}; padding: 2px;border-radius: 5px;">{{ caso[0].prioridad }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <h4>Gestión interna:</h4>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="field-2" class="control-label">Registra:</label>
-                                <p>{{ caso[0].usuario|default('Sin usuario') }}</p><br>
-                                <label for="field-3" class="control-label">Fecha de Registro:</label>
-                                {#<p>{{ caso[0].fechaRegistro|date('d/m/Y')|default('Sin usuario')  }}</p>#}
-                                <p>
-                                    {% if caso[0].fechaRegistro %}
-                                        {{ caso[0].fechaRegistro|date('d/m/Y')  }}
+        <div class="row">
+            <div class="col-md-12" style="padding: 20px;">
+                <div class="panel panel-color panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Detalles del caso: <span
+                                    class="label label-default">#{{ caso[0].codigoCasoPk }} </span></h3><br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5 class="panel-title"> Paso 1:
+                                    {% if caso[0].estadoAtendido %}
+                                        <span class="label label-info">Atendido</span>
+                                    {% else %}
+                                        <span class="label label-warning">Sin Atender</span>
+                                    {% endif %} |
+                                    Paso 2:
+                                    {% if caso[0].estadoSolucionado %}
+                                        <span class="label label-success">Solucionado</span>
+                                    {% else %}
+                                        <span class="label label-warning">Por Solucionar</span>
                                     {% endif %}
-                                </p>
+                                </h5>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="field-3" class="control-label">Gestiona:</label>
-                                <p>{{ caso[0].codigoUsuarioAtiendeFk|default('Sin atender')  }}</p><br>
-                                <label for="field-3" class="control-label">Fecha de Gestión:</label>
-                                <p>
-                                    {% if caso[0].fechaGestion is defined %}
-                                        {{ caso[0].fechaGestion|date('d/m/Y')  }}
-                                    {% endif %}
-                                </p>
+                            <div class="col-md-4">
+                                <strong>Nombre:</strong> {{ caso[0].nombre|default('-') }}<br><br>
+                                <strong>Cargo:</strong> {{ caso[0].cargo|default('-') }}
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="field-3" class="control-label">Soluciona:</label>
-                                <p>{{ caso[0].codigoUsuarioSolucionaFk|default('Sin solucionar')  }}</p><br>
-                                <label for="field-3" class="control-label">Fecha de Solución:</label>
-                                {#<p>{{ caso[0].fechaSolucion|date('d/m/Y')  }}</p>#}
-
-                                <p>
-                                    {% if caso[0].fechaSolucion is defined %}
-                                        {{ caso[0].fechaSolucion|date('d/m/Y')  }}
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
-                    </div><hr>
-                    <div class="row">
-                        <h4>Datos de Contacto:</h4>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="field-2" class="control-label">Contacto:</label>
-                                <p>{{ caso[0].contacto }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="field-3" class="control-label">Correo:</label>
-                                <p>{{ caso[0].correo }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="field-4" class="control-label">Teléfono:</label>
-                                <p>{{ caso[0].telefono }} ext. {{ caso[0].extension }}</p>
-                            </div>
-                        </div>
-                    </div><hr>
-                    <div class="row">
-                        <h4>Datos del Caso:</h4>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="field-2" class="control-label">Asunto:</label>
-                                <p>{{ caso[0].asunto }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="form-group">
-                                <label for="field-3" class="control-label">Descripcion:</label>
-                                <p>{{ caso[0].descripcion }}</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="field-4" class="control-label">Solución:</label>
-                                <p>{{ caso[0].solucion|default('-') }}</p>
-
+                            <div class="col-md-4">
+                                <strong>Categoria: </strong> <span
+                                        style="background-color: {{ caso[0].categoriaColor }}; padding: 2px;border-radius: 5px;">{{ caso[0].categoria }}</span><br><br>
+                                <strong>Prioridad:</strong> <span
+                                        style="background-color: {{ caso[0].prioridadColor }}; padding: 2px;border-radius: 5px;">{{ caso[0].prioridad }}</span>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="panel-footer" style="text-align: right;">
-                    <a onclick="history.back()"
-                       class="btn btn-default btn-bordered waves-effect w-md m-b-5"
-                       style="float: right;"><span class="glyphicon glyphicon-arrow-left"></span> VOLVER</a>
-                    <div class="clearfix"></div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <h4>Gestión interna:</h4>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Registra:</label>
+                                    <p>{{ caso[0].usuario|default('Sin usuario') }}</p><br>
+                                    <label for="field-3" class="control-label">Fecha de Registro:</label>
+                                    {#<p>{{ caso[0].fechaRegistro|date('d/m/Y')|default('Sin usuario')  }}</p>#}
+                                    <p>
+                                        {% if caso[0].fechaRegistro %}
+                                            {{ caso[0].fechaRegistro|date('d/m/Y') }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-3" class="control-label">Gestiona:</label>
+                                    <p>{{ caso[0].codigoUsuarioAtiendeFk|default('Sin atender') }}</p><br>
+                                    <label for="field-3" class="control-label">Fecha de Gestión:</label>
+                                    <p>
+                                        {% if caso[0].fechaGestion is defined %}
+                                            {{ caso[0].fechaGestion|date('d/m/Y') }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-3" class="control-label">Soluciona:</label>
+                                    <p>{{ caso[0].codigoUsuarioSolucionaFk|default('Sin solucionar') }}</p><br>
+                                    <label for="field-3" class="control-label">Fecha de Solución:</label>
+                                    {#<p>{{ caso[0].fechaSolucion|date('d/m/Y')  }}</p>#}
+
+                                    <p>
+                                        {% if caso[0].fechaSolucion is defined %}
+                                            {{ caso[0].fechaSolucion|date('d/m/Y') }}
+                                        {% endif %}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <h4>Datos de Contacto:</h4>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Contacto:</label>
+                                    <p>{{ caso[0].contacto }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-3" class="control-label">Correo:</label>
+                                    <p>{{ caso[0].correo }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-4" class="control-label">Teléfono:</label>
+                                    <p>{{ caso[0].telefono }} ext. {{ caso[0].extension }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <h4>Datos del Caso:</h4>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Asunto:</label>
+                                    <p>{{ caso[0].asunto }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="field-3" class="control-label">Descripcion:</label>
+                                    <p>{{ caso[0].descripcion }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-4" class="control-label">Solución:</label>
+                                    <p>{{ caso[0].solucion|default('-') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        {{ form_start(form, {'attr':{'enctype':"multipart/form-data"}}) }}
+                        <div class="row">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Adjunto:</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.adjunto) }}
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+
+                    </div>
+                    <div class="panel-footer" style="text-align: right;">
+                        {{ form_widget(form.btnGuardar) }}
+                        <a onclick="history.back()"
+                           class="btn btn-default btn-bordered waves-effect w-md m-b-5"
+                           style="float: left;"><span class="glyphicon glyphicon-arrow-left"></span> VOLVER</a>
+                        <div class="clearfix"></div>
+                    </div>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
-    </div>
         {{ include('Bloques/pie.html.twig') }}
-
     {% endblock %}
 {% endblock %}

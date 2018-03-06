@@ -100,6 +100,16 @@ class CasoController extends Controller
         }
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
+//
+//        $file_name_with_full_path = realpath($serviceUrl . '/adjuntos/sample.jpeg');
+//        $post = array('codigoCaso' => $codigoCaso,'adjunto'=>'@'.$file_name_with_full_path);
+//
+//        $ch = curl_init();
+//        curl_setopt($ch, CURLOPT_URL, $serviceUrl);
+//        curl_setopt($ch, CURLOPT_POST,1);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
+//
 
         return $this->render('Caso/detalle.html.twig', array(
             'caso' => $resp

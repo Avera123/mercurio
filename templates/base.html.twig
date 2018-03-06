@@ -120,6 +120,10 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#datatable-keytable').DataTable({
+                "pageLength": 50,
+                order: [[1,"desc"]],
+                "pagingType": "full_numbers",
+                "bLengthChange": false,
                 keys: true,
                 language: {
                     processing:     "Procesando...",

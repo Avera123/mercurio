@@ -56,6 +56,26 @@ class CasoController extends Controller
 
         curl_close($curl);
 
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'http://192.168.15.97/oro/public/index.php/api/tarea/lista/caso/' .  $codigoCaso,
+        ));
+
+        $arrTareas = json_decode(curl_exec($curl));
+
+        curl_close($curl);
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'http://192.168.15.97/oro/public/index.php/api/comentario/lista/caso/' .  $codigoCaso,
+        ));
+
+        $arrComentarios = json_decode(curl_exec($curl));
+
+        curl_close($curl);
+
 //        $form = $this->createFormBuilder()
 //            ->add('adjunto', FileType::class, array(
 //                "label" => "Agregar documento:",
@@ -72,7 +92,6 @@ class CasoController extends Controller
 //                ), 'label' => 'GUARDAR'
 //            ))
 //            ->getForm();
-
 //        $resp = $form->getData();
 //
 //        if ($form->isSubmitted() && $form->isValid()) {
@@ -81,7 +100,9 @@ class CasoController extends Controller
 
         return $this->render('Caso/detalle.html.twig', array(
 //            'form' => $form->createView(),
-            'caso' => $resp
+            'caso' => $resp,
+            'arrTareas' => $arrTareas,
+            'arrComentarios' => $arrComentarios
         ));
     }
 

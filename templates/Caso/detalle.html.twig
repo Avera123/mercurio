@@ -13,13 +13,13 @@
     {% block content %}
         <div class="row">
             <div class="col-md-12" style="padding: 20px;">
-                <div class="panel panel-color panel-primary">
+                <div class="panel panel-color panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Detalles del caso: <span
+                        <h3 class="panel-title" style="color: #797979;">Detalles del caso: <span
                                     class="label label-default">#{{ caso[0].codigoCasoPk }} </span></h3><br>
                         <div class="row">
                             <div class="col-md-4">
-                                <h5 class="panel-title"> Paso 1:
+                                <h5 class="panel-title" style="color: #797979;"> Paso 1:
                                     {% if caso[0].estadoAtendido %}
                                         <span class="label label-info">Atendido</span>
                                     {% else %}
@@ -39,9 +39,9 @@
                             </div>
                             <div class="col-md-4">
                                 <strong>Categoria: </strong> <span
-                                        style="background-color: {{ caso[0].categoriaColor }}; padding: 2px;border-radius: 5px;">{{ caso[0].categoria }}</span><br><br>
+                                        style="background-color: {{ caso[0].categoriaColor }}; color: #ffffff; padding: 2px;border-radius: 5px;">{{ caso[0].categoria }}</span><br><br>
                                 <strong>Prioridad:</strong> <span
-                                        style="background-color: {{ caso[0].prioridadColor }}; padding: 2px;border-radius: 5px;">{{ caso[0].prioridad }}</span>
+                                        style="background-color: {{ caso[0].prioridadColor }}; color: #ffffff; padding: 2px;border-radius: 5px;">{{ caso[0].prioridad }}</span>
                             </div>
                         </div>
                     </div>
@@ -78,8 +78,6 @@
                                     <label for="field-3" class="control-label">Soluciona:</label>
                                     <p>{{ caso[0].codigoUsuarioSolucionaFk|default('Sin solucionar') }}</p><br>
                                     <label for="field-3" class="control-label">Fecha de Solución:</label>
-                                    {#<p>{{ caso[0].fechaSolucion|date('d/m/Y')  }}</p>#}
-
                                     <p>
                                         {% if caso[0].fechaSolucion is defined %}
                                             {{ caso[0].fechaSolucion|date('d/m/Y') }}
@@ -136,15 +134,14 @@
                         <hr>
                         {#{{ form_start(form, {'attr':{'enctype':"multipart/form-data"}}) }}#}
                         {#<div class="row">#}
-                            {#<div class="form-group">#}
-                                {#<label class="col-md-2 control-label">Adjunto:</label>#}
-                                {#<div class="col-md-10">#}
-                                    {#{{ form_widget(form.adjunto) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<hr>#}
+                        {#<div class="form-group">#}
+                        {#<label class="col-md-2 control-label">Adjunto:</label>#}
+                        {#<div class="col-md-10">#}
+                        {#{{ form_widget(form.adjunto) }}#}
                         {#</div>#}
-
+                        {#</div>#}
+                        {#<hr>#}
+                        {#</div>#}
                     </div>
                     <div class="panel-footer" style="text-align: right;">
                         {#{{ form_widget(form.btnGuardar) }}#}
@@ -154,6 +151,96 @@
                         <div class="clearfix"></div>
                     </div>
                     {#{{ form_end(form) }}#}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <div class="panel panel-color panel-success">
+                    <h3><a data-toggle="collapse" href="#tareas" aria-expanded="false"
+                           aria-controls="collapseExample">Tareas:</a></h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="collapse" id="tareas">
+                    <div class="card card-block">
+                        <div class="panel panel-inf">
+                            <div class="panel-heading">
+                                Tareas para el caso: #
+                            </div>
+                            <div class="panel-body">
+                                <ul>
+                                    {% for tarea in arrTareas %}
+                                        <li>{{ tarea.descripcion }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <div class="panel panel-color panel-success">
+                    <h3><a data-toggle="collapse" href="#comentarios" aria-expanded="false"
+                           aria-controls="collapseExample">Comentarios:</a></h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="collapse" id="comentarios">
+                    <div class="card card-block">
+                        <div class="timeline">
+                            {#<article class="timeline-item alt">#}
+                            {#<div class="text-right">#}
+                            {#<div class="time-show first">#}
+                            {#<a href="#" class="btn btn-danger w-lg">Today</a>#}
+                            {#</div>#}
+                            {#</div>#}
+                            {#</article>#}
+                            <article class="timeline-item alt">
+                                <div class="timeline-desk">
+                                    <div class="panel">
+                                        <div class="timeline-box">
+                                            <span class="arrow-alt"></span>
+                                            <span class="timeline-icon"><i
+                                                        class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                            <h4 class="">1 hour ago</h4>
+                                            <p class="timeline-date text-muted">
+                                                <small>08:25 am</small>
+                                            </p>
+                                            <p>Dolorum provident rerum aut hic quasi placeat iure tempora laudantium
+                                                ipsa ad
+                                                debitis unde? </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="timeline-item ">
+                                <div class="timeline-desk">
+                                    <div class="panel">
+                                        <div class="timeline-box">
+                                            <span class="arrow"></span>
+                                            <span class="timeline-icon bg-success"><i
+                                                        class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                            <h4 class="text-success">2 hours ago</h4>
+                                            <p class="timeline-date text-muted">
+                                                <small>08:25 am</small>
+                                            </p>
+                                            <p>consectetur adipisicing elit. Iusto, optio, dolorum <a href="#">John
+                                                    deon</a>
+                                                provident rerum aut hic quasi placeat iure tempora laudantium </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

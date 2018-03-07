@@ -72,6 +72,9 @@
                                                     De...
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
+                                                    Es...
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
 
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
@@ -91,7 +94,14 @@
                                                         <strong>{{ caso.empresa }}</strong>
                                                     </td>
                                                     <td>{{ caso.soporte|default('-') }}</td>
-                                                    <td title="Correo: {{ caso.correo }} | Teléfono: {{ caso.telefono }} - ({{ caso.extension }})">{{ caso.contacto }}</td>
+                                                    <td>
+                                                        <span data-toggle="tooltip"
+                                                            data-placement="top"
+                                                            title="Correo: {{ caso.correo }} | Teléfono: {{ caso.telefono }} - ({{ caso.extension }})">
+                                                            {{ caso.contacto }}
+                                                        </span>
+
+                                                    </td>
                                                     <td>
                                                 <span class="label"
                                                       style="background-color: {{ caso.categoriaColor }};">{{ caso.categoria }}</span>
@@ -109,14 +119,32 @@
                                                     </td>
                                                     <td style="text-align: center;">
                                                         {% if caso.estadoAtendido %}
-                                                            <i class="ion ion-happy text-warning" style="font-size: x-large;" title="Se ha atendido el caso"></i>
+                                                            <i class="ion ion-happy text-warning"
+                                                               style="font-size: x-large;"
+                                                               data-toggle="tooltip"
+                                                               data-placement="top"
+                                                               title="Se ha atendido el caso"></i>
                                                         {% else %}
-                                                            <i class="ion ion-sad text-dark" style="font-size: x-large;" title="No se ha atendido el caso aún"></i>
+                                                            <i class="ion ion-sad text-dark" style="font-size: x-large;"
+                                                               data-toggle="tooltip"
+                                                               data-placement="top"
+                                                               title="No se ha atendido el caso aún"></i>
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center;">
                                                         {% if caso.tareasCuenta is defined and caso.tareasCuenta > 0 %}
-                                                            <i class="ion ion-hammer text-dark" style="font-size: x-large;" title="El caso se encuentra escalado a otro departamento"></i>
+                                                            <i class="ion ion-hammer text-dark"
+                                                               style="font-size: x-large;" data-toggle="tooltip"
+                                                               data-placement="top"
+                                                               title="El caso se encuentra escalado a otro departamento"></i>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        {% if caso.estadoEscalado is defined and caso.estadoEscalado == true %}
+                                                            <i class="mdi mdi-escalator text-warning"
+                                                               style="font-size: x-large;" data-toggle="tooltip"
+                                                               data-placement="top"
+                                                               title="Se ha escalado el caso al área encargada"></i>
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center;">

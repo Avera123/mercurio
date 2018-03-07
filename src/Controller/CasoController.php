@@ -73,11 +73,11 @@ class CasoController extends Controller
             ))
             ->getForm();
 
-        $resp = $form->getData();
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->subirAdjuntos($codigoCaso, $resp['adjunto']);
-        }
+//        $resp = $form->getData();
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $this->subirAdjuntos($codigoCaso, $resp['adjunto']);
+//        }
 
         return $this->render('Caso/detalle.html.twig', array(
             'form' => $form->createView(),

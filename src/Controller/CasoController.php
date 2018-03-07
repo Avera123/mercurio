@@ -56,22 +56,22 @@ class CasoController extends Controller
 
         curl_close($curl);
 
-        $form = $this->createFormBuilder()
-            ->add('adjunto', FileType::class, array(
-                "label" => "Agregar documento:",
-                "attr" => array(
-                    "class" => "form-control"
-                )
-            ))
-            ->add('btnGuardar', SubmitType::class, array(
-                'attr' => array(
-                    'id' => '_btnGuardar',
-                    'name' => '_btnGuardar',
-                    'class' => 'btn btn-success',
-                    'style' => 'float:rigth;'
-                ), 'label' => 'GUARDAR'
-            ))
-            ->getForm();
+//        $form = $this->createFormBuilder()
+//            ->add('adjunto', FileType::class, array(
+//                "label" => "Agregar documento:",
+//                "attr" => array(
+//                    "class" => "form-control"
+//                )
+//            ))
+//            ->add('btnGuardar', SubmitType::class, array(
+//                'attr' => array(
+//                    'id' => '_btnGuardar',
+//                    'name' => '_btnGuardar',
+//                    'class' => 'btn btn-success',
+//                    'style' => 'float:rigth;'
+//                ), 'label' => 'GUARDAR'
+//            ))
+//            ->getForm();
 
 //        $resp = $form->getData();
 //
@@ -80,7 +80,7 @@ class CasoController extends Controller
 //        }
 
         return $this->render('Caso/detalle.html.twig', array(
-            'form' => $form->createView(),
+//            'form' => $form->createView(),
             'caso' => $resp
         ));
     }

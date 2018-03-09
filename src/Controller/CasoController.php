@@ -85,6 +85,7 @@ class CasoController extends Controller
         if ($formAdjuntar->isSubmitted() && $formAdjuntar->isValid()) {
             $objArchivo = $formAdjuntar['adjunto']->getData();
         }
+        
 
         return $this->render('Caso/detalle.html.twig', array(
             'form' => $formAdjuntar->createView(),

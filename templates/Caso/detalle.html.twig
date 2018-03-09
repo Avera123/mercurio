@@ -132,25 +132,25 @@
 
                         </div>
                         <hr>
-                        {#{{ form_start(form, {'attr':{'enctype':"multipart/form-data"}}) }}#}
-                        {#<div class="row">#}
-                        {#<div class="form-group">#}
-                        {#<label class="col-md-2 control-label">Adjunto:</label>#}
-                        {#<div class="col-md-10">#}
-                        {#{{ form_widget(form.adjunto) }}#}
-                        {#</div>#}
-                        {#</div>#}
-                        {#<hr>#}
-                        {#</div>#}
+                        {{ form_start(form, {'attr':{'enctype':"multipart/form-data"}}) }}
+                        <div class="row">
+                        <div class="form-group">
+                        <label class="col-md-2 control-label">Adjunto:</label>
+                        <div class="col-md-10">
+                        {{ form_widget(form.adjunto) }}
+                        </div>
+                        </div>
+                        <hr>
+                        </div>
                     </div>
                     <div class="panel-footer" style="text-align: right;">
-                        {#{{ form_widget(form.btnGuardar) }}#}
+                        {{ form_widget(form.btnGuardar) }}
                         <a onclick="history.back()"
                            class="btn btn-default btn-bordered waves-effect w-md m-b-5"
                            style="float: left;"><span class="glyphicon glyphicon-arrow-left"></span> VOLVER</a>
                         <div class="clearfix"></div>
                     </div>
-                    {#{{ form_end(form) }}#}
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>

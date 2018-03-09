@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\ArchivoType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -41,7 +42,7 @@ class CasoController extends Controller
     /**
      * @Route("/caso/detalle/{codigoCaso}", name="casoDetalle")
      */
-    public function casoDetalle($codigoCaso)
+    public function casoDetalle(Request $request, $codigoCaso)
     {
         $em = $this->getDoctrine()->getManager(); // instancia el entity manager
         $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
@@ -76,30 +77,17 @@ class CasoController extends Controller
 
         curl_close($curl);
 
-//        $form = $this->createFormBuilder()
-//            ->add('adjunto', FileType::class, array(
-//                "label" => "Agregar documento:",
-//                "attr" => array(
-//                    "class" => "form-control"
-//                )
-//            ))
-//            ->add('btnGuardar', SubmitType::class, array(
-//                'attr' => array(
-//                    'id' => '_btnGuardar',
-//                    'name' => '_btnGuardar',
-//                    'class' => 'btn btn-success',
-//                    'style' => 'float:rigth;'
-//                ), 'label' => 'GUARDAR'
-//            ))
-//            ->getForm();
-//        $resp = $form->getData();
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $this->subirAdjuntos($codigoCaso, $resp['adjunto']);
-//        }
+        $formAdjuntar = $this->createForm(ArchivoType::class);
+        $formAdjuntar->handleRequest($request);
+
+        $adjunto = $formAdjuntar->getData();
+
+        if ($formAdjuntar->isSubmitted() && $formAdjuntar->isValid()) {
+            $objArchivo = $formAdjuntar['adjunto']->getData();
+        }
 
         return $this->render('Caso/detalle.html.twig', array(
-//            'form' => $form->createView(),
+            'form' => $formAdjuntar->createView(),
             'caso' => $resp,
             'arrTareas' => $arrTareas,
             'arrComentarios' => $arrComentarios

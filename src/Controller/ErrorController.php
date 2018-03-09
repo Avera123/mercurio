@@ -21,10 +21,11 @@ class ErrorController extends Controller
             CURLOPT_URL => $serviceUrl . 'error/lista/1/'. $this->getUser()->getCodigoClienteFk(),
         ));
         $arrErrores = json_decode(curl_exec($curl));
+        $arrErrorLista = $arrErrores->registros;
         curl_close($curl);
 
         return $this->render('Error/lista.html.twig', array(
-            'errores' => $arrErrores
+            'errores' => $arrErrorLista
         ));
     }
 }

@@ -5,77 +5,76 @@
 {% block body %}
 
     <div id="wrapper">
-        {{ include('Bloques/menu.html.twig') }}
+    {{ include('Bloques/menu.html.twig') }}
 
-        {{ include('Bloques/menuIzquierdo.html.twig') }}
-        <div class="content-page">
-            <!-- Start content -->
-            <div class="content">
-                <div class="container">
-                    {% block content %}
-                        {#{{ form_start(form) }}#}
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="page-title-box">
-                                    <h4 class="page-title" style="padding-right: 10px;"><i
-                                                class="mdi mdi-phone-in-talk"></i> Errores </h4>
-                                </div>
-                            </div>
+    {{ include('Bloques/menuIzquierdo.html.twig') }}
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container">
+                {% block content %}
+                {#{{ form_start(form) }}#}
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="page-title-box">
+                            <h4 class="page-title" style="padding-right: 10px;"><i
+                                        class="mdi mdi-phone-in-talk"></i> Errores </h4>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card-box">
-                                    <div class="row">
-                                        {#<div class="col-md-8 col-md-offset-2">#}
-                                            {#<div class="input-group m-t-10">#}
-                                                {#{{ form_widget(form.cliente, {'attr':{'class':'form-control'}}) }}#}
-                                                {#<span class="input-group-btn">#}
-                                                    {#{{ form_widget(form.btnFiltrar, {'attr':{'class':'btn waves-effect waves-light btn-custom'}}) }}#}
-                                                {#</span>#}
-                                            {#</div>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                    {#<hr>#}
-                                    {% for error in errores %}
-                                        {% if not error.estadoAtendido %}
-                                            <div class="search-item">
-                                                <h3 class="h5 font-600 m-b-5"><a href="#">{{ error.cliente }}</a></h3>
-                                                <h6>Id: {{ error.id }} Código: {{ error.codigo }}
-                                                    Fecha:{{ error.fecha|date('Y/m/d H:m') }}</h6>
-                                                <div class="font-13 text-success m-b-10">
-                                                    {{ error.url }}
-                                                </div>
-                                                <p class="m-b-0">
-                                                    <a data-toggle="collapse" href="#{{ error.id }}" aria-expanded="false"
-                                                       aria-controls="collapseExample">{{ error.mensaje|slice(0,100) }}</a>
-                                                </p>
-                                                <div class="collapse" id="{{ error.id }}">
-                                                    <hr>
-                                                    <div class="card card-block">
-                                                        {{ error.mensaje }}
-                                                    </div>
-                                                    <hr>
-                                                </div>
-                                            </div>
-                                            <div style="float: right">
-                                                <a href="{{ path('errorAtender', { 'codigoError':  error.id }) }}" class="btn btn-success" data-toggle="tooltip"
-                                                   data-placement="top" title="Atender al error"
-                                                   data-original-title="Tooltip on top"><span
-                                                            class="glyphicon glyphicon-ok"></span></a>
-                                                <a href="{{ path('registrarSolucionError', { 'codigoError':  error.id }) }}" class="btn btn-info" data-toggle="tooltip"
-                                                   data-placement="top" title="Enviar Correo solucionado al cliente"
-                                                   data-original-title="Tooltip on top"><span
-                                                            class="glyphicon glyphicon-send"></span></a>
-                                            </div>
-                                            <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-box">
+                            <div class="row">
+                                {#<div class="col-md-8 col-md-offset-2">#}
+                                {#<div class="input-group m-t-10">#}
+                                {#{{ form_widget(form.cliente, {'attr':{'class':'form-control'}}) }}#}
+                                {#<span class="input-group-btn">#}
+                                {#{{ form_widget(form.btnFiltrar, {'attr':{'class':'btn waves-effect waves-light btn-custom'}}) }}#}
+                                {#</span>#}
+                                {#</div>#}
+                                {#</div>#}
+                                {#</div>#}
+                                {#<hr>#}
+                                {% for error in errores %}
+                                    <div class="search-item">
+                                        <h3 class="h5 font-600 m-b-5"><a href="#">{{ error.nombreCliente }}</a></h3>
+                                        <h6>Id: {{ error.codigoErrorPk }} Código: {{ error.codigo }}
+                                            Fecha:{{ error.fecha|date('Y/m/d H:m') }}</h6>
+                                        <div class="font-13 text-success m-b-10">
+                                            {{ error.url }}
+                                        </div>
+                                        <p class="m-b-0">
+                                            <a data-toggle="collapse" href="#{{ error.codigoErrorPk }}"
+                                               aria-expanded="false"
+                                               aria-controls="collapseExample">{{ error.mensaje|slice(0,100) }}</a>
+                                        </p>
+                                        <div class="collapse" id="{{ error.codigoErrorPk }}">
                                             <hr>
-                                        {% endif %}
-                                    {% endfor %}
+                                            <div class="card card-block">
+                                                {{ error.mensaje }}
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    {#<div style="float: right">#}
+                                    {#<a href="{{ path('errorAtender', { 'codigoError':  error.codigoErrorPk }) }}" class="btn btn-success" data-toggle="tooltip"#}
+                                    {#data-placement="top" title="Atender al error"#}
+                                    {#data-original-title="Tooltip on top"><span#}
+                                    {#class="glyphicon glyphicon-ok"></span></a>#}
+                                    {#<a href="{{ path('registrarSolucionError', { 'codigoError':  error.codigoErrorPk }) }}" class="btn btn-info" data-toggle="tooltip"#}
+                                    {#data-placement="top" title="Enviar Correo solucionado al cliente"#}
+                                    {#data-original-title="Tooltip on top"><span#}
+                                    {#class="glyphicon glyphicon-send"></span></a>#}
+                                    {#</div>#}
                                     <div class="clearfix"></div>
-                                </div>
+                                    <hr>
+                                {% endfor %}
+                                <div class="clearfix"></div>
                             </div>
                         </div>
-                        {#{{ form_end(form) }}#}
+                    </div>
+                    {#{{ form_end(form) }}#}
                     {% endblock content %}
                 </div> <!-- container -->
             </div> <!-- content -->

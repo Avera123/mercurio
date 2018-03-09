@@ -155,90 +155,148 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12" style="text-align: center;">
-                <div class="panel panel-color panel-success">
-                    <h3><a data-toggle="collapse" href="#tareas" aria-expanded="false"
-                           aria-controls="collapseExample">Tareas:</a></h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="collapse" id="tareas">
-                    <div class="card card-block">
-                        <div class="panel panel-inf">
-                            <div class="panel-heading">
-                                Tareas para el caso: #
+            <div class="col-md-12">
+                <div class="panel panel-border panel-teal">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Adjuntos:</h3>
+                    </div>
+                    <hr>
+                    <div class="panel-body">
+                        <div class="col-md-2 col-sm-6">
+                            <div class="property-card">
+                                {#<div class="property-image" style="background: url('assets/images/properties/4.jpg') center center / cover no-repeat;">#}
+                                {#<span class="property-label label label-warning">For Rent</span>#}
+                                {#</div>#}
+
+                                <div class="property-content">
+                                    <div class="listingInfo">
+                                        <div class="">
+                                            <h3 class="text-overflow"><a href="#" class="text-dark">Archivo</a></h3>
+                                            <p class="text-muted text-overflow"><i
+                                                        class="mdi mdi-map-marker-radius m-r-5"></i>Ruta
+                                            </p>
+
+                                            <div class="m-t-20">
+                                                <button type="button"
+                                                        class="btn btn-success btn-block waves-effect waves-light">
+                                                    Descargar
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- end. Card actions -->
+                                </div>
+                                <!-- /inner row -->
                             </div>
-                            <div class="panel-body">
-                                <ul>
-                                    {% for tarea in arrTareas %}
-                                        <li>{{ tarea.descripcion }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
+                            <!-- End property item -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12" style="text-align: center;">
-                <div class="panel panel-color panel-success">
-                    <h3><a data-toggle="collapse" href="#comentarios" aria-expanded="false"
-                           aria-controls="collapseExample">Comentarios:</a></h3>
+            <div class="col-md-6">
+                <div class="panel panel-border panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Tareas:</h3>
+                    </div>
+                    <hr>
+                    <div class="panel-body">
+                        <div class="timeline timeline-left">
+                            {% if arrTareas is defined or arrTareas|length == 0 %}
+                                <article class="timeline-item">
+                                    <div class="timeline-desk">
+                                        <div class="panel">
+                                            <div class="timeline-box">
+                                                {#<span class="arrow"></span>#}
+                                                {#<span class="timeline-icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>#}
+                                                {#<h4 class="">1 hour ago</h4>#}
+                                                {#<p class="timeline-date text-muted"><small>08:25 am</small></p>#}
+                                                <p><i>No hay tareas para este caso.</i></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            {% else %}
+                                {% for tarea in arrTareas %}
+                                    <article class="timeline-item">
+                                        <div class="timeline-desk">
+                                            <div class="panel">
+                                                <div class="timeline-box">
+                                                    {#<span class="arrow"></span>#}
+                                                    {#<span class="timeline-icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>#}
+                                                    {#<h4 class="">1 hour ago</h4>#}
+                                                    {#<p class="timeline-date text-muted"><small>08:25 am</small></p>#}
+                                                    <p>{{ tarea.descripcion }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="collapse" id="comentarios">
-                    <div class="card card-block">
-                        <div class="timeline">
-                            {#<article class="timeline-item alt">#}
-                            {#<div class="text-right">#}
-                            {#<div class="time-show first">#}
-                            {#<a href="#" class="btn btn-danger w-lg">Today</a>#}
-                            {#</div>#}
-                            {#</div>#}
-                            {#</article>#}
-                            <article class="timeline-item alt">
-                                <div class="timeline-desk">
-                                    <div class="panel">
-                                        <div class="timeline-box">
-                                            <span class="arrow-alt"></span>
-                                            <span class="timeline-icon"><i
-                                                        class="mdi mdi-checkbox-blank-circle-outline"></i></span>
-                                            <h4 class="">1 hour ago</h4>
-                                            <p class="timeline-date text-muted">
-                                                <small>08:25 am</small>
-                                            </p>
-                                            <p>Dolorum provident rerum aut hic quasi placeat iure tempora laudantium
-                                                ipsa ad
-                                                debitis unde? </p>
+            <div class="col-md-6">
+                <div class="panel panel-border panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Comentarios:</h3>
+                    </div>
+                    <hr>
+                    <div class="panel-body">
+                        <div id="comentarios">
+                            <div class="card card-block">
+                                <div class="timeline">
+                                    {#<article class="timeline-item alt">#}
+                                    {#<div class="text-right">#}
+                                    {#<div class="time-show first">#}
+                                    {#<a href="#" class="btn btn-danger w-lg">Today</a>#}
+                                    {#</div>#}
+                                    {#</div>#}
+                                    {#</article>#}
+                                    <article class="timeline-item alt">
+                                        <div class="timeline-desk">
+                                            <div class="panel">
+                                                <div class="timeline-box">
+                                                    <span class="arrow-alt"></span>
+                                                    <span class="timeline-icon"><i
+                                                                class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                                    <h4 class="">1 hour ago</h4>
+                                                    <p class="timeline-date text-muted">
+                                                        <small>08:25 am</small>
+                                                    </p>
+                                                    <p>Dolorum provident rerum aut hic quasi placeat iure tempora
+                                                        laudantium
+                                                        ipsa ad
+                                                        debitis unde? </p>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="timeline-item ">
-                                <div class="timeline-desk">
-                                    <div class="panel">
-                                        <div class="timeline-box">
-                                            <span class="arrow"></span>
-                                            <span class="timeline-icon bg-success"><i
-                                                        class="mdi mdi-checkbox-blank-circle-outline"></i></span>
-                                            <h4 class="text-success">2 hours ago</h4>
-                                            <p class="timeline-date text-muted">
-                                                <small>08:25 am</small>
-                                            </p>
-                                            <p>consectetur adipisicing elit. Iusto, optio, dolorum <a href="#">John
-                                                    deon</a>
-                                                provident rerum aut hic quasi placeat iure tempora laudantium </p>
+                                    </article>
+                                    <article class="timeline-item ">
+                                        <div class="timeline-desk">
+                                            <div class="panel">
+                                                <div class="timeline-box">
+                                                    <span class="arrow"></span>
+                                                    <span class="timeline-icon bg-success"><i
+                                                                class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                                    <h4 class="text-success">2 hours ago</h4>
+                                                    <p class="timeline-date text-muted">
+                                                        <small>08:25 am</small>
+                                                    </p>
+                                                    <p>consectetur adipisicing elit. Iusto, optio, dolorum <a href="#">John
+                                                            deon</a>
+                                                        provident rerum aut hic quasi placeat iure tempora laudantium
+                                                    </p>
 
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </article>
                                 </div>
-                            </article>
+                            </div>
                         </div>
                     </div>
                 </div>

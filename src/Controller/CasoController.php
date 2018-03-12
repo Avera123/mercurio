@@ -42,7 +42,7 @@ class CasoController extends Controller
     /**
      * @Route("/caso/detalle/{codigoCaso}", name="casoDetalle")
      */
-    public function casoDetalle(Request $request, $codigoCaso)
+    public function detalle(Request $request, $codigoCaso)
     {
         $em = $this->getDoctrine()->getManager(); // instancia el entity manager
         $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
@@ -77,52 +77,61 @@ class CasoController extends Controller
 
         curl_close($curl);
 
-        $formAdjuntar = $this->createForm(ArchivoType::class);
-        $formAdjuntar->handleRequest($request);
+        //$formAdjuntar = $this->createForm(ArchivoType::class);
+        //$formAdjuntar->handleRequest($request);
+        $form = $this->createFormBuilder()
+            ->add('archivo', fileType::class)
+            ->add('btnGuardar', SubmitType::class, array('label'  => 'Cargar'))
+            ->getForm();
+        $form->handleRequest($request);
 
-        $adjunto = $formAdjuntar->getData();
+        //$adjunto = $formAdjuntar->getData();
 
-        if ($formAdjuntar->isSubmitted() && $formAdjuntar->isValid()) {
-            $objArchivo = $formAdjuntar['adjunto']->getData();
+        if ($form->isSubmitted() && $form->isValid()) {
+            //$objArchivo = $formAdjuntar['adjunto']->getData();
+            if($form->get('btnGuardar')->isClicked()) {
+                $objArchivo = $form['archivo']->getData();
+                if ($objArchivo->getClientSize()){
+                    $strDestino = "/var/www/archivosoro/";
+                    $strArchivo = md5(uniqid()).'.'.$objArchivo->guessExtension();
+
+                    $arrArchivo = array(
+                        "nombre" => $objArchivo->getClientOriginalName(),
+                        "nombreAlmacenamiento" => $strArchivo,
+                        "extension" => $objArchivo->getClientOriginalExtension(),
+                        "tamano" => $objArchivo->getClientSize(),
+                        "tipo" => $objArchivo->getClientMimeType(),
+                        "fecha" => new \DateTime('now'),
+                        "directorio" => 1,
+                        "codigoDocumento" => 1,
+                        "numero" => $codigoCaso
+                    );
+
+                    $arrEnviar = json_encode($arrArchivo);
+                    $ch = curl_init($serviceUrl . 'archivo/nuevo/');
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                            'Content-Type: application/json',
+                            'Content-Length: ' . strlen($arrEnviar))
+                    );
+                    $result = curl_exec($ch);
+                    $form['archivo']->getData()->move($strDestino, $strArchivo);
+
+                    //return $this->redirect($this->generateUrl('brs_ad_archivos_lista', array('codigoDocumento' => $codigoDocumento, 'numero' => $numero)));
+                } else {
+                    echo "El archivo tiene un tamaño mayor al permitido";
+                }
+            }
         }
         
 
         return $this->render('Caso/detalle.html.twig', array(
-            'form' => $formAdjuntar->createView(),
+            'form' => $form->createView(),
             'caso' => $resp,
             'arrTareas' => $arrTareas,
             'arrComentarios' => $arrComentarios
-        ));
-    }
-
-    public function subirAdjuntos($codigoCaso = null, $adjunto = null)
-    {
-        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
-        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
-        if (isset($adjunto) and $adjunto != null) {
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL => $serviceUrl . 'caso/adjuntar/'.$codigoCaso,
-                CURLOPT_POST => 1,
-                CURLOPT_POSTFIELDS => 'adjunto=' . $_POST['adjunto']
-            ));
-        }
-        $resp = json_decode(curl_exec($curl));
-        curl_close($curl);
-//
-//        $file_name_with_full_path = realpath($serviceUrl . '/adjuntos/sample.jpeg');
-//        $post = array('codigoCaso' => $codigoCaso,'adjunto'=>'@'.$file_name_with_full_path);
-//
-//        $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL, $serviceUrl);
-//        curl_setopt($ch, CURLOPT_POST,1);
-//        curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-//
-
-        return $this->render('Caso/detalle.html.twig', array(
-            'caso' => $resp
         ));
     }
 

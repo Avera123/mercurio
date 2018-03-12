@@ -134,13 +134,13 @@
                         <hr>
                         {{ form_start(form, {'attr':{'enctype':"multipart/form-data"}}) }}
                         <div class="row">
-                        <div class="form-group">
-                        <label class="col-md-2 control-label">Adjunto:</label>
-                        <div class="col-md-10">
-                        {{ form_widget(form.archivo) }}
-                        </div>
-                        </div>
-                        <hr>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Adjunto:</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.archivo) }}
+                                </div>
+                            </div>
+                            <hr>
                         </div>
                     </div>
                     <div class="panel-footer" style="text-align: right;">
@@ -162,35 +162,36 @@
                     </div>
                     <hr>
                     <div class="panel-body">
-                        <div class="col-md-2 col-sm-6">
-                            <div class="property-card">
-                                {#<div class="property-image" style="background: url('assets/images/properties/4.jpg') center center / cover no-repeat;">#}
-                                {#<span class="property-label label label-warning">For Rent</span>#}
-                                {#</div>#}
+                        {% if arrArchivos is defined and arrArchivos|length > 0 %}
+                            {% for archivo in arrArchivos %}
+                                <div class="col-md-2 col-sm-6">
 
-                                <div class="property-content">
-                                    <div class="listingInfo">
-                                        <div class="">
-                                            <h3 class="text-overflow"><a href="#" class="text-dark">Archivo</a></h3>
-                                            <p class="text-muted text-overflow"><i
-                                                        class="mdi mdi-map-marker-radius m-r-5"></i>Ruta
-                                            </p>
-
-                                            <div class="m-t-20">
-                                                <button type="button"
-                                                        class="btn btn-success btn-block waves-effect waves-light">
-                                                    Descargar
-                                                </button>
+                                    <div class="property-card">
+                                        <div class="property-content">
+                                            <div class="listingInfo">
+                                                <div class="">
+                                                    <h3 class="text-overflow"><a href="#"
+                                                                                 class="text-dark">{{ archivo.nombre }}</a>
+                                                    </h3>
+                                                    <p class="text-muted text-overflow">
+                                                        <i class="mdi mdi-map-marker-radius m-r-5"></i>{{ archivo.nombreAlmacenamiento }}
+                                                        <br>
+                                                        {#{{ archivo.fecha|date('Y/m/d') }}#}
+                                                    </p>
+                                                    <div class="m-t-20">
+                                                        <button type="button"
+                                                                class="btn btn-success btn-block waves-effect waves-light">
+                                                            Descargar
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
-
                                         </div>
                                     </div>
-                                    <!-- end. Card actions -->
+                                    <!-- End property item -->
                                 </div>
-                                <!-- /inner row -->
-                            </div>
-                            <!-- End property item -->
-                        </div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -249,13 +250,6 @@
                         <div id="comentarios">
                             <div class="card card-block">
                                 <div class="timeline">
-                                    {#<article class="timeline-item alt">#}
-                                    {#<div class="text-right">#}
-                                    {#<div class="time-show first">#}
-                                    {#<a href="#" class="btn btn-danger w-lg">Today</a>#}
-                                    {#</div>#}
-                                    {#</div>#}
-                                    {#</article>#}
                                     <article class="timeline-item alt">
                                         <div class="timeline-desk">
                                             <div class="panel">

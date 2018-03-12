@@ -77,6 +77,16 @@ class CasoController extends Controller
 
         curl_close($curl);
 
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => 'http://192.168.15.97/oro/public/index.php/api/archivo/lista/'. 1 . '/' .  $codigoCaso,
+        ));
+
+        $arrArchivos = json_decode(curl_exec($curl));
+
+        curl_close($curl);
+
         //$formAdjuntar = $this->createForm(ArchivoType::class);
         //$formAdjuntar->handleRequest($request);
         $form = $this->createFormBuilder()
@@ -108,7 +118,7 @@ class CasoController extends Controller
                     );
 
                     $arrEnviar = json_encode($arrArchivo);
-                    $ch = curl_init($serviceUrl . 'archivo/nuevo/');
+                    $ch = curl_init('http://192.168.15.97/oro/public/index.php/api/archivo/nuevo/');
                     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                     curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -131,7 +141,8 @@ class CasoController extends Controller
             'form' => $form->createView(),
             'caso' => $resp,
             'arrTareas' => $arrTareas,
-            'arrComentarios' => $arrComentarios
+            'arrComentarios' => $arrComentarios,
+            'arrArchivos' => $arrArchivos
         ));
     }
 

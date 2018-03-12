@@ -166,7 +166,7 @@
                             {% for archivo in arrArchivos %}
                                 <div class="col-md-1">
 
-                                    <a href="{{ path('archivo_descarga', { 'tipo': archivo.tipo, 'tamano': archivo.tamano, 'nombre':archivo.nombre }) }}">
+                                    <a href="{{ path('archivo_descarga', { 'codigoArchivo': archivo.codigoArchivoPk }) }}">
                                         <div class="btn btn-icon waves-effect btn-outline-warning m-b-5" style="font-size: medium;">
                                             <i class="mdi mdi-file-excel"></i><br><strong>
                                                 {{ archivo.nombre }}

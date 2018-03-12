@@ -41,9 +41,9 @@ class CasoController extends Controller
     }
 
     /**
-     * @Route("/caso/registrar/informacionRespuesta/{codigoCaso}",requirements={"codigoCaso":"\d+"}, name="responderSolucitudInformacion")
+     * @Route("/caso/informacion/respuesta/{codigoCaso}",requirements={"codigoCaso":"\d+"}, name="caso_respuesta_informacion")
      */
-    public function registrarSolucion(Request $request, $codigoCaso = null, \Swift_Mailer $mailer)
+    public function respuestaInformacion(Request $request, $codigoCaso = null)
     {
         $em = $this->getDoctrine()->getManager(); // instancia el entity manager
         $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
@@ -55,7 +55,7 @@ class CasoController extends Controller
         $user = $this->getUser()->getCodigoUsuarioPk();
 
         $form = $this->createFormBuilder()
-            ->add('requisitoInformacion', TextareaType::class, array(
+            ->add('txtRespuestaInformacion', TextareaType::class, array(
                 'attr' => array(
                     'id' => '_requisitoInformacion',
                     'name' => '_requisitoInformacion',
@@ -63,7 +63,7 @@ class CasoController extends Controller
                 ),
                 'required' => false
             ))
-            ->add('btnEnviar', SubmitType::class, array(
+            ->add('btnGuardar', SubmitType::class, array(
                 'attr' => array(
                     'id' => '_btnEnviar',
                     'name' => '_btnEnviar'
@@ -74,27 +74,21 @@ class CasoController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $arrCaso = array(
+                "respuestaInformacion" => $form->get('txtRespuestaInformacion')->getData()
+            );
 
-//            dump($arCaso);
-//            die();
-
-            $arCaso->setSolicitudInformacion($form->get('requisitoInformacion')->getData());
-            $arCaso->setEstadoSolicitudInformacion(true);
-            $arCaso->setFechaSolicitudInformacion(new \DateTime('now'));
-
-            $arrEnviar = json_encode($arCaso);
-
-            $ch = curl_init($serviceUrl . 'caso/nuevo/' . arCaso['codigoCasoPk']);
-
+            $arrCaso = json_encode($arrCaso);
+            $ch = curl_init($serviceUrl . 'caso/respuesta/informacion/' . $codigoCaso);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $arrCaso);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json',
-                    'Content-Length: ' . strlen($arrEnviar))
+                    'Content-Length: ' . strlen($arrCaso))
             );
-
             $result = curl_exec($ch);
+            curl_close($ch);
 
             echo "<script>window.opener.location.reload();window.close()</script>";
         }

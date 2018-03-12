@@ -133,83 +133,84 @@
                         </div>
                         <hr>
                         {{ form_start(form, {'attr':{'enctype':"multipart/form-data"}}) }}
-                        <div class="row">
-                            <div class="form-group">
-                                <label class="col-md-2 control-label">Adjunto:</label>
-                                <div class="col-md-10">
-                                    {{ form_widget(form.archivo) }}
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
                     </div>
                     <div class="panel-footer" style="text-align: right;">
-                        {{ form_widget(form.btnGuardar) }}
+
                         <a onclick="history.back()"
                            class="btn btn-default btn-bordered waves-effect w-md m-b-5"
                            style="float: left;"><span class="glyphicon glyphicon-arrow-left"></span> VOLVER</a>
                         <div class="clearfix"></div>
                     </div>
-                    {{ form_end(form) }}
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-border panel-teal">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Adjuntos:</h3>
-                    </div>
-                    <hr>
-                    <div class="panel-body">
-                        {% if arrArchivos is defined and arrArchivos|length > 0 %}
-                            {% for archivo in arrArchivos %}
-                                <div class="col-md-1">
 
-                                    <a href="{{ path('archivo_descarga', { 'codigoArchivo': archivo.codigoArchivoPk }) }}">
-                                        <div class="btn btn-icon waves-effect btn-outline-warning m-b-5" style="font-size: medium;">
-                                            <i class="mdi mdi-file-excel"></i><br><strong>
-                                                {{ archivo.nombre }}
-                                            </strong>
-                                        </div>
-                                    </a>
-
-                                    <span id="tooltip-hover" class="btn btn-success tooltipstered">Hover Me</span>
-                                </div>
-                                {#<div class="col-md-2 col-sm-6">#}
-
-                                    {#<div class="property-card">#}
-                                        {#<div class="property-content">#}
-                                            {#<div class="listingInfo">#}
-                                                {#<div class="">#}
-                                                    {#<h3 class="text-overflow"><a href="#"#}
-                                                                                 {#class="text-dark">{{ archivo.nombre }}</a>#}
-                                                    {#</h3>#}
-                                                    {#<p class="text-muted text-overflow">#}
-                                                        {#<i class="mdi mdi-map-marker-radius m-r-5"></i>{{ archivo.nombreAlmacenamiento }}#}
-                                                        {#<br>#}
-                                                        {#{{ archivo.fecha|date('Y/m/d') }}#}
-                                                    {#</p>#}
-                                                    {#<div class="m-t-20">#}
-                                                        {#<button type="button"#}
-                                                                {#class="btn btn-success btn-block waves-effect waves-light">#}
-                                                            {#Descargar#}
-                                                        {#</button>#}
-                                                    {#</div>#}
-                                                {#</div>#}
-                                            {#</div>#}
-                                        {#</div>#}
-                                    {#</div>#}
-                                    {#<!-- End property item -->#}
-                                {#</div>#}
-                            {% endfor %}
-                        {% endif %}
-                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
+                <div class="panel panel-border panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Adjuntos:</h3>
+                    </div>
+                    <hr>
+                    <div class="panel-body">
+                        <div class="col-sm-12">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Adjunto:</label>
+                                    <div class="col-md-8">
+                                        {{ form_widget(form.archivo) }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ form_widget(form.btnGuardar,{'attr':{'class':'btn btn-block btn-md btn-success waves-effect waves-light'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if arrArchivos is defined and arrArchivos|length > 0 %}
+                            <hr><br>
+                            <table class="tablesaw m-t-20 table m-b-0 tablesaw-stack" data-tablesaw-mode="stack"
+                                   id="table-2285">
+                                <thead>
+                                <tr>
+                                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="persist">
+                                        Titulo
+                                    </th>
+                                    {#<th scope="col" data-tablesaw-sortable-col=""#}
+                                    {#data-tablesaw-sortable-default-col="" data-tablesaw-priority="3">Fecha#}
+                                    {#</th>#}
+                                    {#<th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="2">#}
+                                        {#Tamaño#}
+                                    {#</th>#}
+                                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="1">Tipo
+                                    </th>
+                                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="1">Bajar
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for archivo in arrArchivos %}
+                                    <tr>
+                                        <td><span
+                                                    class="tablesaw-cell-content">{{ archivo.nombre }}</span></td>
+                                        {#<td><b class="tablesaw-cell-label">Rank</b><span#}
+                                        {#class="tablesaw-cell-content">{{ archivo.fecha|date('Y/m/d') }}</span>#}
+                                        {#</td>#}
+                                        {#<td><span#}
+                                                    {#class="tablesaw-cell-content">{{ archivo.tamano }}</span></td>#}
+                                        <td><span
+                                                    class="tablesaw-cell-content">{{ archivo.tipo }}</span></td>
+                                        <td><span
+                                                    class="tablesaw-cell-content"><a
+                                                        href="{{ path('archivo_descarga',{'codigoArchivo':archivo.codigoArchivoPk}) }}"><i
+                                                        class="glyphicon glyphicon-cloud-download"></i> Descargar</a></span></td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        {% endif %}
+                    </div>
+                </div>
                 <div class="panel panel-border panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">Tareas:</h3>
@@ -281,16 +282,16 @@
                                                 </div>
                                             </article>
                                         {% endfor %}
-                                        {% else %}
-                                            <article class="timeline-item alt">
-                                                <div class="timeline-desk">
-                                                    <div class="panel">
-                                                        <div class="timeline-box">
-                                                            <p>Sin Comentarios para este caso</p>
-                                                        </div>
+                                    {% else %}
+                                        <article class="timeline-item alt">
+                                            <div class="timeline-desk">
+                                                <div class="panel">
+                                                    <div class="timeline-box">
+                                                        <p>Sin Comentarios para este caso</p>
                                                     </div>
                                                 </div>
-                                            </article>
+                                            </div>
+                                        </article>
                                     {% endif %}
                                 </div>
                             </div>
@@ -299,6 +300,7 @@
                 </div>
             </div>
         </div>
+        {{ form_end(form) }}
         {{ include('Bloques/pie.html.twig') }}
     {% endblock %}
 {% endblock %}

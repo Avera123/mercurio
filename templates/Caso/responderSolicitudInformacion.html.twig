@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+    {% block body %}
+        {#inicio modal#}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-box">
+                    <button type="button" class="close" onclick="window.close()" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    {{ form_start(form, { 'attr': {'id':'form','class': 'form-horizontal','data-parsley-validate':'true','novalidate':'novalidate'} }) }}
+                    <div class="row">
+                        <h4>Descripción de caso solucionado.</h4>
+                        <div class="col-md-4">
+                            <h5>Fecha registro:</h5><br>
+                            <h5>Asunto:</h5>{% if arCaso.asunto is defined %}
+                                {{ arCaso.asunto }}
+                            {% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            {#<h5>Caso:</h5>{{ arCaso.codigoCasoPk }}<br>#}
+                            {#<h5>Usuario Atiende:</h5>{{ arCaso.codigoUsuarioAtiendeFk }}#}
+                            {#<h5>Correo:</h5>{{ arCaso.correo }}#}
+                        </div>
+
+                        <div class="col-md-4">
+                            {#<h5>Descripción:</h5>{{ arCaso.descripcion }}<br>#}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Descripción:</label>
+                                <div class="col-md-10">
+                                    {{ arCaso.descripcion }}
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Solicitud información:</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.requisitoInformacion,{'attr': {'rows':'10'},'value':''}) }}
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    {{ form_widget(form.btnEnviar, { 'attr': {'class': 'btn btn-success btn-bordered waves-effect w-md waves-light m-b-5','style':'float:right;margin-left:5px;'} }) }}
+                                    <a href="#" onclick="window.close()"
+                                       class="btn btn-default btn-bordered waves-effect w-md m-b-5"
+                                       style="float: right;">CANCELAR</a>
+                                </div>
+                            </div>
+                            {{ form_widget(form._token) }}
+                            {{ form_end(form, {'render_rest': false}) }}
+                        </div>
+                        {#fin modal#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

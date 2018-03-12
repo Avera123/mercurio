@@ -79,6 +79,8 @@
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
 
+                                                </th><th class="sorting" tabindex="0" aria-controls="datatable-keytable">
+
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
 
@@ -96,8 +98,8 @@
                                                     <td>{{ caso.soporte|default('-') }}</td>
                                                     <td>
                                                         <span data-toggle="tooltip"
-                                                            data-placement="top"
-                                                            title="Correo: {{ caso.correo }} | Teléfono: {{ caso.telefono }} - ({{ caso.extension }})">
+                                                              data-placement="top"
+                                                              title="Correo: {{ caso.correo }} | Teléfono: {{ caso.telefono }} - ({{ caso.extension }})">
                                                             {{ caso.contacto }}
                                                         </span>
 
@@ -162,6 +164,12 @@
                                                                         class="glyphicon glyphicon-trash"></i>
                                                             </a>
                                                         {% endif %}
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        <a href="javascript:abrirVentana('{{ path('responderSolucitudInformacion', { 'codigoCaso':  caso.codigoCasoPk }) }}','Crear Tarea',800,1200)"
+                                                           class="btn btn-purple waves-effect waves-light btn-xs"><i
+                                                                    class="glyphicon glyphicon-info-sign parpadea flash"></i>
+                                                        </a>
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <a href="{{ path('casoDetalle', { 'codigoCaso':  caso.codigoCasoPk }) }}"

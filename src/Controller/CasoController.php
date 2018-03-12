@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,6 +41,70 @@ class CasoController extends Controller
     }
 
     /**
+     * @Route("/caso/registrar/informacionRespuesta/{codigoCaso}",requirements={"codigoCaso":"\d+"}, name="responderSolucitudInformacion")
+     */
+    public function registrarSolucion(Request $request, $codigoCaso = null, \Swift_Mailer $mailer)
+    {
+        $em = $this->getDoctrine()->getManager(); // instancia el entity manager
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+        /**
+         * @var $arCaso Caso
+         */
+        $arCaso = $this->getCasoUno($codigoCaso);
+        $arCaso = $arCaso[0];
+        $user = $this->getUser()->getCodigoUsuarioPk();
+
+        $form = $this->createFormBuilder()
+            ->add('requisitoInformacion', TextareaType::class, array(
+                'attr' => array(
+                    'id' => '_requisitoInformacion',
+                    'name' => '_requisitoInformacion',
+                    'class' => 'form-control'
+                ),
+                'required' => false
+            ))
+            ->add('btnEnviar', SubmitType::class, array(
+                'attr' => array(
+                    'id' => '_btnEnviar',
+                    'name' => '_btnEnviar'
+                ), 'label' => 'Responder'
+            ))
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+//            dump($arCaso);
+//            die();
+
+            $arCaso->setSolicitudInformacion($form->get('requisitoInformacion')->getData());
+            $arCaso->setEstadoSolicitudInformacion(true);
+            $arCaso->setFechaSolicitudInformacion(new \DateTime('now'));
+
+            $arrEnviar = json_encode($arCaso);
+
+            $ch = curl_init($serviceUrl . 'caso/nuevo/' . arCaso['codigoCasoPk']);
+
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Content-Type: application/json',
+                    'Content-Length: ' . strlen($arrEnviar))
+            );
+
+            $result = curl_exec($ch);
+
+            echo "<script>window.opener.location.reload();window.close()</script>";
+        }
+        return $this->render('Caso/responderSolicitudInformacion.html.twig', [
+            'form' => $form->createView(),
+            'arCaso' => $arCaso
+        ]);
+    }
+
+    /**
      * @Route("/caso/detalle/{codigoCaso}", name="casoDetalle")
      */
     public function detalle(Request $request, $codigoCaso)
@@ -60,7 +125,7 @@ class CasoController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $serviceUrl . 'tarea/lista/caso/' .  $codigoCaso,
+            CURLOPT_URL => $serviceUrl . 'tarea/lista/caso/' . $codigoCaso,
         ));
 
         $arrTareas = json_decode(curl_exec($curl));
@@ -70,7 +135,7 @@ class CasoController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $serviceUrl . 'comentario/lista/caso/' .  $codigoCaso,
+            CURLOPT_URL => $serviceUrl . 'comentario/lista/caso/' . $codigoCaso,
         ));
 
         $arrComentarios = json_decode(curl_exec($curl));
@@ -80,7 +145,7 @@ class CasoController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $serviceUrl . 'archivo/lista/'. 1 . '/' .  $codigoCaso,
+            CURLOPT_URL => $serviceUrl . 'archivo/lista/' . 1 . '/' . $codigoCaso,
         ));
 
         $arrArchivos = json_decode(curl_exec($curl));
@@ -91,7 +156,7 @@ class CasoController extends Controller
         //$formAdjuntar->handleRequest($request);
         $form = $this->createFormBuilder()
             ->add('archivo', fileType::class)
-            ->add('btnGuardar', SubmitType::class, array('label'  => 'Cargar'))
+            ->add('btnGuardar', SubmitType::class, array('label' => 'Cargar'))
             ->getForm();
         $form->handleRequest($request);
 
@@ -99,11 +164,11 @@ class CasoController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             //$objArchivo = $formAdjuntar['adjunto']->getData();
-            if($form->get('btnGuardar')->isClicked()) {
+            if ($form->get('btnGuardar')->isClicked()) {
                 $objArchivo = $form['archivo']->getData();
-                if ($objArchivo->getClientSize()){
+                if ($objArchivo->getClientSize()) {
                     $strDestino = "/var/www/archivosoro/1/";
-                    $strArchivo = md5(uniqid()).'.'.$objArchivo->guessExtension();
+                    $strArchivo = md5(uniqid()) . '.' . $objArchivo->guessExtension();
 
                     $arrArchivo = array(
                         "nombre" => $objArchivo->getClientOriginalName(),
@@ -135,7 +200,7 @@ class CasoController extends Controller
                 }
             }
         }
-        
+
 
         return $this->render('Caso/detalle.html.twig', array(
             'form' => $form->createView(),

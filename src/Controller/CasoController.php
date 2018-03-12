@@ -60,7 +60,7 @@ class CasoController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'http://192.168.15.97/oro/public/index.php/api/tarea/lista/caso/' .  $codigoCaso,
+            CURLOPT_URL => $serviceUrl . 'tarea/lista/caso/' .  $codigoCaso,
         ));
 
         $arrTareas = json_decode(curl_exec($curl));
@@ -70,7 +70,7 @@ class CasoController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'http://192.168.15.97/oro/public/index.php/api/comentario/lista/caso/' .  $codigoCaso,
+            CURLOPT_URL => $serviceUrl . 'comentario/lista/caso/' .  $codigoCaso,
         ));
 
         $arrComentarios = json_decode(curl_exec($curl));
@@ -80,7 +80,7 @@ class CasoController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'http://192.168.15.97/oro/public/index.php/api/archivo/lista/'. 1 . '/' .  $codigoCaso,
+            CURLOPT_URL => $serviceUrl . 'archivo/lista/'. 1 . '/' .  $codigoCaso,
         ));
 
         $arrArchivos = json_decode(curl_exec($curl));
@@ -102,7 +102,7 @@ class CasoController extends Controller
             if($form->get('btnGuardar')->isClicked()) {
                 $objArchivo = $form['archivo']->getData();
                 if ($objArchivo->getClientSize()){
-                    $strDestino = "/var/www/archivosoro/";
+                    $strDestino = "/var/www/archivosoro/1/";
                     $strArchivo = md5(uniqid()).'.'.$objArchivo->guessExtension();
 
                     $arrArchivo = array(
@@ -118,7 +118,7 @@ class CasoController extends Controller
                     );
 
                     $arrEnviar = json_encode($arrArchivo);
-                    $ch = curl_init('http://192.168.15.97/oro/public/index.php/api/archivo/nuevo/');
+                    $ch = curl_init($serviceUrl . 'archivo/nuevo/');
                     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
                     curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

@@ -164,32 +164,44 @@
                     <div class="panel-body">
                         {% if arrArchivos is defined and arrArchivos|length > 0 %}
                             {% for archivo in arrArchivos %}
-                                <div class="col-md-2 col-sm-6">
+                                <div class="col-md-1">
 
-                                    <div class="property-card">
-                                        <div class="property-content">
-                                            <div class="listingInfo">
-                                                <div class="">
-                                                    <h3 class="text-overflow"><a href="#"
-                                                                                 class="text-dark">{{ archivo.nombre }}</a>
-                                                    </h3>
-                                                    <p class="text-muted text-overflow">
-                                                        <i class="mdi mdi-map-marker-radius m-r-5"></i>{{ archivo.nombreAlmacenamiento }}
-                                                        <br>
-                                                        {#{{ archivo.fecha|date('Y/m/d') }}#}
-                                                    </p>
-                                                    <div class="m-t-20">
-                                                        <button type="button"
-                                                                class="btn btn-success btn-block waves-effect waves-light">
-                                                            Descargar
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                    <a href="{{ path('archivo_descarga', { 'tipo': archivo.tipo, 'tamano': archivo.tamano, 'nombre':archivo.nombre }) }}">
+                                        <div class="btn btn-icon waves-effect btn-outline-warning m-b-5" style="font-size: medium;">
+                                            <i class="mdi mdi-file-excel"></i><br><strong>
+                                                {{ archivo.nombre }}
+                                            </strong>
                                         </div>
-                                    </div>
-                                    <!-- End property item -->
+                                    </a>
+
+                                    <span id="tooltip-hover" class="btn btn-success tooltipstered">Hover Me</span>
                                 </div>
+                                {#<div class="col-md-2 col-sm-6">#}
+
+                                    {#<div class="property-card">#}
+                                        {#<div class="property-content">#}
+                                            {#<div class="listingInfo">#}
+                                                {#<div class="">#}
+                                                    {#<h3 class="text-overflow"><a href="#"#}
+                                                                                 {#class="text-dark">{{ archivo.nombre }}</a>#}
+                                                    {#</h3>#}
+                                                    {#<p class="text-muted text-overflow">#}
+                                                        {#<i class="mdi mdi-map-marker-radius m-r-5"></i>{{ archivo.nombreAlmacenamiento }}#}
+                                                        {#<br>#}
+                                                        {#{{ archivo.fecha|date('Y/m/d') }}#}
+                                                    {#</p>#}
+                                                    {#<div class="m-t-20">#}
+                                                        {#<button type="button"#}
+                                                                {#class="btn btn-success btn-block waves-effect waves-light">#}
+                                                            {#Descargar#}
+                                                        {#</button>#}
+                                                    {#</div>#}
+                                                {#</div>#}
+                                            {#</div>#}
+                                        {#</div>#}
+                                    {#</div>#}
+                                    {#<!-- End property item -->#}
+                                {#</div>#}
                             {% endfor %}
                         {% endif %}
                     </div>
@@ -250,45 +262,36 @@
                         <div id="comentarios">
                             <div class="card card-block">
                                 <div class="timeline">
-                                    <article class="timeline-item alt">
-                                        <div class="timeline-desk">
-                                            <div class="panel">
-                                                <div class="timeline-box">
-                                                    <span class="arrow-alt"></span>
-                                                    <span class="timeline-icon"><i
-                                                                class="mdi mdi-checkbox-blank-circle-outline"></i></span>
-                                                    <h4 class="">1 hour ago</h4>
-                                                    <p class="timeline-date text-muted">
-                                                        <small>08:25 am</small>
-                                                    </p>
-                                                    <p>Dolorum provident rerum aut hic quasi placeat iure tempora
-                                                        laudantium
-                                                        ipsa ad
-                                                        debitis unde? </p>
+                                    {% if arrComentarios is defined and arrComentarios|length > 0 %}
+                                        {% for comentario in arrComentarios %}
+                                            <article class="timeline-item alt">
+                                                <div class="timeline-desk">
+                                                    <div class="panel">
+                                                        <div class="timeline-box">
+                                                            <span class="arrow-alt"></span>
+                                                            <span class="timeline-icon"><i
+                                                                        class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                                            <h4 class="">{{ comentario.fechaCreacion|date('Y/m/d') }}</h4>
+                                                            <p class="timeline-date text-muted">
+                                                                <small>{{ comentario.fechaCreacion|date('H:m') }}</small>
+                                                            </p>
+                                                            <p>{{ comentario.comentario }}</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <article class="timeline-item ">
-                                        <div class="timeline-desk">
-                                            <div class="panel">
-                                                <div class="timeline-box">
-                                                    <span class="arrow"></span>
-                                                    <span class="timeline-icon bg-success"><i
-                                                                class="mdi mdi-checkbox-blank-circle-outline"></i></span>
-                                                    <h4 class="text-success">2 hours ago</h4>
-                                                    <p class="timeline-date text-muted">
-                                                        <small>08:25 am</small>
-                                                    </p>
-                                                    <p>consectetur adipisicing elit. Iusto, optio, dolorum <a href="#">John
-                                                            deon</a>
-                                                        provident rerum aut hic quasi placeat iure tempora laudantium
-                                                    </p>
-
+                                            </article>
+                                        {% endfor %}
+                                        {% else %}
+                                            <article class="timeline-item alt">
+                                                <div class="timeline-desk">
+                                                    <div class="panel">
+                                                        <div class="timeline-box">
+                                                            <p>Sin Comentarios para este caso</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </article>
+                                            </article>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

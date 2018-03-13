@@ -121,7 +121,7 @@
                                                     </td>
                                                     <td style="text-align: center;">
                                                         {% if caso.estadoAtendido %}
-                                                            <i class="ion ion-happy text-warning"
+                                                            <i class="ion ion-happy text-primary"
                                                                style="font-size: x-large;"
                                                                data-toggle="tooltip"
                                                                data-placement="top"
@@ -166,10 +166,12 @@
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center;">
-                                                        <a href="javascript:abrirVentana('{{ path('responderSolucitudInformacion', { 'codigoCaso':  caso.codigoCasoPk }) }}','Crear Tarea',800,1200)"
-                                                           class="btn btn-purple waves-effect waves-light btn-xs"><i
-                                                                    class="glyphicon glyphicon-info-sign parpadea flash"></i>
-                                                        </a>
+                                                        {% if caso.estadoSolicitudInformacion is defined and caso.estadoSolicitudInformacion %}
+                                                            <a href="javascript:abrirVentana('{{ path('responderSolucitudInformacion', { 'codigoCaso':  caso.codigoCasoPk }) }}','Crear Tarea',800,1200)"
+                                                               class="btn btn-danger waves-effect waves-light btn-xs"><i
+                                                                        class="glyphicon glyphicon-info-sign parpadea flash"></i>
+                                                            </a>
+                                                        {% endif %}
                                                     </td>
                                                     <td style="text-align: center;">
                                                         <a href="{{ path('casoDetalle', { 'codigoCaso':  caso.codigoCasoPk }) }}"

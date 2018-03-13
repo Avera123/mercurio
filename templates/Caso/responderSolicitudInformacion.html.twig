@@ -10,28 +10,29 @@
                     <div class="row">
                         <h4>Descripción de caso solucionado.</h4>
                         <div class="col-md-4">
-                            <h5>Fecha registro:</h5><br>
-                            <h5>Asunto:</h5>{% if arCaso.asunto is defined %}
+                            <h5>Fecha registro:</h5><br>{{ arCaso.fechaRegistro|date('Y/m/d') }}
+                            <h5>Asunto:</h5>
+                            {% if arCaso.asunto is defined %}
                                 {{ arCaso.asunto }}
                             {% endif %}
                         </div>
                         <div class="col-md-4">
-                            {#<h5>Caso:</h5>{{ arCaso.codigoCasoPk }}<br>#}
-                            {#<h5>Usuario Atiende:</h5>{{ arCaso.codigoUsuarioAtiendeFk }}#}
-                            {#<h5>Correo:</h5>{{ arCaso.correo }}#}
+                            <h5>Caso:</h5>{{ arCaso.codigoCasoPk }}<br>
+                            <h5>Usuario Atiende:</h5>{{ arCaso.codigoUsuarioAtiendeFk }}
+                            <h5>Correo:</h5>{{ arCaso.correo }}
                         </div>
 
                         <div class="col-md-4">
-                            {#<h5>Descripción:</h5>{{ arCaso.descripcion }}<br>#}
+                            <h5>Descripción:</h5>{{ arCaso.descripcion }}<br>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="col-md-2 control-label">Descripción:</label>
+                                <label class="col-md-2 control-label">Información solicitada:</label>
                                 <div class="col-md-10">
-                                    {{ arCaso.descripcion }}
+                                    {{ arCaso.solicitudInformacion }}
                                 </div>
                             </div>
                             <hr>
@@ -40,7 +41,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="col-md-2 control-label">Solicitud información:</label>
+                                <label class="col-md-2 control-label">Respuesta:</label>
                                 <div class="col-md-10">
                                     {{ form_widget(form.requisitoInformacion,{'attr': {'rows':'10'},'value':''}) }}
                                 </div>

@@ -146,15 +146,11 @@ class CasoController extends Controller
 
         curl_close($curl);
 
-        //$formAdjuntar = $this->createForm(ArchivoType::class);
-        //$formAdjuntar->handleRequest($request);
         $form = $this->createFormBuilder()
             ->add('archivo', fileType::class)
             ->add('btnGuardar', SubmitType::class, array('label' => 'Cargar'))
             ->getForm();
         $form->handleRequest($request);
-
-        //$adjunto = $formAdjuntar->getData();
 
         if ($form->isSubmitted() && $form->isValid()) {
             //$objArchivo = $formAdjuntar['adjunto']->getData();
@@ -188,7 +184,8 @@ class CasoController extends Controller
                     $result = curl_exec($ch);
                     $form['archivo']->getData()->move($strDestino, $strArchivo);
 
-                    //return $this->redirect($this->generateUrl('brs_ad_archivos_lista', array('codigoDocumento' => $codigoDocumento, 'numero' => $numero)));
+                    return $this->redirect($this->generateUrl('casoDetalle', array('codigoCaso' => $codigoCaso)));
+
                 } else {
                     echo "El archivo tiene un tamaño mayor al permitido";
                 }

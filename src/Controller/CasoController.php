@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -41,9 +42,9 @@ class CasoController extends Controller
     }
 
     /**
-     * @Route("/caso/informacion/respuesta/{codigoCaso}",requirements={"codigoCaso":"\d+"}, name="caso_respuesta_informacion")
+     * @Route("/caso/registrar/informacionRespuesta/{codigoCaso}",requirements={"codigoCaso":"\d+"}, name="responderSolucitudInformacion")
      */
-    public function respuestaInformacion(Request $request, $codigoCaso = null)
+    public function registrarSolucion(Request $request, $codigoCaso = null, \Swift_Mailer $mailer)
     {
         $em = $this->getDoctrine()->getManager(); // instancia el entity manager
         $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
@@ -54,47 +55,53 @@ class CasoController extends Controller
         $arCaso = $arCaso[0];
         $user = $this->getUser()->getCodigoUsuarioPk();
 
+//        var_dump($arCaso);
+//        var_dump($arCaso['respuestaSolicitudInformacion']);
+//        exit();
         $form = $this->createFormBuilder()
-            ->add('txtRespuestaInformacion', TextareaType::class, array(
+            ->add('requisitoInformacion', TextareaType::class, array(
+//                'data' => ,
                 'attr' => array(
                     'id' => '_requisitoInformacion',
                     'name' => '_requisitoInformacion',
-                    'class' => 'form-control'
+                    'class' => 'form-control',
                 ),
                 'required' => false
             ))
-            ->add('btnGuardar', SubmitType::class, array(
+            ->add('btnEnviar', SubmitType::class, array(
                 'attr' => array(
                     'id' => '_btnEnviar',
                     'name' => '_btnEnviar'
-                ), 'label' => 'Responder'
+                ), 'label' => 'RESPONDER'
             ))
             ->getForm();
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $arrCaso = array(
-                "respuestaInformacion" => $form->get('txtRespuestaInformacion')->getData()
+            $arEnvia = array(
+                "respuestaInformacion" => $form->get('requisitoInformacion')->getData()
             );
 
-            $arrCaso = json_encode($arrCaso);
-            $ch = curl_init($serviceUrl . 'caso/respuesta/informacion/' . $codigoCaso);
+            $arrEnviar = json_encode($arEnvia);
+            $ch = curl_init($serviceUrl . 'caso/respuesta/informacion/' . $arCaso['codigoCasoPk']);
+
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $arrCaso);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                     'Content-Type: application/json',
-                    'Content-Length: ' . strlen($arrCaso))
+                    'Content-Length: ' . strlen($arrEnviar))
             );
-            $result = curl_exec($ch);
-            curl_close($ch);
+
+            curl_exec($ch);
 
             echo "<script>window.opener.location.reload();window.close()</script>";
         }
         return $this->render('Caso/responderSolicitudInformacion.html.twig', [
             'form' => $form->createView(),
-            'arCaso' => $arCaso
+            'arCaso' => $arCaso,
+            'dataText' => $arCaso['respuestaSolicitudInformacion']?? '*',
         ]);
     }
 
@@ -152,6 +159,12 @@ class CasoController extends Controller
             ->getForm();
         $form->handleRequest($request);
 
+        $formComentario = $this->createFormBuilder()
+            ->add('txtComentario', TextType::class)
+            ->add('btnAgregarComentario', SubmitType::class, array('label' => 'Enviar'))
+            ->getForm();
+        $formComentario->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             //$objArchivo = $formAdjuntar['adjunto']->getData();
             if ($form->get('btnGuardar')->isClicked()) {
@@ -192,9 +205,34 @@ class CasoController extends Controller
             }
         }
 
+        if ($formComentario->isSubmitted() && $formComentario->isValid()) {
+            if ($formComentario->get('btnAgregarComentario')->isClicked()) {
+                $comentario = $formComentario['txtComentario']->getData();
+
+                $arrComentario = array(
+                    "comentario" => $comentario
+                );
+
+                $arrEnviar = json_encode($arrComentario);
+
+                $ch = curl_init($serviceUrl . 'comentario/nuevo/caso/' . $codigoCaso . '/' . $this->getUser()->getUserName());
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $arrEnviar);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                        'Content-Type: application/json',
+                        'Content-Length: ' . strlen($arrEnviar))
+                );
+                $result = curl_exec($ch);
+
+                return $this->redirect($this->generateUrl('casoDetalle', array('codigoCaso' => $codigoCaso)));
+            }
+        }
+
 
         return $this->render('Caso/detalle.html.twig', array(
             'form' => $form->createView(),
+            'formComentario' => $formComentario->createView(),
             'caso' => $resp,
             'arrTareas' => $arrTareas,
             'arrComentarios' => $arrComentarios,
@@ -389,7 +427,7 @@ class CasoController extends Controller
                 CURLOPT_RETURNTRANSFER => 1,
                 CURLOPT_URL => $serviceUrl . 'caso/lista/' . $this->getUser()->getCodigoClienteFk() . '/' . $codigoCaso,
             ));
-            $resp = json_decode(curl_exec($curl));
+            $resp = json_decode(curl_exec($curl), true);
             curl_close($curl);
         } else {
             $resp = false;

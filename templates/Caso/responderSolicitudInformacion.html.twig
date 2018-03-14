@@ -43,13 +43,13 @@
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Respuesta:</label>
                                 <div class="col-md-10">
-                                    {{ form_widget(form.txtRespuestaInformacion,{'attr': {'rows':'10'},'value':''}) }}
+                                    {{ form_widget(form.requisitoInformacion,{'attr': {'rows':'10'}, 'value': arCaso.respuestaSolicitudInformacion | default('') }) }}
                                 </div>
                             </div>
                             <hr>
                             <div class="form-group">
                                 <div class="col-md-12">
-                                    {{ form_widget(form.btnGuardar, { 'attr': {'class': 'btn btn-success btn-bordered waves-effect w-md waves-light m-b-5','style':'float:right;margin-left:5px;'} }) }}
+                                    {{ form_widget(form.btnEnviar, { 'attr': {'class': 'btn btn-success btn-bordered waves-effect w-md waves-light m-b-5','style':'float:right;margin-left:5px;'} }) }}
                                     <a href="#" onclick="window.close()"
                                        class="btn btn-default btn-bordered waves-effect w-md m-b-5"
                                        style="float: right;">CANCELAR</a>

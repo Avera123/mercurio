@@ -132,7 +132,34 @@
 
                         </div>
                         <hr>
-                        {{ form_start(form, {'attr':{'enctype':"multipart/form-data"}}) }}
+                        <div class="row">
+                            <h4>Solicitud de Información adicional:</h4>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Fecha Solucitud:</label>
+                                    <p>{% if caso[0].fechaSolicitudInformacion is defined %}
+                                            {{ caso[0].fechaSolicitudInformacion|date('Y/m/d') }}
+                                        {% endif %}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="field-3" class="control-label">Descripcion:</label>
+                                    <p>{{ caso[0].solicitudInformacion }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-4"
+                                           class="control-label">Respuesta: {% if caso[0].fechaRespuestaSolicitudInformacion is defined %}
+                                            {{ caso[0].fechaRespuestaSolicitudInformacion }}
+                                        {% endif %}</label>
+                                    <p>{% if caso[0].respuestaSolicitudInformacion is defined %}
+                                            {{ caso[0].respuestaSolicitudInformacion }}
+                                        {% endif %}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-footer" style="text-align: right;">
 
@@ -154,6 +181,7 @@
                     <hr>
                     <div class="panel-body">
                         <div class="col-sm-12">
+                            {{ form_start(form, {'attr':{'enctype':"multipart/form-data"}}) }}
                             <div class="row">
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Adjunto:</label>
@@ -165,6 +193,7 @@
                                     </div>
                                 </div>
                             </div>
+                            {{ form_end(form) }}
                         </div>
                         {% if arrArchivos is defined and arrArchivos|length > 0 %}
                             <hr><br>
@@ -179,7 +208,7 @@
                                     {#data-tablesaw-sortable-default-col="" data-tablesaw-priority="3">Fecha#}
                                     {#</th>#}
                                     {#<th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="2">#}
-                                        {#Tamaño#}
+                                    {#Tamaño#}
                                     {#</th>#}
                                     <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="1">Tipo
                                     </th>
@@ -196,13 +225,14 @@
                                         {#class="tablesaw-cell-content">{{ archivo.fecha|date('Y/m/d') }}</span>#}
                                         {#</td>#}
                                         {#<td><span#}
-                                                    {#class="tablesaw-cell-content">{{ archivo.tamano }}</span></td>#}
+                                        {#class="tablesaw-cell-content">{{ archivo.tamano }}</span></td>#}
                                         <td><span
                                                     class="tablesaw-cell-content">{{ archivo.tipo }}</span></td>
                                         <td><span
                                                     class="tablesaw-cell-content"><a
                                                         href="{{ path('archivo_descarga',{'codigoArchivo':archivo.codigoArchivoPk}) }}"><i
-                                                        class="glyphicon glyphicon-cloud-download"></i> Descargar</a></span></td>
+                                                            class="glyphicon glyphicon-cloud-download"></i> Descargar</a></span>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -260,6 +290,21 @@
                     </div>
                     <hr>
                     <div class="panel-body">
+                        <div class="col-sm-12">
+                            {{ form_start(formComentario) }}
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Comentario:</label>
+                                    <div class="col-md-8">
+                                        {{ form_widget(formComentario.txtComentario) }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ form_widget(formComentario.btnAgregarComentario,{'attr':{'class':'btn btn-block btn-md btn-success waves-effect waves-light'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(formComentario) }}
+                        </div>
                         <div id="comentarios">
                             <div class="card card-block">
                                 <div class="timeline">
@@ -300,7 +345,6 @@
                 </div>
             </div>
         </div>
-        {{ form_end(form) }}
         {{ include('Bloques/pie.html.twig') }}
     {% endblock %}
 {% endblock %}

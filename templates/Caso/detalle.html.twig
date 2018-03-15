@@ -245,7 +245,26 @@
                     <hr>
                     <div class="panel-body">
                         <div class="timeline timeline-left">
-                            {% if arrTareas is defined or arrTareas|length == 0 %}
+                            {% if arrTareas is defined and arrTareas|length > 0 %}
+                                {% for tarea in arrTareas %}
+                                    <article class="timeline-item">
+                                        <div class="timeline-desk">
+                                            <div class="panel">
+                                                <div class="timeline-box">
+                                                    {#<span class="arrow"></span>#}
+                                                    {#<span class="timeline-icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>#}
+                                                    <h4 class="">{{ tarea.fechaRegistro|date('Y/m/d') }}</h4>
+                                                    <p class="timeline-date text-muted">
+                                                        <small>Asignada a : {{ tarea.codigoUsuarioAsignaFk }}</small>
+                                                    </p>
+                                                    <p>{{ tarea.descripcion }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                {% endfor %}
+                            {% else %}
+
                                 <article class="timeline-item">
                                     <div class="timeline-desk">
                                         <div class="panel">
@@ -259,22 +278,6 @@
                                         </div>
                                     </div>
                                 </article>
-                            {% else %}
-                                {% for tarea in arrTareas %}
-                                    <article class="timeline-item">
-                                        <div class="timeline-desk">
-                                            <div class="panel">
-                                                <div class="timeline-box">
-                                                    {#<span class="arrow"></span>#}
-                                                    {#<span class="timeline-icon"><i class="mdi mdi-checkbox-blank-circle-outline"></i></span>#}
-                                                    {#<h4 class="">1 hour ago</h4>#}
-                                                    {#<p class="timeline-date text-muted"><small>08:25 am</small></p>#}
-                                                    <p>{{ tarea.descripcion }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </article>
-                                {% endfor %}
                             {% endif %}
                         </div>
                     </div>

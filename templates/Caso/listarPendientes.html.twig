@@ -167,10 +167,12 @@
                                                     </td>
                                                     <td style="text-align: center;">
                                                         {% if caso.estadoSolicitudInformacion is defined and caso.estadoSolicitudInformacion %}
-                                                            <a href="javascript:abrirVentana('{{ path('responderSolucitudInformacion', { 'codigoCaso':  caso.codigoCasoPk }) }}','Crear Tarea',800,1200)"
-                                                               class="btn btn-danger waves-effect waves-light btn-xs"><i
-                                                                        class="glyphicon glyphicon-info-sign parpadea flash"></i>
-                                                            </a>
+                                                            {% if caso.estadoRespuestaSolicitudInformacion is not defined or caso.estadoRespuestaSolicitudInformacion == 0 %}
+                                                                <a href="javascript:abrirVentana('{{ path('responderSolucitudInformacion', { 'codigoCaso':  caso.codigoCasoPk }) }}','Crear Tarea',800,1200)"
+                                                                   class="btn btn-danger waves-effect waves-light btn-xs"><i
+                                                                            class="glyphicon glyphicon-info-sign parpadea flash"></i>
+                                                                </a>
+                                                            {% endif %}
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center;">

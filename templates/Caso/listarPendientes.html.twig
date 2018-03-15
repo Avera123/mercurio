@@ -48,16 +48,10 @@
                                                     Fecha
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
-                                                    Cliente
-                                                </th>
-                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
                                                     Soporte
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
                                                     Contacto
-                                                </th>
-                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
-                                                    Categoría
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
                                                     Descripción
@@ -92,9 +86,6 @@
                                                 <tr role="row" class="odd">
                                                     <td>{{ caso.codigoCasoPk }}</td>
                                                     <td>{{ caso.fechaRegistro|date('y-m-d') }}</td>
-                                                    <td>
-                                                        <strong>{{ caso.empresa }}</strong>
-                                                    </td>
                                                     <td>{{ caso.soporte|default('-') }}</td>
                                                     <td>
                                                         <span data-toggle="tooltip"
@@ -104,11 +95,8 @@
                                                         </span>
 
                                                     </td>
-                                                    <td>
-                                                <span class="label"
-                                                      style="background-color: {{ caso.categoriaColor }};">{{ caso.categoria }}</span>
-                                                    </td>
-                                                    <td><strong>{{ caso.asunto }}</strong> - {{ caso.descripcion }}</td>
+                                                    <td><span class="label" style="background-color: {{ caso.categoriaColor }};">{{ caso.categoria }}:</span>
+                                                        <strong>{{ caso.asunto }}</strong> -> {{ caso.descripcion }}</td>
                                                     <td style="text-align: center;">
                                                         <span class="label"
                                                               style="background-color: {{ caso.prioridadColor }};">
@@ -125,7 +113,7 @@
                                                                style="font-size: x-large;"
                                                                data-toggle="tooltip"
                                                                data-placement="top"
-                                                               title="Se ha atendido el caso"></i>
+                                                               title="Su caso fue atendido por el equipo de soporte"></i>
                                                         {% else %}
                                                             <i class="ion ion-sad text-dark" style="font-size: x-large;"
                                                                data-toggle="tooltip"
@@ -138,7 +126,7 @@
                                                             <i class="ion ion-hammer text-dark"
                                                                style="font-size: x-large;" data-toggle="tooltip"
                                                                data-placement="top"
-                                                               title="El caso se encuentra escalado a otro departamento"></i>
+                                                               title="Para atender este caso fue necesario asiganar algunas tareas que estan en ejecucion, puede hacer seguimiento a estas tareas en el detalle del caso"></i>
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center;">
@@ -146,7 +134,7 @@
                                                             <i class="mdi mdi-escalator text-warning"
                                                                style="font-size: x-large;" data-toggle="tooltip"
                                                                data-placement="top"
-                                                               title="Se ha escalado el caso al área encargada"></i>
+                                                               title="El caso tiene un nivel de complejidad mayor y se encuentra escalado a otro departamento para ofrecerle una mejor respuesta"></i>
                                                         {% endif %}
                                                     </td>
                                                     <td style="text-align: center;">

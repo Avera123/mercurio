@@ -145,7 +145,7 @@
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label for="field-3" class="control-label">Descripcion:</label>
-                                    <p>{{ caso[0].solicitudInformacion }}</p>
+                                    <p>{{ caso[0].solicitudInformacion | default("") }}</p>
                                 </div>
                             </div>
                             <div class="col-md-4">

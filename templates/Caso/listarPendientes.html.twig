@@ -47,6 +47,10 @@
                                                     aria-sort="ascending">
                                                     Fecha
                                                 </th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-keytable"
+                                                    aria-sort="ascending">
+                                                    F_C
+                                                </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
                                                     Soporte
                                                 </th>
@@ -86,6 +90,7 @@
                                                 <tr role="row" class="odd">
                                                     <td>{{ caso.codigoCasoPk }}</td>
                                                     <td>{{ caso.fechaRegistro|date('y-m-d') }}</td>
+                                                    <td>{% if caso.fechaCompromiso is defined %} {{ caso.fechaCompromiso|date('y-m-d') }}{% endif %}</td>
                                                     <td>{{ caso.soporte|default('-') }}</td>
                                                     <td>
                                                         <span data-toggle="tooltip"

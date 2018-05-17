@@ -86,7 +86,7 @@
                                                       style="background-color: {{ caso.categoriaColor }};">{{ caso.categoria }}</span>
                                             </td>
                                             <td><strong>{{ caso.asunto }}</strong> - {{ caso.descripcion }}</td>
-                                            <td>{{ caso.solucion }}</td>
+                                            <td>{{ caso.solucion | default('') }}</td>
                                             <td style="text-align: center;">
                                                 <span class="label"
                                                       style="background-color: {{ caso.prioridadColor }};">

@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+{% block bodyAtt %}class="fixed-left"{% endblock %}
+
+{% block body %}
+
+    <div id="wrapper">
+        {{ include('Bloques/menu.html.twig') }}
+
+        {{ include('Bloques/menuIzquierdo.html.twig') }}
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container">
+                    {% block content %}
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="page-title-box">
+                                    <h4 class="page-title" style="padding-right: 10px;">Solicitud - General</h4>
+                                    {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}
+                                    {#<span class="label label-info">Atendidas Pendientes: {{ atendidasPendientes }}</span>#}
+                                    <a href="{{ path('registrarSolicitud') }}">
+                                        <button class="btn btn-success btn-bordered waves-effect waves-light"
+                                                style="float: right;"><span class="mdi mdi-plus"></span> Nuevo
+                                        </button>
+                                    </a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-box table-responsive">
+                                    <div id="datatable-keytable_wrapper"
+                                         class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                        <table id="datatable-keytable"
+                                               class="table table-striped table-bordered dataTable no-footer table-oro"
+                                               role="grid" aria-describedby="datatable-keytable_info"
+                                               style="position: relative;">
+                                            <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable"
+                                                    aria-label="Name: activate to sort column ascending">Id
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
+                                                    Cliente
+                                                </th>
+                                                <th class="sorting_asc" tabindex="0" aria-controls="datatable-keytable"
+                                                    aria-sort="ascending">
+                                                    Fecha solicitud
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
+                                                    Fecha atendido
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
+                                                    Tipo solicitud
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
+                                                    Descripcion
+                                                </th>
+                                                <th>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for solicitud in solicitudes %}
+                                                <tr role="row" class="odd">
+                                                    <td>{{ solicitud.codigoSolicitudPk }}</td>
+                                                    <td>
+                                                        <strong>{{ solicitud.nombreComercial }}</strong>
+                                                    </td>
+                                                    <td>{{ solicitud.fechaSolicitud|date('y-m-d') }}</td>
+                                                    <td>{% if solicitud.fechaAtencion is defined %}{{ solicitud.fechaAtencion|date('y-m-d') }}{% endif %}</td>
+                                                    <td>{{ solicitud.nombre|default('-') }}</td>
+                                                    <td>{{ solicitud.descripcion }}</td>
+                                                    <td style="text-align: center;">
+                                                        {% if not solicitud.estadoAtendido %}
+                                                            <a href="{{ path('registrarSolicitud', { 'codigoSolicitud':  solicitud.codigoSolicitudPk }) }}"
+                                                               class="btn btn-success waves-effect waves-light btn-xs"><i
+                                                                        class="glyphicon glyphicon-pencil"></i>
+                                                            </a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('Bloques/pie.html.twig') }}
+{% endblock %}

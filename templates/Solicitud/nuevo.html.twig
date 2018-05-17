@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyAtt %}class="fixed-left"{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+    {{ include('Bloques/menu.html.twig') }}
+    {{ include('Bloques/menuIzquierdo.html.twig') }}
+    <div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+    <div class="container">
+    {% block content %}
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="page-title-box">
+                    <h4 class="page-title" style="padding-right: 10px;">Nueva Solicitud</h4>
+                    {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}
+                    {#<span class="label label-info">Atendidas Pendientes: {{ atendidasPendientes }}</span>#}
+                    <a href="{{ path('registrarSolicitud') }}">
+                        <button class="btn btn-success btn-bordered waves-effect waves-light" style="float: right;">
+                            <span class="mdi mdi-plus"></span> Nueva
+                        </button>
+                    </a>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card-box">
+                    <h4 class="m-t-0 header-title"><b>Datos de la solicitud.</b></h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_start(form,{ 'attr': {'id':'form','class': 'form-horizontal','data-parsley-validate':'true','novalidate':'novalidate', }}) }}
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="_telefono">Tipo de solicitud: </label>
+                                <div class="col-md-4">
+                                    {{ form_widget(form.solicitudTipoRel) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Descripción:</label>
+                                <div class="col-md-10">
+                                    {{ form_widget(form.descripcion,{'attr': {'rows':'5'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    {{ form_widget(form.btnGuardar, { 'attr': {'class': 'btn btn-success btn-bordered waves-effect w-md waves-light m-b-5','style':'float:right;margin-left:5px;'} }) }}
+                                    <a href="{{ path('solicitudListar') }}"
+                                       class="btn btn-default btn-bordered waves-effect w-md m-b-5"
+                                       style="float: right;">CANCELAR</a>
+                                </div>
+                            </div>
+                            {{ form_rest(form) }}
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div></div></div></div></div>
+        {{ include('Bloques/pie.html.twig') }}
+
+    {% endblock %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(function () {
+            $("[data-value]").each(function (k, v) {
+                var select = $(v);
+                select.val(select.attr("data-value"));
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('form').parsley();
+        });
+        $(function () {
+            $('#form').parsley().on('field:validated', function () {
+                var ok = $('.parsley-error').length === 0;
+                $('.alert-info').toggleClass('hidden', !ok);
+                $('.alert-warning').toggleClass('hidden', ok);
+            })
+            .on('form:submit', function () {
+                return true; // Don't submit form for this demo
+            });
+        });
+    </script>
+
+{% endblock %}

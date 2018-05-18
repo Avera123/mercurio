@@ -101,7 +101,7 @@ class CasoController extends Controller
         return $this->render('Caso/responderSolicitudInformacion.html.twig', [
             'form' => $form->createView(),
             'arCaso' => $arCaso,
-            'dataText' => $arCaso['respuestaSolicitudInformacion']?? '*',
+            'dataText' => $arCaso['respuestaSolicitudInformacion'] ?? '*',
         ]);
     }
 
@@ -134,7 +134,7 @@ class CasoController extends Controller
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $serviceUrl . 'comentario/lista/caso/' . $codigoCaso,
+            CURLOPT_URL => $serviceUrl . 'comentario/lista/' . $codigoCaso . "/0",
         ));
         $arrComentarios = json_decode(curl_exec($curl));
         curl_close($curl);

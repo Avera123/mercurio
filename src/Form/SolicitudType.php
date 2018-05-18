@@ -27,15 +27,21 @@ class SolicitudType extends AbstractType
         $arSolicitud = $options['data']['arSolicitud'];
 
         $solicitud = $arSolicitud[0];
-//        dump($solicitud);
-//        exit();
 
         $builder
-            ->add ('descripcion', TextareaType::class,array(
-                'data' => isset($solicitud)?$solicitud['descripcion']:'',
+            ->add('descripcion', TextareaType::class, array(
+                'data' => isset($solicitud) ? $solicitud['descripcion'] : '',
                 'attr' => array(
                     'id' => '_descripcion',
                     'name' => '_descripcion',
+                    'class' => 'form-control'
+                )
+            ))
+            ->add('nombre', TextType::class, array(
+                'data' => isset($solicitud) ? $solicitud['nombre'] : '',
+                'attr' => array(
+                    'id' => '_nombre',
+                    'name' => '_nombre',
                     'class' => 'form-control'
                 )
             ))
@@ -45,19 +51,18 @@ class SolicitudType extends AbstractType
                 'choice_value' => 'codigoSolicitudTipoPk',
                 'placeholder' => 'Seleccione una opción',
                 'label' => 'Tipo solicitud: ',
-                'attr'=> array(
+                'attr' => array(
                     'class' => 'form-control',
-                    'data-value' => isset($solicitud['codigoSolicitudTipoPk'])? $solicitud['codigoSolicitudTipoPk'] :''
+                    'data-value' => isset($solicitud['codigoSolicitudTipoPk']) ? $solicitud['codigoSolicitudTipoPk'] : '',
                 )
             ))
 //            Botón Guardar
-            ->add ('btnGuardar', SubmitType::class, array(
+            ->add('btnGuardar', SubmitType::class, array(
                 'attr' => array(
                     'id' => '_btnGuardar',
                     'name' => '_btnGuardar'
                 ), 'label' => 'GUARDAR'
-            ))
-        ;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -15,13 +15,18 @@
             <div class="col-xs-12">
                 <div class="page-title-box">
                     <h4 class="page-title" style="padding-right: 10px;">Nueva Solicitud</h4>
+                    <br>
                     {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}
                     {#<span class="label label-info">Atendidas Pendientes: {{ atendidasPendientes }}</span>#}
-                    <a href="{{ path('registrarSolicitud') }}">
-                        <button class="btn btn-success btn-bordered waves-effect waves-light" style="float: right;">
-                            <span class="mdi mdi-plus"></span> Nueva
-                        </button>
-                    </a>
+                    <h5>Estamos comprometidos en prestarle un mejor servicio, con el fin de realizar un desarrollo a la
+                        medida que cumpla con las necesidades por favor tenga en cuenta las siguientes recomendaciones a
+                        la hora de diligenciar esta solicitud:<br><br>
+                        -No escatime en discriminar a fondo su solicitud de desarrollo a la medida<br>
+
+                        -Si es necesario después de guardar la solicitud puede adjuntar documentos (max 4mb por archivo)<br>
+
+                        -Los detalles que no queden dentro de la solicitud no serán tenidos en cuenta en el entregable
+                        ni en el precio.</h5>
                     <div class="clearfix"></div>
                 </div>
             </div>
@@ -39,11 +44,15 @@
                                 <div class="col-md-4">
                                     {{ form_widget(form.solicitudTipoRel) }}
                                 </div>
+                                <label class="col-md-2 control-label" for="_telefono">Nombre: </label>
+                                <div class="col-md-4">
+                                    {{ form_widget(form.nombre) }}
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-2 control-label">Descripción:</label>
                                 <div class="col-md-10">
-                                    {{ form_widget(form.descripcion,{'attr': {'rows':'5'}}) }}
+                                    {{ form_widget(form.descripcion,{'attr': {'rows':'20'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -76,7 +85,7 @@
         });
     </script>
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('form').parsley();
         });
         $(function () {
@@ -85,9 +94,9 @@
                 $('.alert-info').toggleClass('hidden', !ok);
                 $('.alert-warning').toggleClass('hidden', ok);
             })
-            .on('form:submit', function () {
-                return true; // Don't submit form for this demo
-            });
+                .on('form:submit', function () {
+                    return true; // Don't submit form for this demo
+                });
         });
     </script>
 

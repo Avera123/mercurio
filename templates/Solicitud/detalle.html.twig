@@ -1,0 +1,202 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyAtt %}class="fixed-left"{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+    {{ include('Bloques/menu.html.twig') }}
+    {{ include('Bloques/menuIzquierdo.html.twig') }}
+    <div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+    <div class="container">
+    {% block content %}
+        <div class="row">
+            <div class="col-md-12" style="padding: 20px;">
+                <div class="panel panel-color panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="color: #797979;">Detalles del solicitud: <span
+                                    class="label label-default">#{{ solicitud[0].codigoSolicitudPk }} </span></h3><br>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5 class="panel-title" style="color: #797979;"> Paso 1:
+                                    {% if solicitud[0].estadoAtendido %}
+                                        <span class="label label-info">Atendido</span>
+                                    {% else %}
+                                        <span class="label label-warning">Sin Atender</span>
+                                    {% endif %} |
+                                    Paso 2:
+                                    {% if solicitud[0].estadoCerrado %}
+                                        <span class="label label-success">Cerrado</span>
+                                    {% else %}
+                                        <span class="label label-warning">Por Cerrar</span>
+                                    {% endif %}
+                                </h5>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Nombre:</strong> {{ solicitud[0].nombre|default('-') }}<br><br>
+                            </div>
+                            <div class="col-md-4">
+                                <strong>Tipo solicitud: </strong>
+                                <span>{{ solicitud[0].nombreSolicitudTipo }}</span><br><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <h4>Datos de la solicitud:</h4>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Fecha solicitud:</label>
+                                    <p>{{ solicitud[0].fechaSolicitud|date('d/m/Y') }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-4" class="control-label">Fecha atencion:</label>
+                                    <p>{% if solicitud.fechaAtencion is defined %}{{ solicitud[0].fechaAtencion|date('d/m/Y') }}{% endif %}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="field-3" class="control-label">Descripcion:</label>
+                                    <p>{{ solicitud[0].descripcion }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-footer" style="text-align: right;">
+                        <a class="btn btn-default btn-sm" href="{{ path('solicitudListar') }}"
+                           style="float:left">VOLVER</a>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-border panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Adjuntos:</h3>
+                    </div>
+                    <hr>
+                    <div class="panel-body">
+                        <div class="col-sm-12">
+                            {{ form_start(form, {'attr':{'enctype':"multipart/form-data"}}) }}
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Adjunto:</label>
+                                    <div class="col-md-8">
+                                        {{ form_widget(form.archivo) }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ form_widget(form.btnGuardar,{'attr':{'class':'btn btn-block btn-md btn-success waves-effect waves-light'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                        {% if arrArchivos is defined and arrArchivos|length > 0 %}
+                            <hr><br>
+                            <table class="tablesaw m-t-20 table m-b-0 tablesaw-stack" data-tablesaw-mode="stack"
+                                   id="table-2285">
+                                <thead>
+                                <tr>
+                                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="persist">
+                                        Titulo
+                                    </th>
+                                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="1">Tipo
+                                    </th>
+                                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="1">Bajar
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for archivo in arrArchivos %}
+                                    <tr>
+                                        <td><span
+                                                    class="tablesaw-cell-content">{{ archivo.nombre }}</span></td>
+                                        <td><span
+                                                    class="tablesaw-cell-content">{{ archivo.tipo }}</span></td>
+                                        <td><span
+                                                    class="tablesaw-cell-content"><a
+                                                        href="{{ path('archivo_descarga',{'codigoArchivo':archivo.codigoArchivoPk}) }}"><i
+                                                            class="glyphicon glyphicon-cloud-download"></i> Descargar</a></span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-border panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Comentarios:</h3>
+                    </div>
+                    <hr>
+                    <div class="panel-body">
+                        <div class="col-sm-12">
+                            {{ form_start(formComentario) }}
+                            <div class="row">
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label">Comentario:</label>
+                                    <div class="col-md-8">
+                                        {{ form_widget(formComentario.txtComentario) }}
+                                    </div>
+                                    <div class="col-md-2">
+                                        {{ form_widget(formComentario.btnAgregarComentario,{'attr':{'class':'btn btn-block btn-md btn-success waves-effect waves-light'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(formComentario) }}
+                        </div>
+                        <div id="comentarios">
+                            <div class="card card-block">
+                                <div class="timeline">
+                                    {% if arrComentarios is defined and arrComentarios|length > 0 %}
+                                        {% for comentario in arrComentarios %}
+                                            <article class="timeline-item alt">
+                                                <div class="timeline-desk">
+                                                    <div class="panel">
+                                                        <div class="timeline-box">
+                                                            <span class="arrow-alt"></span>
+                                                            <span class="timeline-icon"><i
+                                                                        class="mdi mdi-checkbox-blank-circle-outline"></i></span>
+                                                            <h4 class="">{{ comentario.fechaRegistro|date('Y/m/d') }}</h4>
+                                                            <p class="timeline-date text-muted">
+                                                                <small>{{ comentario.fechaRegistro|date('H:m') }}</small>
+                                                            </p>
+                                                            <p>{{ comentario.comentario }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        {% endfor %}
+                                    {% else %}
+                                        <article class="timeline-item alt">
+                                            <div class="timeline-desk">
+                                                <div class="panel">
+                                                    <div class="timeline-box">
+                                                        <p>Sin Comentarios para esta solicitud</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ include('Bloques/pie.html.twig') }}
+    {% endblock %}
+{% endblock %}

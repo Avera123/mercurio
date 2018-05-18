@@ -16,8 +16,6 @@
                             <div class="col-xs-12">
                                 <div class="page-title-box">
                                     <h4 class="page-title" style="padding-right: 10px;">Solicitud - General</h4>
-                                    {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}
-                                    {#<span class="label label-info">Atendidas Pendientes: {{ atendidasPendientes }}</span>#}
                                     <a href="{{ path('registrarSolicitud') }}">
                                         <button class="btn btn-success btn-bordered waves-effect waves-light"
                                                 style="float: right;"><span class="mdi mdi-plus"></span> Nuevo
@@ -52,10 +50,15 @@
                                                     Fecha atendido
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
+                                                    Nombre
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
                                                     Tipo solicitud
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
                                                     Descripcion
+                                                </th>
+                                                <th>
                                                 </th>
                                                 <th>
                                                 </th>
@@ -71,6 +74,7 @@
                                                     <td>{{ solicitud.fechaSolicitud|date('y-m-d') }}</td>
                                                     <td>{% if solicitud.fechaAtencion is defined %}{{ solicitud.fechaAtencion|date('y-m-d') }}{% endif %}</td>
                                                     <td>{{ solicitud.nombre|default('-') }}</td>
+                                                    <td>{{ solicitud.nombreSolicitudTipo|default('-') }}</td>
                                                     <td>{{ solicitud.descripcion }}</td>
                                                     <td style="text-align: center;">
                                                         {% if not solicitud.estadoAtendido %}
@@ -79,6 +83,12 @@
                                                                         class="glyphicon glyphicon-pencil"></i>
                                                             </a>
                                                         {% endif %}
+                                                    </td>
+                                                    <td style="text-align: center;">
+                                                        <a href="{{ path('solicitudDetalle', { 'codigoSolicitud':  solicitud.codigoSolicitudPk }) }}"
+                                                           class="btn btn-info waves-effect waves-light btn-xs"><i
+                                                                    class="glyphicon glyphicon-eye-open"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             {% endfor %}

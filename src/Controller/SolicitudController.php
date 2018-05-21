@@ -18,7 +18,7 @@ class SolicitudController extends Controller
     /**
      * @Route("/solicitud/listar", name="solicitudListar")
      */
-    public function index()
+    public function index(Request $request)
     {
         $em = $this->getDoctrine()->getManager(); // instancia el entity manager
         $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
@@ -31,8 +31,28 @@ class SolicitudController extends Controller
         $resp = json_decode(curl_exec($curl));
         curl_close($curl);
 
+        $form = $this->createFormBuilder()
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($request->request->has('arSolicitudAprobar')) {
+                $codigoSolicitud = $request->request->get('arSolicitudAprobar');
+                //Consultar solicitud
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                    CURLOPT_RETURNTRANSFER => 1,
+                    CURLOPT_URL => $serviceUrl . 'solicitud/aprobar/' . $codigoSolicitud,
+                ));
+                $resp = json_decode(curl_exec($curl));
+                curl_close($curl);
+                return $this->redirectToRoute("solicitudListar");
+            }
+        }
+
+
         return $this->render('Solicitud/listar.html.twig', array(
-            'solicitudes' => $resp
+            'solicitudes' => $resp,
+            'form' => $form->createView()
         ));
     }
 
@@ -203,9 +223,6 @@ class SolicitudController extends Controller
                 return $this->redirect($this->generateUrl('solicitudDetalle', array('codigoSolicitud' => $codigoSolicitud)));
             }
         }
-
-//        dump($resp);
-//        exit();
 
         return $this->render('Solicitud/detalle.html.twig', array(
             'form' => $form->createView(),

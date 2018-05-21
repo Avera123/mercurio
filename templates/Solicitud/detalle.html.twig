@@ -63,7 +63,24 @@
                                     <p>{{ solicitud[0].descripcion }}</p>
                                 </div>
                             </div>
-
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="field-4" class="control-label">Valor inversión:</label>
+                                    <p>{{ solicitud[0].vrInversion|number_format(0,'.',',') }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Fecha entrega:</label>
+                                    <p>{% if solicitud.fechaEntrega is defined %}{{ solicitud[0].fechaEntrega|date('d/m/Y') }}{% endif %}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="field-3" class="control-label"></label>
+                                    <p></p>
+                                </div>
+                            </div>
                         </div>
                         <hr>
                     </div>

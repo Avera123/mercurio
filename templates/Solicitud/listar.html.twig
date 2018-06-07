@@ -51,6 +51,9 @@
                                                     Fecha atendido
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
+                                                    Contacto
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
                                                     Nombre
                                                 </th>
                                                 <th class="sorting" tabindex="0" aria-controls="datatable-keytable">
@@ -83,6 +86,7 @@
                                                     </td>
                                                     <td>{{ solicitud.fechaSolicitud|date('y-m-d') }}</td>
                                                     <td>{% if solicitud.fechaAtencion is defined %}{{ solicitud.fechaAtencion|date('y-m-d') }}{% endif %}</td>
+                                                    <td>{{ solicitud.contacto|default('-') }}</td>
                                                     <td>{{ solicitud.nombre|default('-') }}</td>
                                                     <td>{{ solicitud.nombreSolicitudTipo|default('-') }}</td>
                                                     <td>{{ solicitud.descripcion }}</td>

@@ -81,6 +81,10 @@ class SolicitudController extends Controller
                 "codigo_solicitud_tipo_fk" => $res['solicitudTipoRel']->codigoSolicitudTipoPk,
                 "descripcion" => $res['descripcion'],
                 "nombre" => $res['nombre'],
+                "contacto" => $res['contacto'],
+                "telefono" => $res['telefono'],
+                "extension" => $res['extension'],
+                "correo" => $res['correo'],
                 "codigo_cliente_fk" => $user->getCodigoClienteFk(),
             );
             dump($arSolicitud);

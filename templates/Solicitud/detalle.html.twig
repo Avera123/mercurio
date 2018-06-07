@@ -44,6 +44,27 @@
                     </div>
                     <div class="panel-body">
                         <div class="row">
+                            <h4>Datos de Contacto:</h4>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-2" class="control-label">Contacto:</label>
+                                    <p>{{ solicitud[0].contacto }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-3" class="control-label">Correo:</label>
+                                    <p>{{ solicitud[0].correo }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="field-4" class="control-label">Teléfono:</label>
+                                    <p>{{ solicitud[0].telefono }} ext. {{ solicitud[0].extension }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <h4>Datos de la solicitud:</h4>
                             <div class="col-md-3">
                                 <div class="form-group">

@@ -45,6 +45,38 @@ class SolicitudType extends AbstractType
                     'class' => 'form-control'
                 )
             ))
+            ->add('extension', TextType::class, array(
+                'data' => isset($solicitud) ? $solicitud['extension'] : '',
+                'attr' => array(
+                    'id' => '_extension',
+                    'name' => '_extension',
+                    'class' => 'form-control'
+                )
+            ))
+            ->add('contacto', TextType::class, array(
+                'data' => isset($solicitud) ? $solicitud['contacto'] : '',
+                'attr' => array(
+                    'id' => '_contacto',
+                    'name' => '_contacto',
+                    'class' => 'form-control'
+                )
+            ))
+            ->add('correo', TextType::class, array(
+                'data' => isset($solicitud) ? $solicitud['correo'] : '',
+                'attr' => array(
+                    'id' => '_correol',
+                    'name' => '_correo',
+                    'class' => 'form-control'
+                )
+            ))
+            ->add('telefono', TextType::class, array(
+                'data' => isset($solicitud) ? $solicitud['telefono'] : '',
+                'attr' => array(
+                    'id' => '_telefono',
+                    'name' => '_telefono',
+                    'class' => 'form-control'
+                )
+            ))
             ->add('solicitudTipoRel', ChoiceType::class, array(
                 'choices' => $arrSolicitudesTipo,
                 'choice_label' => 'nombre',
@@ -53,7 +85,7 @@ class SolicitudType extends AbstractType
                 'label' => 'Tipo solicitud: ',
                 'attr' => array(
                     'class' => 'form-control',
-                    'data-value' => isset($solicitud['codigoSolicitudTipoPk']) ? $solicitud['codigoSolicitudTipoPk'] : '',
+                    'data-value' => isset($solicitud['codigoSolicitudTipoFk']) ? $solicitud['codigoSolicitudTipoFk'] : '',
                 )
             ))
 //            Botón Guardar

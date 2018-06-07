@@ -87,7 +87,6 @@ class SolicitudController extends Controller
                 "correo" => $res['correo'],
                 "codigo_cliente_fk" => $user->getCodigoClienteFk(),
             );
-            dump($arSolicitud);
 
             $arrEnviar = json_encode($arSolicitud);
 

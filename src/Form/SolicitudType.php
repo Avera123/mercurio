@@ -5,6 +5,7 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -86,6 +87,13 @@ class SolicitudType extends AbstractType
                 'attr' => array(
                     'class' => 'form-control',
                     'data-value' => isset($solicitud['codigoSolicitudTipoFk']) ? $solicitud['codigoSolicitudTipoFk'] : '',
+                )
+            ))
+            ->add('horas', TimeType::class, array(
+                'data' => isset($solicitud) ? $solicitud['horas'] != null ? new \DateTime($solicitud['horas']) : new \DateTime('00:00:00') : new \DateTime('00:00:00'),
+                'attr' => array(
+                    'id' => '_horas',
+                    'name' => '_horas'
                 )
             ))
 //            Botón Guardar

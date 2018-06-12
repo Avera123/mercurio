@@ -85,11 +85,12 @@ class SolicitudController extends Controller
                 "telefono" => $res['telefono'],
                 "extension" => $res['extension'],
                 "correo" => $res['correo'],
+                "horas" => $res['horas']->format("H:i:s"),
                 "codigo_cliente_fk" => $user->getCodigoClienteFk(),
             );
 
             $arrEnviar = json_encode($arSolicitud);
-
+            
             if (isset($res['arSolicitud'][0]['codigoSolicitudPk'])) {
                 $ch = curl_init($serviceUrl . 'solicitud/nuevo/' . $res['arSolicitud'][0]['codigoSolicitudPk']);
             } else {

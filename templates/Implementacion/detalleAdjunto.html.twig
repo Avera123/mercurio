@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block bodyAtt %}class="fixed-left"{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title"><i class="mdi mdi-phone-incoming"></i> Adjuntos
+                                </h4>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-border panel-primary">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Adjuntos:</h3>
+                                </div>
+                                <hr>
+                                <div class="panel-body">
+                                    <div class="col-sm-12">
+                                        {{ form_start(form, {'attr':{'enctype':"multipart/form-data"}}) }}
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">Adjunto:</label>
+                                                <div class="col-md-8">
+                                                    {{ form_widget(form.archivo) }}
+                                                </div>
+                                                <div class="col-md-2">
+                                                    {{ form_widget(form.btnGuardar,{'attr':{'class':'btn btn-block btn-md btn-success waves-effect waves-light'}}) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{ form_end(form) }}
+                                    </div>
+                                    {% if arArchivos is defined and arArchivos|length > 0 %}
+                                        <hr><br>
+                                        <table class="tablesaw m-t-20 table m-b-0 tablesaw-stack"
+                                               data-tablesaw-mode="stack"
+                                               id="table-2285">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col" data-tablesaw-sortable-col=""
+                                                    data-tablesaw-priority="persist">
+                                                    Titulo
+                                                </th>
+                                                <th scope="col" data-tablesaw-sortable-col=""
+                                                    data-tablesaw-priority="1">Tipo
+                                                </th>
+                                                <th scope="col" data-tablesaw-sortable-col=""
+                                                    data-tablesaw-priority="1">Bajar
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for arArchivos in arArchivos %}
+                                                <tr>
+                                                    <td><span
+                                                                class="tablesaw-cell-content">{{ arArchivos.nombre }}</span>
+                                                    </td>
+                                                    <td><span
+                                                                class="tablesaw-cell-content">{{ arArchivos.tipo }}</span>
+                                                    </td>
+                                                    <td><span
+                                                                class="tablesaw-cell-content"><a
+                                                                    href="{{ path('archivo_descarga',{'codigoArchivo':arArchivos.codigoArchivoPk}) }}"><i
+                                                                        class="glyphicon glyphicon-cloud-download"></i> Descargar</a></span>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- container -->
+            </div> <!-- content -->
+        </div>
+        {{ include('Bloques/pie.html.twig') }}
+    </div>
+{% endblock %}

@@ -93,7 +93,6 @@
                                                     <td>{{ solicitud.nombre|default('-') }}</td>
                                                     <td>{{ solicitud.nombreSolicitudTipo|default('-') }}</td>
                                                     <td>{{ solicitud.descripcion }}</td>
-                                                    <td>{{ solicitud.solucion }}</td>
                                                     <td>{% if solicitud.fechaEntrega is defined %}{{ solicitud.fechaEntrega|date('y-m-d') }}{% endif %}</td>
                                                     <td>{{ solicitud.vrInversion | number_format(0, '.', ',') }}</td>
                                                     <td style="text-align: center;">

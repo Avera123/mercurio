@@ -1,0 +1,122 @@
+{% extends 'base.html.twig' %}
+{% block bodyAtt %}class="fixed-left"{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <!-- {{ include('Bloques/menu.html.twig') }} -->
+
+        <!-- {{ include('Bloques/menuIzquierdo.html.twig') }} -->
+        <div class="content-page">
+            <!-- Start content -->
+            <div class="content">
+                <div class="container">
+                    {% block content %}
+                        <div class="row">
+                            <div class="col-md-12" style="padding: 20px;">
+                                <div class="panel panel-color panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title" style="color: #797979;">DETALLE DE LA IMPLEMENTACION:
+                                            <span
+                                                    class="label label-default">#{{ implementacion[0].codigoImplementacionPk }} </span>
+                                        </h3><br>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <strong>Cliente:</strong> {{ implementacion[0].nombreComercial|default('-') }}
+                                                <br><br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <h4>Detalles:</h4>
+                                            <div class="col-md-5">
+                                                <div class="form-group">
+                                                    <label for="field-3" class="control-label"></label>
+                                                    <p></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card-box table-responsive">
+                                                <div id="datatable-keytable_wrapper"
+                                                     class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                                                    <table class="m-t-20 table  tablesaw-stack">
+                                                        <thead>
+                                                        <tr role="row">
+                                                            <th class="sorting" tabindex="0"
+                                                                aria-controls="datatable-keytable"
+                                                                aria-label="Name: activate to sort column ascending">Id
+                                                            </th>
+                                                            <th class="sorting" tabindex="0"
+                                                                aria-controls="datatable-keytable">
+                                                                Tema
+                                                            </th>
+                                                            <th>CAP</th>
+                                                            <th>TER</th>
+                                                            <th>ADJ</th>
+
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% set codigoGrupo = "" %}
+                                                        {% for implementacionDetalles in implementacionDetalles %}
+                                                            {% if(codigoGrupo != implementacionDetalles.codigoImplementacionGrupoFK) %}
+                                                                {% set codigoGrupo = implementacionDetalles.codigoImplementacionGrupoFK %}
+                                                                <tr class="bg-primary">
+                                                                    <td colspan="6">
+                                                                        <strong>{{ implementacionDetalles.nombreGrupo }}</strong>
+                                                                    </td>
+                                                                </tr>
+                                                            {% endif %}
+                                                            <tr>
+                                                                <td>
+                                                                    {{ implementacionDetalles.codigoImplementacionDetallePk }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ implementacionDetalles.nombreTema }}
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    {% if implementacionDetalles.estadoCapacitado == 0 %}
+                                                                        <span class="label label-danger">NO</span>
+                                                                    {% elseif implementacionDetalles.estadoCapacitado  == 1 %}
+                                                                        <span class="label label-success">SI</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td style="text-align: left;">
+                                                                    {% if implementacionDetalles.estadoTerminado == 0 %}
+                                                                        <span class="label label-danger">NO</span>
+                                                                    {% elseif implementacionDetalles.estadoTerminado  == 1 %}
+                                                                        <span class="label label-success">SI</span>
+                                                                    {% endif %}
+                                                                </td>
+                                                                <td><a href="javascript:abrirVentana('{{ path('implementacionDetalleAdjunto', { 'codigoImplementacionDetalle': implementacionDetalles.codigoImplementacionDetallePk}) }}','Nuevo',800, 1200)" class="btn btn-info waves-effect waves-light btn-xs m-b-5"><i class="glyphicon glyphicon-paperclip" style="padding: 1px;"></i>
+                                                                    </a></td>
+                                                            </tr>
+
+                                                        {% endfor %}
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer" style="text-align: right;">
+                                    <a class="btn btn-default btn-sm" href="{{ path('implementacionListar') }}"
+                                       style="float:left">VOLVER</a>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ include('Bloques/pie.html.twig') }}
+{% endblock %}
+

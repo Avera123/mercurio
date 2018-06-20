@@ -83,7 +83,11 @@
                                                                     {{ implementacionDetalles.nombreTema }}
                                                                 </td>
                                                                 <td>
+                                                                    {% if implementacionDetalles.descripcion is defined %}
                                                                     {{ implementacionDetalles.descripcion }}
+                                                                    {% else %}
+                                                                        Sin descripcion
+                                                                        {% endif %}
                                                                 </td>
                                                                 <td style="text-align: left;">
                                                                     {% if implementacionDetalles.estadoCapacitado == 0 %}

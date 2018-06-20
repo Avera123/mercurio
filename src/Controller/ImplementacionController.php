@@ -31,11 +31,22 @@ class ImplementacionController extends Controller
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $serviceUrl . 'implementacion/lista/' . $this->getUser()->getCodigoClienteFk(),
         ));
-        $resp = json_decode(curl_exec($curl));
+        $resp = json_decode(curl_exec($curl),true);
         curl_close($curl);
 
+//        var_dump($resp);
+//        exit();
+
+        $result = "";
+        if(!isset($resp)){
+            $result = "No hay conexión";
+        }elseif (isset($resp['error'])){
+            $result = "Error en la ruta";
+        }
+
         return $this->render('Implementacion/listar.html.twig', array(
-            'implementaciones' => $resp
+            'implementaciones' => $resp,
+            'mensaje' => $result
         ));
 
     }

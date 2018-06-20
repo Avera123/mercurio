@@ -46,6 +46,11 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    {% if mensaje != "" %}
+                                    <tr class="odd">
+                                        <td valign="top" colspan="4" class="dataTables_empty">{{ mensaje }}</td>
+                                    </tr>
+                                    {% else %}
                                     {% for implementacion in implementaciones %}
                                         <tr role="row" class="odd">
                                             <td>{{ implementacion.codigoImplementacionPk }}</td>
@@ -62,6 +67,7 @@
 
                                         </tr>
                                     {% endfor %}
+                                    {% endif %}
                                     </tbody>
                                 </table>
                             </div>

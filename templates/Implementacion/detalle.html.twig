@@ -54,6 +54,10 @@
                                                                 aria-controls="datatable-keytable">
                                                                 Tema
                                                             </th>
+                                                            <th class="sorting" tabindex="0"
+                                                                aria-controls="datatable-keytable">
+                                                                T.Descr
+                                                            </th>
                                                             <th>CAP</th>
                                                             <th>TER</th>
                                                             <th>ADJ</th>
@@ -77,6 +81,9 @@
                                                                 </td>
                                                                 <td>
                                                                     {{ implementacionDetalles.nombreTema }}
+                                                                </td>
+                                                                <td>
+                                                                    {{ implementacionDetalles.descripcion }}
                                                                 </td>
                                                                 <td style="text-align: left;">
                                                                     {% if implementacionDetalles.estadoCapacitado == 0 %}

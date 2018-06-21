@@ -34,4 +34,18 @@ class PanelControlController extends Controller
             'casos' => $respuesta
         ));
     }
+
+    /**
+     * @Route("/manual", name="panel_manual")
+     */
+    public function manual(){
+        header("Content-disposition: attachment; filename=ManualMercurio.pdf");
+        header("Content-type: application/pdf");
+        $ds = DIRECTORY_SEPARATOR;
+        $manual = realpath(implode($ds, [__DIR__, '..', '..', 'public', 'manuales', 'ManualMercurio.pdf']));
+        readfile($manual);
+        exit();
+    }
+
+
 }

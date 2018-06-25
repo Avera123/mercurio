@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
+use App\Entity\Configuracion;
+
 
 class PanelControlController extends Controller
 {
@@ -15,6 +18,14 @@ class PanelControlController extends Controller
      */
     public function index()
     {
+        $em = $this->getDoctrine()->getManager();
+        $session = new Session();
+        $arConfiguracion = $em->getRepository('App:Configuracion')->find(1);
+        $session->set('correo', $arConfiguracion->getCorreo());
+        $session->set('telefono', $arConfiguracion->getTelefono());
+
+
+
         // Get cURL resource
         $curl = curl_init();
 // Set some options - we are passing in a useragent too here

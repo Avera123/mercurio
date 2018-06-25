@@ -17,6 +17,21 @@ class Configuracion
     private $id;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $serviceUrl;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $correo;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $telefono;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -33,11 +48,6 @@ class Configuracion
     }
 
     /**
-     * @ORM\Column(type="string")
-     */
-    private $serviceUrl;
-
-    /**
      * @return mixed
      */
     public function getServiceUrl()
@@ -52,5 +62,39 @@ class Configuracion
     {
         $this->serviceUrl = $serviceUrl;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCorreo()
+    {
+        return $this->correo;
+    }
+
+    /**
+     * @param mixed $correo
+     */
+    public function setCorreo($correo): void
+    {
+        $this->correo = $correo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * @param mixed $telefono
+     */
+    public function setTelefono($telefono): void
+    {
+        $this->telefono = $telefono;
+    }
+
+
 
 }

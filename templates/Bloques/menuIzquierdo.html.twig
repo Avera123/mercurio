@@ -122,8 +122,8 @@
 
         <div class="help-box">
             <h5 class="text-muted m-t-0">¿Soporte?</h5>
-            <p class=""><span class="text-custom">Correo:</span> <br/> servicioalcliente@ appsoga.com</p>
-            <p class="m-b-0"><span class="text-custom">Teléfono:</span> <br/> (+57)(4) 322 0771 opción 1</p>
+            <p class=""><span class="text-custom">Correo:</span> <br/>{{ app.session.get('correo') }}</p>
+            <p class="m-b-0"><span class="text-custom">Teléfono:</span> <br/>{{ app.session.get('telefono') }}</p>
         </div>
 
     </div>

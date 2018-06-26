@@ -58,6 +58,7 @@
                                                                 aria-controls="datatable-keytable">
                                                                 T.Descr
                                                             </th>
+                                                            <th>FECHA CAP</th>
                                                             <th>CAP</th>
                                                             <th>TER</th>
                                                             <th>ADJ</th>
@@ -89,6 +90,12 @@
                                                                         Sin descripcion
                                                                         {% endif %}
                                                                 </td>
+                                                                {% if implementacionDetalles.fechaCapacitacion is defined %}
+                                                                {#{% if implementacionDetalles.fechaCapacitacion != null %}#}
+                                                                    <td>{{ implementacionDetalles.fechaCapacitacion | date("Y-m-d")}} </td>
+                                                                {% else %}
+                                                                    <td>Sin fecha</td>
+                                                                {% endif %}
                                                                 <td style="text-align: left;">
                                                                     {% if implementacionDetalles.estadoCapacitado == 0 %}
                                                                         <span class="label label-danger">NO</span>

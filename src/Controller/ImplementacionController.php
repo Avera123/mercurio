@@ -34,8 +34,6 @@ class ImplementacionController extends Controller
         $resp = json_decode(curl_exec($curl),true);
         curl_close($curl);
 
-//        var_dump($resp);
-//        exit();
 
         $result = "";
         if(!isset($resp)){
@@ -43,6 +41,8 @@ class ImplementacionController extends Controller
         }elseif (isset($resp['error'])){
             $result = "Error en la ruta";
         }
+
+
 
         return $this->render('Implementacion/listar.html.twig', array(
             'implementaciones' => $resp,

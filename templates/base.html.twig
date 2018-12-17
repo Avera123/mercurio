@@ -8,39 +8,39 @@
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
     <meta name="author" content="Coderthemes">
     <title>{% block title %}Mercurio{% endblock %}</title>
-    <link rel="icon" href="{{ asset('/mercurio/public/publicImages/favicon.ico') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('publicImages/favicon.ico') }}" type="image/x-icon" />
     {% block stylesheets %}
     <!--Morris Chart CSS -->
-    <link rel="stylesheet" href="{{ asset('/mercurio/public/temporal/plugins/morris/morris.css') }}">
+    <link rel="stylesheet" href="{{ asset('temporal/plugins/morris/morris.css') }}">
 
     <!-- App css -->
-    <link href="{{ asset('/mercurio/public/temporal/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/mercurio/public/temporal/css/core.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/mercurio/public/temporal/css/oro.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/mercurio/public/temporal/css/components.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/mercurio/public/temporal/css/icons.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/mercurio/public/temporal/css/pages.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/mercurio/public/temporal/css/menu.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/mercurio/public/temporal/css/mercurio.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/mercurio/public/temporal/css/responsive.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('/mercurio/public/temporal/plugins/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('temporal/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('temporal/css/core.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('temporal/css/oro.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('temporal/css/components.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('temporal/css/icons.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('temporal/css/pages.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('temporal/css/menu.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('temporal/css/mercurio.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('temporal/css/responsive.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('temporal/plugins/switchery/switchery.min.css') }}" rel="stylesheet" type="text/css" />
 
     <!-- DataTables -->
-    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet"
+    <link href="{{ asset('temporal/plugins/datatables/jquery.dataTables.min.css') }}" rel="stylesheet"
           type="text/css"/>
-    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/buttons.bootstrap.min.css') }}" rel="stylesheet"
+    <link href="{{ asset('temporal/plugins/datatables/buttons.bootstrap.min.css') }}" rel="stylesheet"
           type="text/css"/>
-    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/fixedHeader.bootstrap.min.css') }}"
+    <link href="{{ asset('temporal/plugins/datatables/fixedHeader.bootstrap.min.css') }}"
           rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/responsive.bootstrap.min.css') }}"
+    <link href="{{ asset('temporal/plugins/datatables/responsive.bootstrap.min.css') }}"
           rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/scroller.bootstrap.min.css') }}" rel="stylesheet"
+    <link href="{{ asset('temporal/plugins/datatables/scroller.bootstrap.min.css') }}" rel="stylesheet"
           type="text/css"/>
-    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.colVis.css') }}" rel="stylesheet"
+    <link href="{{ asset('temporal/plugins/datatables/dataTables.colVis.css') }}" rel="stylesheet"
           type="text/css"/>
-    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.bootstrap.min.css') }}"
+    <link href="{{ asset('temporal/plugins/datatables/dataTables.bootstrap.min.css') }}"
           rel="stylesheet" type="text/css"/>
-    <link href="{{ asset('/mercurio/public/temporal/plugins/datatables/fixedColumns.dataTables.min.css') }}"
+    <link href="{{ asset('temporal/plugins/datatables/fixedColumns.dataTables.min.css') }}"
           rel="stylesheet" type="text/css"/>
 
     {#<!-- HTML5 Shiv and Respond.js IE8 support of HTML5 elements and media queries -->#}
@@ -71,49 +71,49 @@
     </script>
 
     {#<!-- jQuery  -->#}
-    <script src="{{ asset('/mercurio/public/temporal/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/js/detect.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/js/fastclick.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/js/jquery.blockUI.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/js/waves.js')}}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/js/jquery.slimscroll.js')}}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/js/jquery.scrollTo.min.js')}}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/js/oro.js')}}"></script>
+    <script src="{{ asset('temporal/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('temporal/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('temporal/js/detect.js') }}"></script>
+    <script src="{{ asset('temporal/js/fastclick.js') }}"></script>
+    <script src="{{ asset('temporal/js/jquery.blockUI.js') }}"></script>
+    <script src="{{ asset('temporal/js/waves.js')}}"></script>
+    <script src="{{ asset('temporal/js/jquery.slimscroll.js')}}"></script>
+    <script src="{{ asset('temporal/js/jquery.scrollTo.min.js')}}"></script>
+    <script src="{{ asset('temporal/js/oro.js')}}"></script>
 
     {#<!-- Counter js  -->#}
-    <script src="{{ asset('/mercurio/public/temporal/plugins/waypoints/jquery.waypoints.min.js')}}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/counterup/jquery.counterup.min.js')}}"></script>
+    <script src="{{ asset('temporal/plugins/waypoints/jquery.waypoints.min.js')}}"></script>
+    <script src="{{ asset('temporal/plugins/counterup/jquery.counterup.min.js')}}"></script>
 
     {#<!--Morris Chart-->#}
-    <script src="{{ asset('/mercurio/public/temporal/plugins/morris/morris.min.js')}}"></script>
+    <script src="{{ asset('temporal/plugins/morris/morris.min.js')}}"></script>
 
     {#<!-- App js -->#}
-    <script src="{{ asset('/mercurio/public/temporal/js/jquery.app.js') }}"></script>
+    <script src="{{ asset('temporal/js/jquery.app.js') }}"></script>
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.bootstrap.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/dataTables.bootstrap.js') }}"></script>
 
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/buttons.bootstrap.min.js') }}"></script>
-    {#<script src="{{ asset('/mercurio/public/temporal/plugins/datatables/jszip.min.js') }}"></script>#}
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.fixedHeader.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.keyTable.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/responsive.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.scroller.min.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.colVis.js') }}"></script>
-    <script src="{{ asset('/mercurio/public/temporal/plugins/datatables/dataTables.fixedColumns.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/buttons.bootstrap.min.js') }}"></script>
+    {#<script src="{{ asset('temporal/plugins/datatables/jszip.min.js') }}"></script>#}
+    <script src="{{ asset('temporal/plugins/datatables/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/dataTables.fixedHeader.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/dataTables.keyTable.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/responsive.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/dataTables.scroller.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/dataTables.colVis.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/datatables/dataTables.fixedColumns.min.js') }}"></script>
 
-    <script src="{{ asset('/mercurio/public/temporal/plugins/parsleyjs/parsley.min.js') }}"></script>
+    <script src="{{ asset('temporal/plugins/parsleyjs/parsley.min.js') }}"></script>
     <script src="{{ asset('/mercurio/assets/plugins/bootstrap-filestyle-2.1.0/src/bootstrap-filestyle.js') }}"></script>
 
     <script src="{{ asset('/mercurio/assets/pages/jquery.datatables.init.js') }}"></script>

@@ -292,7 +292,18 @@ class CasoController extends Controller
             $arCaso = null;
         }
 
-        $options = array('areas' => $this->listadoAreas(), 'cargos' => $this->listadoCargos(), 'prioridades' => $this->listadoPrioridad(), 'categorias' => $this->listadoCategoriaCasos(), 'arCaso' => $arCaso);
+        $options = array(
+            'areas' => $this->listadoAreas(),
+            'cargos' => $this->listadoCargos(),
+            'prioridades' => $this->listadoPrioridad(),
+            'categorias' => $this->listadoCategoriaCasos(),
+            'arCaso' => $arCaso,
+            'contacto' => $user->getContacto(),
+            'correo' => $user->getCorreo(),
+            'telefono' => $user->getTelefono(),
+            'extension' => $user->getExtension(),
+            'codigoCargoFk' => $user->getCodigoCargoFk(),
+            'codigoAreaFk' => $user->getCodigoAreaFk());
 
         $form = $this->createForm(CasoType::class, $options);
         $form->handleRequest($request);

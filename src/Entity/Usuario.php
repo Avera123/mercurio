@@ -56,6 +56,31 @@ class Usuario implements UserInterface, \Serializable
 	 */
 	private $codigoClienteFk;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $contacto;
+
+    /**
+     * @ORM\Column(name="codigo_cargo_fk", type="string",length=50, nullable=true)
+     */
+    private $codigoCargoFk;
+
+    /**
+     * @ORM\Column(name="codigo_area_fk", type="string",length=50, nullable=true)
+     */
+    private $codigoAreaFk;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $telefono;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $extension;
+
 	/**
 	 * Se implementan métodos de la clase User del core de Symfony además de los metodos de la entidad própia.
 	 *
@@ -298,6 +323,87 @@ class Usuario implements UserInterface, \Serializable
 	{
 		return $this->codigoClienteFk;
 	}
+
+    /**
+     * @return mixed
+     */
+    public function getContacto()
+    {
+        return $this->contacto;
+    }
+
+    /**
+     * @param mixed $contacto
+     */
+    public function setContacto( $contacto ): void
+    {
+        $this->contacto = $contacto;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoCargoFk()
+    {
+        return $this->codigoCargoFk;
+    }
+
+    /**
+     * @param mixed $codigoCargoFk
+     */
+    public function setCodigoCargoFk( $codigoCargoFk ): void
+    {
+        $this->codigoCargoFk = $codigoCargoFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCodigoAreaFk()
+    {
+        return $this->codigoAreaFk;
+    }
+
+    /**
+     * @param mixed $codigoAreaFk
+     */
+    public function setCodigoAreaFk( $codigoAreaFk ): void
+    {
+        $this->codigoAreaFk = $codigoAreaFk;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * @param mixed $telefono
+     */
+    public function setTelefono( $telefono ): void
+    {
+        $this->telefono = $telefono;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExtension()
+    {
+        return $this->extension;
+    }
+
+    /**
+     * @param mixed $extension
+     */
+    public function setExtension( $extension ): void
+    {
+        $this->extension = $extension;
+    }
+
 
 
 

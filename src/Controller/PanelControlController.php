@@ -24,6 +24,16 @@ class PanelControlController extends Controller
         $session->set('correo', $arConfiguracion->getCorreo());
         $session->set('telefono', $arConfiguracion->getTelefono());
 
+        $serviceUrl = $em->getRepository('App:Configuracion')->getUrl();
+        $serviceUrl .= 'general/estado/soporte/' . $this->getUser()->getCodigoClienteFk();
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $serviceUrl,
+        ));
+        $resp = json_decode(curl_exec($curl));
+        curl_close($curl);
+        $session->set('soporteInactivo', $resp);
 
 
         // Get cURL resource

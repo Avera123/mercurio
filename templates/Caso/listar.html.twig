@@ -14,6 +14,13 @@
                     {% block content %}
                     <div class="row">
                         <div class="col-xs-12">
+                            <br/>
+                            {% if app.session.get('soporteInactivo') %}
+                                <div class="alert alert-danger alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <strong>Soporte inactivo!</strong> La mesa de ayuda se encuentra inactiva por incumplimiento en el pago, los casos no seran gestionados por el equipo de soporte.
+                                </div>
+                            {% endif %}
                             <div class="page-title-box">
                                 <h4 class="page-title" style="padding-right: 10px;">Casos o Incidencias - General</h4>
                                 {#<span class="label label-danger">Pendientes: {{ pendientes }}</span>#}

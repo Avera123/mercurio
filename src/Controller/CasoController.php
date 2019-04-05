@@ -165,7 +165,7 @@ class CasoController extends Controller
             if ($form->get('btnGuardar')->isClicked()) {
                 $objArchivo = $form['archivo']->getData();
                 if ($objArchivo->getClientSize()) {
-                    $strDestino = "/var/www/archivosoro/1/";
+                    $strDestino = "/almacenamiento/archivosoro/1/";
                     $strArchivo = md5(uniqid()) . '.' . $objArchivo->guessExtension();
 
                     $arrArchivo = array(

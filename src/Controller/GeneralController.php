@@ -25,7 +25,7 @@ class GeneralController extends Controller
         $arrArchivo = $arrArchivo[0];
         curl_close($curl);
 
-        $strRuta = "/var/www/archivosoro/1/" . $arrArchivo->nombreAlmacenamiento;
+        $strRuta = "/almacenamiento/archivosoro/1/" . $arrArchivo->nombreAlmacenamiento;
         // Generate response
         $response = new Response();
         // Set headers
@@ -34,9 +34,9 @@ class GeneralController extends Controller
         $response->headers->set('Content-Disposition', 'attachment; filename="' . $arrArchivo->nombre . '";');
         $response->headers->set('Content-length', $arrArchivo->tamano);
         $response->sendHeaders();
-        if(file_exists ($strRuta)){
+        if (file_exists($strRuta)) {
             $response->setContent(readfile($strRuta));
-        }else{
+        } else {
             echo "<script>alert('No existe el archivo en el servidor a pesar de estar asociado en base de datos, por favor comuniquese con soporte');window.close()</script>";
         }
         return $response;

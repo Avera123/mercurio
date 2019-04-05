@@ -90,7 +90,7 @@ class SolicitudController extends Controller
             );
 
             $arrEnviar = json_encode($arSolicitud);
-            
+
             if (isset($res['arSolicitud'][0]['codigoSolicitudPk'])) {
                 $ch = curl_init($serviceUrl . 'solicitud/nuevo/' . $res['arSolicitud'][0]['codigoSolicitudPk']);
             } else {
@@ -169,7 +169,7 @@ class SolicitudController extends Controller
             if ($form->get('btnGuardar')->isClicked()) {
                 $objArchivo = $form['archivo']->getData();
                 if ($objArchivo->getClientSize()) {
-                    $strDestino = "/var/www/archivosoro/2/";
+                    $strDestino = "/almacenamiento/archivosoro/2/";
                     $strArchivo = md5(uniqid()) . '.' . $objArchivo->guessExtension();
 
                     $arrArchivo = array(

@@ -31,17 +31,16 @@ class ImplementacionController extends Controller
             CURLOPT_RETURNTRANSFER => 1,
             CURLOPT_URL => $serviceUrl . 'implementacion/lista/' . $this->getUser()->getCodigoClienteFk(),
         ));
-        $resp = json_decode(curl_exec($curl),true);
+        $resp = json_decode(curl_exec($curl), true);
         curl_close($curl);
 
 
         $result = "";
-        if(!isset($resp)){
+        if (!isset($resp)) {
             $result = "No hay conexión";
-        }elseif (isset($resp['error'])){
+        } elseif (isset($resp['error'])) {
             $result = "Error en la ruta";
         }
-
 
 
         return $this->render('Implementacion/listar.html.twig', array(
@@ -108,7 +107,7 @@ class ImplementacionController extends Controller
             if ($form->get('btnGuardar')->isClicked()) {
                 $objArchivo = $form['archivo']->getData();
                 if ($objArchivo->getClientSize()) {
-                    $strDestino = "/var/www/archivosoro/3/";
+                    $strDestino = "/almacenamiento/archivosoro/3/";
                     $strArchivo = md5(uniqid()) . '.' . $objArchivo->guessExtension();
 
                     $arrArchivo = array(
